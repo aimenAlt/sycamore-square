@@ -1646,3 +1646,24 @@ model-viewer:focus-visible { outline: 2px solid var(--brass); outline-offset: 2p
 @media print { .hero-media { break-inside: avoid; } }
 /* R4.3 download-all button spacing */
 .docs-group-note + .button-row { margin: 14px 0 22px; }
+
+/* ---------- AI-generated concept images (R4.2) ---------- */
+
+/* Small muted label that ends every AI-generated image caption. */
+.ai-tag {
+  display: inline-block;
+  margin: 0 4px;
+  padding: 1px 6px;
+  border: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.render-subhead { margin-top: var(--gap); font-size: clamp(20px, 5vw, 24px); }
+.render-subhead + .render-grid { margin-top: 14px; }
+.events-arrive { max-width: 780px; font-size: clamp(16px, 4vw, 18px); color: var(--text-2); }
+.events-arrive + .render-grid { margin-top: var(--gap-sm); margin-bottom: var(--gap); }
+.panel-wide-figure { margin-top: var(--gap); }
