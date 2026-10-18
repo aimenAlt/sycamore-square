@@ -16,13 +16,43 @@
   setHeaderHeight();
   window.addEventListener('resize', setHeaderHeight);
 
-  /* Edge fade on sideways scrollers (nav, tab rows): fade only the edges with more content behind them. */
+  /* Hamburger menu below 1200px: opens a panel under the header; closes on a link, Escape or a tap outside. */
+  var menuToggle = document.querySelector('.menu-toggle');
+  var menu = document.getElementById('site-menu');
+  function setMenu(open, opts) {
+    if (!menuToggle || !menu) return;
+    menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    menu.classList.toggle('open', open);
+    if (open) {
+      var cur = menu.querySelector('[aria-current="true"]');
+      if (cur) menu.scrollTop = cur.offsetTop - menu.clientHeight / 2;
+    } else if (opts && opts.focusToggle) {
+      menuToggle.focus();
+    }
+  }
+  if (menuToggle && menu) {
+    menuToggle.addEventListener('click', function () {
+      setMenu(menuToggle.getAttribute('aria-expanded') !== 'true');
+    });
+    menu.addEventListener('click', function (e) {
+      if (e.target.closest('a')) setMenu(false);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && menu.classList.contains('open')) setMenu(false, { focusToggle: true });
+    });
+    document.addEventListener('click', function (e) {
+      if (menu.classList.contains('open') && !header.contains(e.target)) setMenu(false);
+    });
+    window.matchMedia('(min-width: 1200px)').addEventListener('change', function () { setMenu(false); });
+  }
+
+  /* Edge fade on the sideways-scrolling nav: fade only the edges with more content behind them. */
   function updateFade(el) {
     var max = el.scrollWidth - el.clientWidth;
     el.classList.toggle('scrolled', el.scrollLeft > 2);
     el.classList.toggle('at-end', el.scrollLeft >= max - 2);
   }
-  Array.prototype.forEach.call(document.querySelectorAll('.site-nav, .tablist'), function (el) {
+  Array.prototype.forEach.call(document.querySelectorAll('.site-nav'), function (el) {
     el.addEventListener('scroll', function () { updateFade(el); }, { passive: true });
     window.addEventListener('resize', function () { updateFade(el); });
     updateFade(el);
@@ -38,7 +68,15 @@
     var useHash = group.hasAttribute('data-tabs-hash');
 
     list.setAttribute('role', 'tablist');
-    if (list.dataset.label) list.setAttribute('aria-label', list.dataset.label);
+    if (list.dataset.label) {
+      list.setAttribute('aria-label', list.dataset.label);
+      // Visible caption so the row reads as a set of choices, not a heading.
+      var caption = document.createElement('p');
+      caption.className = 'tablist-label';
+      caption.setAttribute('aria-hidden', 'true');
+      caption.textContent = list.dataset.label + ' · choose one of ' + tabs.length;
+      list.parentNode.insertBefore(caption, list);
+    }
     tabs.forEach(function (tab, i) {
       tab.setAttribute('role', 'tab');
       panels[i].setAttribute('role', 'tabpanel');
@@ -54,13 +92,6 @@
         tab.tabIndex = on ? 0 : -1;
         panels[i].hidden = !on;
       });
-      // Keep the selected tab fully visible when the row scrolls sideways.
-      var t = tabs[index];
-      if (t.offsetLeft < list.scrollLeft) {
-        list.scrollLeft = t.offsetLeft - 32;
-      } else if (t.offsetLeft + t.offsetWidth > list.scrollLeft + list.clientWidth) {
-        list.scrollLeft = t.offsetLeft + t.offsetWidth - list.clientWidth + 32;
-      }
       if (opts.focus) tabs[index].focus({ preventScroll: true });
       if (useHash && opts.updateHash && history.replaceState) {
         history.replaceState(null, '', '#' + panels[index].id);
@@ -115,6 +146,46 @@
   }
 
   Array.prototype.forEach.call(document.querySelectorAll('[data-tabs]'), initTabs);
+
+  /* Mark the nav chip for the section in view, and keep that chip visible in the sideways-scrolling nav. */
+  var nav = document.querySelector('.site-nav');
+  var navLinks = nav ? Array.prototype.filter.call(nav.querySelectorAll('a[href^="#"]'), function (a) {
+    return document.getElementById(a.getAttribute('href').slice(1));
+  }) : [];
+  if (navLinks.length) {
+    var navTargets = navLinks.map(function (a) { return document.getElementById(a.getAttribute('href').slice(1)); });
+    var current = null;
+    var spyTicking = false;
+    var updateCurrent = function () {
+      spyTicking = false;
+      var line = header ? header.offsetHeight + 24 : 24;
+      var found = null;
+      navTargets.forEach(function (target, i) {
+        if (target.getBoundingClientRect().top <= line) found = navLinks[i];
+      });
+      // At the very bottom, the last section counts as current even if it is short.
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) {
+        found = navLinks[navLinks.length - 1];
+      }
+      if (found === current) return;
+      if (current) current.removeAttribute('aria-current');
+      current = found;
+      if (!current) return;
+      current.setAttribute('aria-current', 'true');
+      var left = current.offsetLeft - nav.offsetLeft;
+      if (left < nav.scrollLeft + 28 || left + current.offsetWidth > nav.scrollLeft + nav.clientWidth - 28) {
+        nav.scrollTo({ left: left - 28, behavior: scrollBehavior() });
+      }
+    };
+    window.addEventListener('scroll', function () {
+      if (!spyTicking) {
+        spyTicking = true;
+        window.requestAnimationFrame(updateCurrent);
+      }
+    }, { passive: true });
+    window.addEventListener('resize', updateCurrent);
+    updateCurrent();
+  }
 
   /* Area bar: hide a label when its segment is too narrow to show it. */
   var segs = Array.prototype.slice.call(document.querySelectorAll('.area-bar .seg'));

@@ -173,11 +173,11 @@ main:focus { outline: none; }
 }
 
 .header-inner {
+  position: relative;
   max-width: var(--max);
   margin: 0 auto;
   padding: 0 var(--gutter);
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   column-gap: 12px;
 }
@@ -187,7 +187,7 @@ main:focus { outline: none; }
   display: flex;
   align-items: center;
   flex: 1 1 auto;
-  min-height: 52px;
+  min-height: 56px;
   font-family: var(--font-cond);
   font-weight: 700;
   font-size: 19px;
@@ -198,6 +198,96 @@ main:focus { outline: none; }
 .wordmark:hover { color: var(--on-navy-1); }
 @media (max-width: 400px) {
   .wordmark { font-size: 17px; letter-spacing: 0.1em; }
+}
+
+/* Hamburger button, phones and tablets only. */
+.menu-toggle {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  margin: 0 -8px 0 0;
+  padding: 0 8px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--on-navy-1);
+  font-family: var(--font-cond);
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.menu-icon,
+.menu-icon::before,
+.menu-icon::after {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: currentColor;
+}
+.menu-icon { position: relative; }
+.menu-icon::before,
+.menu-icon::after { content: ""; position: absolute; left: 0; }
+.menu-icon::before { top: -7px; }
+.menu-icon::after { top: 7px; }
+/* Open: the three bars turn into a close cross. */
+.menu-toggle[aria-expanded="true"] .menu-icon { background: transparent; }
+.menu-toggle[aria-expanded="true"] .menu-icon::before { top: 0; transform: rotate(45deg); }
+.menu-toggle[aria-expanded="true"] .menu-icon::after { top: 0; transform: rotate(-45deg); }
+.no-js .menu-toggle { display: none; }
+
+/* Below 1200px the menu is a drop-down panel under the header that scrolls on its own. */
+@media (max-width: 1199px) {
+  .site-menu {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    max-height: calc(100vh - 64px);
+    max-height: calc(100dvh - 64px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 8px var(--gutter) 20px;
+    background: var(--ink);
+    border-bottom: 4px solid var(--brass);
+    box-shadow: 0 12px 24px rgba(15, 30, 40, 0.35);
+  }
+  .js .site-menu:not(.open) { display: none; }
+  /* Without JS the menu sits in the page under the wordmark. */
+  .no-js .site-header { position: static; }
+  .no-js .header-inner { flex-wrap: wrap; }
+  .no-js .site-menu { position: static; flex: 1 1 100%; margin: 0 calc(var(--gutter) * -1); box-shadow: none; border-bottom: 0; }
+
+  .nav-list {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+  }
+  .nav-list a {
+    display: flex;
+    align-items: center;
+    min-height: 48px;
+    padding: 0 12px;
+    border-bottom: 1px solid var(--navy-border);
+    border-left: 4px solid transparent;
+    font-family: var(--font-cond);
+    font-weight: 600;
+    font-size: 18px;
+    letter-spacing: 0.02em;
+    color: var(--on-navy-1);
+    text-decoration: none;
+  }
+  .nav-list a:hover { background: var(--navy-panel); }
+  .nav-list a[aria-current="true"] {
+    background: var(--navy-panel);
+    border-left-color: var(--brass);
+    color: var(--brass-on-navy);
+  }
+  .nav-list a:focus-visible { outline-offset: -2px; outline-color: var(--highlight); }
+  .site-menu .page-link { display: flex; margin-top: 16px; min-height: 48px; font-size: 17px; }
 }
 
 /* Link to the other page: a bordered box, set apart from the in-page section links. */
@@ -222,65 +312,62 @@ main:focus { outline: none; }
 .page-link-next::after { content: "→"; content: "→" / ""; font-family: var(--font-body); }
 .page-link-back::before { content: "←"; content: "←" / ""; font-family: var(--font-body); }
 
-.site-nav { flex: 1 1 100%; }
-
-.site-nav {
-  overflow-x: auto;
-  overflow-y: hidden;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  margin: 0 calc(var(--gutter) * -1);
-  padding: 0 var(--gutter);
-  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 var(--fade-start, 0px), #000 calc(100% - var(--fade-end, 28px)), transparent 100%);
-  mask-image: linear-gradient(to right, transparent 0, #000 var(--fade-start, 0px), #000 calc(100% - var(--fade-end, 28px)), transparent 100%);
-}
-.site-nav::-webkit-scrollbar { display: none; }
-.site-nav.scrolled { --fade-start: 28px; }
-.site-nav.at-end { --fade-end: 0px; }
-
-.nav-list {
-  display: flex;
-  list-style: none;
-  gap: 0;
-  white-space: nowrap;
-  margin-left: -12px;
-}
-.nav-list > li { min-width: 0; flex: 0 0 auto; }
-
-.nav-list a {
-  display: flex;
-  align-items: center;
-  min-height: 44px;
-  padding: 0 12px 2px;
-  font-family: var(--font-cond);
-  font-weight: 600;
-  font-size: 15px;
-  letter-spacing: 0.02em;
-  color: var(--on-navy-2);
-  background: var(--ink);
-  text-decoration: none;
-  border-bottom: 2px solid transparent;
-}
-.nav-list a:hover { color: var(--on-navy-1); border-bottom-color: var(--brass); }
-.nav-list a:focus-visible { outline-offset: -2px; }
-
-@media (min-width: 1024px) {
-  .header-inner { flex-wrap: nowrap; column-gap: 0; }
+/* From 1200px the section links sit in the header bar as chips; the chip for the section in view is filled. */
+@media (min-width: 1200px) {
+  .menu-toggle { display: none; }
   .wordmark { flex: 0 0 auto; min-height: 64px; margin-right: 24px; }
+  .site-menu {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
   .site-nav {
     flex: 0 1 auto;
-    order: 2;
-    margin: 0 0 0 auto;
-    padding: 0;
+    min-width: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    border-right: 1px solid var(--navy-border);
+    padding-right: 8px;
+    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 var(--fade-start, 0px), #000 calc(100% - var(--fade-end, 28px)), transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0, #000 var(--fade-start, 0px), #000 calc(100% - var(--fade-end, 28px)), transparent 100%);
   }
-  .nav-list { margin: 0; }
-}
-@media (min-width: 1024px) and (max-width: 1199px) {
-  .nav-list a { padding: 0 8px 2px; }
-}
-@media (min-width: 1024px) {
-  .page-link { order: 3; margin-left: 20px; }
-  .site-nav { border-right: 1px solid var(--navy-border); padding-right: 8px; }
+  .site-nav::-webkit-scrollbar { display: none; }
+  .site-nav.scrolled { --fade-start: 28px; }
+  .site-nav.at-end { --fade-end: 0px; }
+  .page-link { margin-left: 20px; }
+
+  .nav-list {
+    display: flex;
+    list-style: none;
+    gap: 6px;
+    white-space: nowrap;
+  }
+  .nav-list > li { flex: 0 0 auto; }
+  .nav-list a {
+    display: flex;
+    align-items: center;
+    min-height: 36px;
+    padding: 0 12px;
+    font-family: var(--font-cond);
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 0.02em;
+    color: var(--on-navy-1);
+    background: var(--navy-panel);
+    border: 1px solid var(--navy-border);
+    text-decoration: none;
+  }
+  .nav-list a:hover { border-color: var(--on-navy-3); }
+  .nav-list a[aria-current="true"] {
+    background: var(--on-navy-1);
+    border-color: var(--on-navy-1);
+    color: var(--ink);
+  }
+  .nav-list a:focus-visible { outline-offset: 2px; outline-color: var(--highlight); }
 }
 
 /* ---------- Hero ---------- */
@@ -548,56 +635,78 @@ main:focus { outline: none; }
 
 .tabs { margin-top: var(--gap); }
 
+/* Visible caption above the tab row, written from data-label by main.js. */
+.tablist-label {
+  margin-bottom: 8px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brass-text);
+}
+.no-js .tablist-label { display: none; }
+
+/* On phones the tabs wrap into a grid so every option shows at once. */
 .tablist {
-  position: relative;
-  display: flex;
-  flex-wrap: nowrap;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1px;
   background: var(--border);
   border: 1px solid var(--border);
   border-bottom: 0;
-  overflow-x: auto;
-  overflow-y: hidden;
-  scrollbar-width: none;
-  -webkit-overflow-scrolling: touch;
 }
-.tablist::-webkit-scrollbar { display: none; }
-@media (max-width: 719px) {
-  .tablist {
-    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 var(--fade-start, 0px), #000 calc(100% - var(--fade-end, 32px)), transparent 100%);
-    mask-image: linear-gradient(to right, transparent 0, #000 var(--fade-start, 0px), #000 calc(100% - var(--fade-end, 32px)), transparent 100%);
-  }
-  .tablist.scrolled { --fade-start: 32px; }
-  .tablist.at-end { --fade-end: 0px; }
+.tablist > .tab:last-child:nth-child(odd) { grid-column: 1 / -1; }
+@media (min-width: 720px) {
+  .tablist { display: flex; }
 }
 .no-js .tablist { display: none; }
 .tablist, .tabs { scroll-margin-top: var(--header-h); }
 
+/* Each tab carries a radio-style dot: hollow when off, filled when selected. */
 .tab {
-  flex: 0 0 auto;
-  white-space: nowrap;
+  flex: 1 1 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
   min-height: 52px;
   margin: 0;
   padding: 8px 14px;
   border: 0;
   border-radius: 0;
   background: var(--white);
-  color: var(--ink);
+  color: var(--text-2);
   font-family: var(--font-cond);
   font-weight: 600;
   font-size: 16px;
   line-height: 1.2;
-  text-align: center;
+  text-align: left;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
 }
-.tab:hover { background: var(--ground); }
-.tab[aria-selected="true"] { background: var(--ink); color: var(--on-navy-1); }
+.tab::before {
+  content: "";
+  flex: 0 0 auto;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--muted);
+  border-radius: 50%;
+}
+.tab:hover { background: var(--ground); color: var(--ink); }
+.tab:hover::before { border-color: var(--ink); }
+.tab[aria-selected="true"] { background: var(--ink); color: var(--on-navy-1); cursor: default; }
+.tab[aria-selected="true"]::before {
+  border-color: var(--brass-on-navy);
+  background: var(--brass-on-navy);
+  box-shadow: inset 0 0 0 2px var(--ink);
+}
 .tab:focus-visible { outline-offset: -4px; }
 .tab[aria-selected="true"]:focus-visible { outline-color: var(--highlight); }
 @media (min-width: 720px) {
-  .tab { flex: 1 1 0; white-space: normal; }
+  .tab { justify-content: center; text-align: center; }
 }
+
+/* A navy rule ties the selected tab to the panel it shows. */
+.js .tabs > .panel { border-top: 3px solid var(--ink); }
 
 .panel {
   background: var(--white);
@@ -887,7 +996,7 @@ main:focus { outline: none; }
   }
   * { color: #000 !important; }
   .site-header { position: static; border-bottom: 2px solid #000; }
-  .site-nav, .page-link, .tablist, .to-top, .skip-link, .full-link { display: none !important; }
+  .menu-toggle, .site-menu, .tablist, .tablist-label, .to-top, .skip-link, .full-link { display: none !important; }
   .panel[hidden] { display: block !important; }
   .panel-tag { display: block !important; }
   .panel + .panel { margin-top: 12px; }
