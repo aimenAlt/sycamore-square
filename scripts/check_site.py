@@ -253,26 +253,59 @@ def load_exceptions():
     return json.load(open(path, encoding='utf-8')).get('exceptions', [])
 
 
+TILE = 2000      # OCR tile size in pixels; drawings carry small print that whole-page OCR downsamples away
+OVERLAP = 250
+
+
+def tiles(width, height):
+    """Yields (x, y, w, h) tiles that cover a width x height image with some overlap."""
+    step = TILE - OVERLAP
+    for y in range(0, max(height - OVERLAP, 1), step):
+        for x in range(0, max(width - OVERLAP, 1), step):
+            yield x, y, min(TILE, width - x), min(TILE, height - y)
+
+
 def pdf_text_and_images(path, tmp):
-    """Returns (text, [image files]) for one PDF: its text layer and the pictures embedded in it."""
-    if shutil.which('pdftotext') and shutil.which('pdfimages'):
+    """Returns (text, [image tiles]) for one PDF: its text layer, and every page that contains pictures, rendered and
+    cut into overlapping tiles for OCR. Whole pages are rendered rather than the embedded pictures pulled out, because
+    scans are often stored as thin strips that cut lines of text in half. At most 300 dpi, long side near 7,000 px."""
+    prefix = os.path.join(tmp, hashlib.md5(path.encode()).hexdigest())
+    if all(shutil.which(c) for c in ('pdftotext', 'pdfimages', 'pdftoppm', 'pdfinfo')):
         text = subprocess.run(['pdftotext', '-enc', 'UTF-8', path, '-'], capture_output=True, text=True, check=True).stdout
-        prefix = os.path.join(tmp, hashlib.md5(path.encode()).hexdigest())
-        subprocess.run(['pdfimages', '-png', path, prefix], capture_output=True, check=True)
-        return text, sorted(glob.glob(prefix + '*.png'))
+        listing = subprocess.run(['pdfimages', '-list', path], capture_output=True, text=True, check=True).stdout.splitlines()[2:]
+        pages = sorted({int(line.split()[0]) for line in listing if line.split()})
+        info = subprocess.run(['pdfinfo', '-f', '1', '-l', '9999', path], capture_output=True, text=True, check=True).stdout
+        sizes = {int(m.group(1)): (float(m.group(2)), float(m.group(3)), int(m.group(4) or 0))
+                 for m in re.finditer(r'Page\s+(\d+) size:\s+([\d.]+) x ([\d.]+)[^\n]*\n(?:Page\s+\d+ rot:\s+(\d+))?', info)}
+        images = []
+        for n in pages:
+            w_pt, h_pt, rot = sizes.get(n, (612, 792, 0))
+            if rot in (90, 270):
+                w_pt, h_pt = h_pt, w_pt
+            dpi = int(min(300, 7000 / (max(w_pt, h_pt) / 72)))
+            width, height = int(w_pt / 72 * dpi), int(h_pt / 72 * dpi)
+            for k, (x, y, w, h) in enumerate(tiles(width, height)):
+                out = f'{prefix}-p{n}-t{k}'
+                subprocess.run(['pdftoppm', '-r', str(dpi), '-f', str(n), '-l', str(n), '-x', str(x), '-y', str(y),
+                                '-W', str(w), '-H', str(h), '-singlefile', '-png', path, out], check=True)
+                images.append(out + '.png')
+        return text, images
     try:
         import fitz  # PyMuPDF
     except ImportError:
         return None, []
     doc, text, images = fitz.open(path), [], []
-    for page in doc:
+    for i, page in enumerate(doc):
         text.append(page.get_text())
-        for img in page.get_images(full=True):
-            pix = fitz.Pixmap(doc, img[0])
-            if pix.n - pix.alpha >= 4:
-                pix = fitz.Pixmap(fitz.csRGB, pix)
-            out = os.path.join(tmp, f'{hashlib.md5(path.encode()).hexdigest()}-{len(images)}.png')
-            pix.save(out)
+        if not page.get_images():
+            continue
+        r = page.rect   # already rotated
+        dpi = int(min(300, 7000 / (max(r.width, r.height) / 72)))
+        scale = dpi / 72
+        for k, (x, y, w, h) in enumerate(tiles(int(r.width * scale), int(r.height * scale))):
+            out = f'{prefix}-p{i + 1}-t{k}.png'
+            clip = fitz.Rect(x / scale, y / scale, (x + w) / scale, (y + h) / scale) * page.derotation_matrix
+            page.get_pixmap(dpi=dpi, clip=clip).save(out)
             images.append(out)
     return '\n'.join(text), images
 

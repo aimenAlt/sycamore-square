@@ -63,6 +63,19 @@
     "groom"
    ],
    "reason": "Verbatim quotations from cited outside sources about seating at other venues (pages 6-7). They do not name the halls."
+  },
+  {
+   "file": "docs/Sycamore_Square_1997_Sitel_Plans_A2.1_A2.2.pdf",
+   "sha256": "4ed91447185ace8ccbd1b5edefa488ff03a6cf6941636ca4599fcc9813dc9350",
+   "words": [
+    "men's",
+    "mens",
+    "men",
+    "women",
+    "womens",
+    "women's"
+   ],
+   "reason": "Room labels (MEN'S TOILET, WOMEN'S TOILET) on the third-party 1997 Sitel tenant drawings by Jackson Bronson & Feraci, published as scanned. Historical room names on someone else's drawings, not hall naming; never alter them."
   }
  ]
 }
