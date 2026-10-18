@@ -8,6 +8,7 @@ This file is the rulebook for any AI that changes this site: the ChatGPT site ed
 - A one-time password panel covers every page (`assets/js/gate-head.js` and `assets/js/gate.js`). Once a device enters the password it keeps access for good (localStorage plus a long-lived cookie). Only the password's SHA-256 hash is in the code; never commit the password itself. This is a light gate: the repository is public, so its files can still be read on GitHub. Every new page needs both gate scripts in its `<head>`.
 - Plain HTML, CSS and vanilla JavaScript. No framework, no build step. Served by GitHub Pages from `main`; every change to `main` goes live in a few minutes.
 - The feasibility page draws every number from `assets/feasibility.json` at runtime. `feasibility.html` holds wording only. Since v2.4 (owner's decision) the numbers include buying the property at an assumed $3.0M plus fees, closing, surveys and inspections; `build_cost` keeps the build-only figure.
+- The buyer is a group of investors, not a family or one person. Write "the buying group" (or "the owners" for the future owners and operators), never "the owner" for the buyer or "the family".
 - The repository is **public**. Anything committed here can be read by anyone, forever, even after it is removed.
 
 ## How changes ship

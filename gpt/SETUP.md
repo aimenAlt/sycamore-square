@@ -1,8 +1,8 @@
 # Setting up the ChatGPT site editor (one time, about 15 minutes)
 
-The site editor is a custom GPT that you create in your ChatGPT account and share with your dad as a private link. He needs no GitHub account. Every change it sends is checked automatically and published only if every check passes. Each change is saved as a version and can be undone.
+The site editor is a custom GPT that you create in your ChatGPT account and share as a private link with the investor who edits the site. They need no GitHub account. Every change it sends is checked automatically and published only if every check passes. Each change is saved as a version and can be undone.
 
-You need a ChatGPT plan that can create GPTs (Plus or higher). Your dad only needs to be able to open the link in ChatGPT.
+You need a ChatGPT plan that can create GPTs (Plus or higher). The editor only needs to be able to open the link in ChatGPT.
 
 ## 1. Create the access key on GitHub
 
@@ -41,10 +41,10 @@ This key can only start the site-edit workflow, read and write files in this one
 3. About 5 minutes later, ask "Did it work?" It should report **TEST RUN PASSED. Nothing was published.**
 4. You can also see every result at https://github.com/aimenAlt/sycamore-square/issues/2
 
-## 4. Share it with your dad
+## 4. Share it with the editor
 
 1. Click **Create** (or **Update**), then share with **Anyone with the link**. Do not publish it to the GPT Store.
-2. Send him the link along with his one-page guide.
+2. Send them the link along with the one-page guide.
 3. Anyone who has the link can edit the site, so keep it private. If it ever leaks, delete the token at https://github.com/settings/personal-access-tokens and make a new one.
 
 ## How you keep control
