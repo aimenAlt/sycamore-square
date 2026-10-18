@@ -1,0 +1,32 @@
+# Runs on every pull request and every push to main.
+# The same checks gate the ChatGPT site editor (see site-edit.yml).
+name: Site checks
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  site-checks:
+    name: Site checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Check the HTML
+        run: npx --yes html-validate@11.4.0 *.html
+      - name: Check content, links and privacy
+        run: python3 scripts/check_site.py
+      - name: Check in a browser (phone and desktop)
+        run: |
+          npm install --no-save --no-audit --no-fund playwright@1.64.1 > /dev/null
+          npx playwright install --with-deps chromium > /dev/null
+          node scripts/browser_check.mjs

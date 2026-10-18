@@ -1,0 +1,249 @@
+#!/usr/bin/env python3
+"""Content, link and privacy checks for the Sycamore Square site.
+
+Run from anywhere:   python3 scripts/check_site.py
+Rebuild the PDF ZIP: python3 scripts/check_site.py --rebuild-zip
+
+Exit code 0 means every check passed. Standard library only.
+"""
+import glob
+import html.parser
+import json
+import os
+import re
+import sys
+import zipfile
+from urllib.parse import unquote, urlsplit
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+PDF_ZIP = 'docs/Sycamore_Square_All_PDFs_R4.3.zip'
+ZIP_FOLDER = 'Sycamore_Square_PDFs_R4.3'
+SCENARIO_HASHES = {'worst', 'realistic', 'best'}
+MAX_FILE_MB = 25
+
+# Each rule: (pattern, flags, what is wrong and what to do instead).
+BANNED = [
+    (r'\bAimen\b|\bAltaiyeb\b', re.I, 'A personal name. Leave buyer, seller and family names off the site.'),
+    (r'\bpurchase price\s*(?:of|is|was|at|:|=)\s*\$', re.I, 'A purchase price is stated. The site may only say the price is left out.'),
+    (r'\$\s?\d[\d,.]*\s?(?:m|mm|million|k)?\s+(?:purchase|acquisition|offer|bid)\b', re.I, 'A purchase, offer or bid amount. Leave it off the site.'),
+    (r'\b(?:offer|bid|asking)\s+(?:price|amount)\s*(?:of|is|:)?\s*\$', re.I, 'An offer, bid or asking amount. Leave it off the site.'),
+    (r'\b(?:maximum|max|walk[- ]away)\s+(?:bid|price)\b', re.I, 'A maximum or walk-away price. Leave it off the site.'),
+    (r'transaction fee|buyer.?s premium|\b\d+(?:\.\d+)?%\s+(?:transaction|buyer)', re.I, 'An auction fee or transaction term. Leave it off the site.'),
+    (r'planning input\s*\(\$', re.I, 'A planning price. Leave it off the site.'),
+    (r'\bfamily[- ](?:business|investment|owned|run)\b|\bfamily\s+(?:owns|runs|operates|invests)\b|\b(?:the|our|my) family\b(?!\s+(?:suite|zone|and child|-friendly))',
+     re.I, 'A reference to a family owning or running the project. Write "the owner" instead.'),
+    (r"\bladies\b|\bwomen\b|\bmen'?s\b|\bmen and women\b|\bfemale\b|\bbrides?\b|\bgrooms?\b|\bmothers?\b", re.I,
+     'Gendered hall wording. Use "Hall A" and "Hall B", and "family suites".'),
+    (r'\bIRR\b', 0, 'Finance jargon ("IRR"). Use plain words such as "years to earn back".'),
+    (r'yield on cost|cap rate', re.I, 'Finance jargon. Use plain words such as "profit each year" or "years to earn back".'),
+    (r'broker edge|\bAvison\b|\$6\.5', re.I, 'Wording the owner removed in R4.3.'),
+    (r'\{\{|\}\}|\[NAME|\[ADD LINKS|lorem ipsum', re.I, 'Leftover placeholder text.'),
+    (r'gh[pousr]_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}|\bsk-[A-Za-z0-9_-]{20,}|AKIA[0-9A-Z]{16}', 0,
+     'Something that looks like a secret key. Never commit keys.'),
+    (r'[\w.+-]+@[\w-]+\.(?:com|net|org|gov|edu|io|us)\b', re.I, 'An email address. Keep contact details off the public site.'),
+]
+
+problems = []
+
+
+def rel(path):
+    return os.path.relpath(path, ROOT)
+
+
+def fail(path, line, message):
+    problems.append((rel(path) if os.path.isabs(path) else path, line, message))
+
+
+def line_of(text, offset):
+    return text.count('\n', 0, offset) + 1
+
+
+class PageParser(html.parser.HTMLParser):
+    """Collects ids, local references, images and figure captions."""
+
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.ids = set()
+        self.refs = []      # (line, url)
+        self.imgs = []      # dicts
+        self.figures = []   # stack of {'imgs': [], 'caption': ''}
+        self.in_caption = 0
+        self.robots = None
+
+    def handle_starttag(self, tag, attrs):
+        a = dict(attrs)
+        line = self.getpos()[0]
+        if 'id' in a:
+            self.ids.add(a['id'])
+        if tag == 'meta' and a.get('name') == 'robots':
+            self.robots = a.get('content', '')
+        for key in ('href', 'src', 'poster'):
+            if a.get(key):
+                self.refs.append((line, a[key]))
+        if a.get('srcset'):
+            for part in a['srcset'].split(','):
+                if part.strip():
+                    self.refs.append((line, part.strip().split()[0]))
+        if tag == 'figure':
+            self.figures.append({'imgs': [], 'caption': ''})
+        if tag == 'figcaption':
+            self.in_caption += 1
+        if tag == 'img':
+            img = {'line': line, 'attrs': a, 'figure': self.figures[-1] if self.figures else None}
+            self.imgs.append(img)
+            if self.figures:
+                self.figures[-1]['imgs'].append(img)
+
+    def handle_endtag(self, tag):
+        if tag == 'figcaption' and self.in_caption:
+            self.in_caption -= 1
+        if tag == 'figure' and self.figures:
+            self.figures.pop()
+
+    def handle_data(self, data):
+        if self.in_caption and self.figures:
+            self.figures[-1]['caption'] += data
+
+
+def check_text_rules(path):
+    text = open(path, encoding='utf-8').read()
+    for pattern, flags, message in BANNED:
+        for m in re.finditer(pattern, text, flags):
+            fail(path, line_of(text, m.start()), f'{message} Found: "{m.group(0)}"')
+    return text
+
+
+def check_pages():
+    pages = sorted(glob.glob(os.path.join(ROOT, '*.html')))
+    parsed = {}
+    for path in pages:
+        text = check_text_rules(path)
+        p = PageParser()
+        p.feed(text)
+        parsed[os.path.basename(path)] = (path, text, p)
+        if p.robots != 'noindex,nofollow':
+            fail(path, 1, 'Every page needs <meta name="robots" content="noindex,nofollow">.')
+
+    for name, (path, text, p) in parsed.items():
+        for line, url in p.refs:
+            parts = urlsplit(url)
+            if parts.scheme in ('mailto', 'tel', 'data', 'javascript'):
+                if parts.scheme in ('data', 'javascript'):
+                    fail(path, line, f'"{parts.scheme}:" links are not allowed: {url[:60]}')
+                continue
+            if parts.scheme == 'http':
+                fail(path, line, f'Use https, not http: {url}')
+                continue
+            if parts.scheme or parts.netloc:
+                continue  # external https link; checked by hand, not here
+            target = unquote(parts.path) or name
+            if parts.path:
+                full = os.path.normpath(os.path.join(ROOT, target))
+                if not full.startswith(ROOT) or not os.path.isfile(full):
+                    fail(path, line, f'Links to a file that does not exist: {url}')
+                    continue
+            if parts.fragment:
+                tname = os.path.basename(target)
+                ids = parsed[tname][2].ids if tname in parsed else None
+                if ids is not None and parts.fragment not in ids and parts.fragment not in SCENARIO_HASHES:
+                    fail(path, line, f'Links to #{parts.fragment}, but {tname} has no element with that id.')
+
+        for img in p.imgs:
+            a = img['attrs']
+            src = a.get('src', '') + ' ' + a.get('srcset', '')
+            hidden = a.get('aria-hidden') == 'true' or a.get('role') == 'presentation'
+            if not hidden and not (a.get('alt') or '').strip():
+                fail(path, img['line'], f'Image needs alt text describing it: {a.get("src", "")}')
+            if not a.get('width') or not a.get('height'):
+                fail(path, img['line'], f'Image needs width and height attributes: {a.get("src", "")}')
+            if 'photoreal/' in src or 'hero-aerial' in src:
+                caption = img['figure']['caption'] if img['figure'] else ''
+                if 'ai-generated' not in caption.lower():
+                    fail(path, img['line'], 'AI-generated image without the "AI-generated concept image" label in its caption.')
+
+    # Every PDF in docs/ has a Documents card on the overview.
+    index_text = parsed.get('index.html', (None, '', None))[1]
+    docs_start = index_text.find('id="documents"')
+    docs_section = index_text[docs_start:index_text.find('</section>', docs_start)] if docs_start >= 0 else ''
+    for pdf in sorted(glob.glob(os.path.join(ROOT, 'docs', '*.pdf'))):
+        href = 'docs/' + os.path.basename(pdf)
+        n = docs_section.count(f'href="{href}"')
+        if n == 0:
+            fail('index.html', 1, f'{href} has no card in the Documents section.')
+    return parsed
+
+
+def check_zip():
+    zpath = os.path.join(ROOT, PDF_ZIP)
+    pdfs = sorted(os.path.basename(p) for p in glob.glob(os.path.join(ROOT, 'docs', '*.pdf')))
+    if not os.path.isfile(zpath):
+        fail(PDF_ZIP, 1, 'The all-PDFs ZIP is missing. Run: python3 scripts/check_site.py --rebuild-zip')
+        return
+    with zipfile.ZipFile(zpath) as z:
+        inside = {os.path.basename(n): z.read(n) for n in z.namelist() if n.lower().endswith('.pdf')}
+    for name in pdfs:
+        data = open(os.path.join(ROOT, 'docs', name), 'rb').read()
+        if inside.get(name) != data:
+            fail(PDF_ZIP, 1, f'{name} is missing from the ZIP or out of date. Run: python3 scripts/check_site.py --rebuild-zip')
+    for name in sorted(set(inside) - set(pdfs)):
+        fail(PDF_ZIP, 1, f'The ZIP has {name}, which is no longer in docs/. Run: python3 scripts/check_site.py --rebuild-zip')
+
+
+def rebuild_zip():
+    zpath = os.path.join(ROOT, PDF_ZIP)
+    pdfs = sorted(glob.glob(os.path.join(ROOT, 'docs', '*.pdf')))
+    with zipfile.ZipFile(zpath, 'w', zipfile.ZIP_DEFLATED) as z:
+        for pdf in pdfs:
+            info = zipfile.ZipInfo(f'{ZIP_FOLDER}/{os.path.basename(pdf)}', date_time=(2026, 10, 18, 0, 0, 0))
+            info.compress_type = zipfile.ZIP_DEFLATED
+            info.external_attr = 0o644 << 16
+            z.writestr(info, open(pdf, 'rb').read())
+    print(f'Rebuilt {PDF_ZIP} with {len(pdfs)} PDFs.')
+
+
+def check_other_files():
+    for pattern in ('assets/js/*.js', 'assets/*.json', 'README.md'):
+        for path in sorted(glob.glob(os.path.join(ROOT, pattern))):
+            check_text_rules(path)
+
+    feas = os.path.join(ROOT, 'assets', 'feasibility.json')
+    try:
+        data = json.load(open(feas, encoding='utf-8'))
+        if data.get('schema') != 2:
+            fail(feas, 1, 'assets/feasibility.json must keep "schema": 2.')
+        if not data.get('as_of'):
+            fail(feas, 1, 'assets/feasibility.json needs an "as_of" date.')
+    except json.JSONDecodeError as e:
+        fail(feas, e.lineno, f'assets/feasibility.json is not valid JSON: {e.msg}')
+
+    robots = os.path.join(ROOT, 'robots.txt')
+    if not os.path.isfile(robots) or open(robots).read() != 'User-agent: *\nDisallow: /\n':
+        fail(robots, 1, 'robots.txt must stay exactly "User-agent: *" / "Disallow: /".')
+
+    for folder in ('assets', 'docs'):
+        for dirpath, _, files in os.walk(os.path.join(ROOT, folder)):
+            for f in files:
+                full = os.path.join(dirpath, f)
+                if os.path.getsize(full) > MAX_FILE_MB * 1e6:
+                    fail(full, 1, f'File is larger than {MAX_FILE_MB} MB; make a smaller web version.')
+
+
+def main():
+    if '--rebuild-zip' in sys.argv:
+        rebuild_zip()
+    parsed = check_pages()
+    check_zip()
+    check_other_files()
+    print(f'Sycamore Square site checks: {len(parsed)} pages')
+    if problems:
+        for path, line, message in problems:
+            print(f'FAIL  {path}:{line}  {message}')
+            if os.environ.get('GITHUB_ACTIONS'):
+                print(f'::error file={path},line={line}::{message}')
+        print(f'{len(problems)} problem(s) found. Nothing was published.' if os.environ.get('SITE_EDIT') else f'{len(problems)} problem(s) found.')
+        sys.exit(1)
+    print('All checks passed.')
+
+
+if __name__ == '__main__':
+    main()
