@@ -32,9 +32,16 @@
   <header class="site-header">
     <div class="header-inner">
       <a class="wordmark" href="#top">SYCAMORE SQUARE</a>
+      <nav class="page-nav page-nav-bar" aria-label="Pages">
+        <ul class="page-list">
+          <li><a href="index.html" aria-current="page">Overview</a></li>
+          <li><a href="legal.html">Legal findings</a></li>
+          <li><a href="feasibility.html">Feasibility</a></li>
+        </ul>
+      </nav>
       <button type="button" class="menu-toggle" aria-expanded="false" aria-controls="site-menu"><span class="menu-icon" aria-hidden="true"></span>Menu</button>
       <div class="site-menu" id="site-menu">
-        <nav class="page-nav" aria-label="Pages">
+        <nav class="page-nav page-nav-menu" aria-label="Pages (menu)">
           <p class="menu-label" aria-hidden="true">Pages</p>
           <ul class="page-list">
             <li><a href="index.html" aria-current="page">Overview</a></li>
@@ -53,6 +60,7 @@
             <li><a href="#legal">Legal &amp; risk</a></li>
             <li><a href="#diligence">Diligence</a></li>
             <li><a href="#documents">Documents</a></li>
+            <li><a href="#terms">Terms</a></li>
           </ul>
         </nav>
       </div>
@@ -68,6 +76,15 @@
         <h1 id="hero-title">Sycamore Square</h1>
         <p class="lead hero-lead">A 127,634 SF single-story building on about 11.9 acres at Sycamore View Road and Summer Avenue in northeast Memphis, planned as a wedding and event destination with family entertainment, retail and a fuel pad.</p>
         <p class="hero-address">1699–1735 Sycamore View Rd · 5800 &amp; 5810 Summer Ave · Memphis, TN 38134</p>
+
+        <section class="in-short" aria-labelledby="in-short-title">
+          <h2 class="in-short-title" id="in-short-title">In short</h2>
+          <ul class="in-short-list">
+            <li><strong>Two questions decide the plan.</strong> About 74% of the building sits in the 100-year floodplain, and no source yet confirms that event halls, fuel sales or supervised childcare are allowed under its zoning. <a href="legal.html">Legal findings</a></li>
+            <li><strong>The money.</strong> At realistic rents the full plan returns about 4.9% a year on its cost; the best case returns 12.4%. <a href="feasibility.html">Feasibility</a></li>
+            <li><strong>What this is.</strong> A planning study from public records. Nothing here is a survey, an approval or an offer; every item still needs checking. <a href="#diligence">What closes the gaps</a></li>
+          </ul>
+        </section>
 
         <ul class="stats">
           <li class="stat">
@@ -247,13 +264,13 @@
           <div class="panel" id="model-site">
             <p class="panel-tag">Whole site</p>
             <model-viewer src="assets/models/sycamore_square_site.glb" poster="assets/img/3d/poster-site.jpg" camera-orbit="40deg 58deg 420m" camera-target="0m 0m 0m" min-camera-orbit="auto 5deg 60m" max-camera-orbit="auto 85deg 700m" alt="Interactive 3D massing model of Sycamore Square and its surroundings" camera-controls touch-action="pan-y" interaction-prompt="auto" shadow-intensity="0.7" exposure="1.05" environment-image="neutral" loading="lazy" reveal="auto"></model-viewer>
-            <p class="viewer-note">Drag to orbit · scroll or pinch to zoom · about 3 MB <a class="full-link" href="assets/models/sycamore_square_site.glb" download>Download the model (GLB)</a></p>
+            <p class="viewer-note">Drag sideways to turn it · pinch or scroll to zoom · about 3 MB to load <a class="full-link" href="assets/models/sycamore_square_site.glb" download>Download the 3D file (GLB)</a></p>
           </div>
 
           <div class="panel" id="model-cutaway">
             <p class="panel-tag">Event complex, roof off</p>
             <model-viewer src="assets/models/sycamore_square_event_cutaway.glb" poster="assets/img/3d/poster-cutaway.jpg" camera-orbit="35deg 52deg 170m" camera-target="-78m 2m 38m" min-camera-orbit="auto 5deg 30m" max-camera-orbit="auto 85deg 500m" alt="Interactive 3D model of the event complex with the roof removed, showing both halls, kitchens, suites and dining" camera-controls touch-action="pan-y" interaction-prompt="auto" shadow-intensity="0.7" exposure="1.05" environment-image="neutral" loading="lazy" reveal="auto"></model-viewer>
-            <p class="viewer-note">Drag to orbit · scroll or pinch to zoom · about 4 MB <a class="full-link" href="assets/models/sycamore_square_event_cutaway.glb" download>Download the model (GLB)</a></p>
+            <p class="viewer-note">Drag sideways to turn it · pinch or scroll to zoom · about 4 MB to load <a class="full-link" href="assets/models/sycamore_square_event_cutaway.glb" download>Download the 3D file (GLB)</a></p>
           </div>
         </div>
 
@@ -568,37 +585,39 @@
           <h2 id="documents-title">The working set</h2>
         </header>
 
+        <h3 class="docs-group">To read</h3>
+        <p class="docs-group-note">These open in your browser. On a phone, pinch to zoom.</p>
         <ul class="docs">
           <li>
-            <a class="doc-card" href="docs/Sycamore_Square_Master_Plan_R4.pdf" download>
+            <a class="doc-card" href="docs/Sycamore_Square_Master_Plan_R4.pdf">
               <span class="doc-tag">PDF · 8 SHEETS · 36 × 24 IN</span>
               <span class="doc-title">Master plan set, R4</span>
               <span class="doc-desc">Existing conditions, site plan, building division, operations, parking, fuel test, architecture, feasibility</span>
-              <span class="doc-meta">1.5 MB · Download</span>
+              <span class="doc-meta">1.5 MB · Open PDF</span>
             </a>
           </li>
           <li>
-            <a class="doc-card" href="docs/Sycamore_Square_Feasibility_Landlord_View.pdf" download>
+            <a class="doc-card" href="docs/Sycamore_Square_Feasibility_Landlord_View.pdf">
               <span class="doc-tag">PDF · FEASIBILITY</span>
               <span class="doc-title">Landlord study</span>
               <span class="doc-desc">Costs, rent, income and returns for leasing the building, by scenario</span>
-              <span class="doc-meta">308 KB · Download</span>
+              <span class="doc-meta">308 KB · Open PDF</span>
             </a>
           </li>
           <li>
-            <a class="doc-card" href="docs/Sycamore_Square_Feasibility_Operator_View.pdf" download>
+            <a class="doc-card" href="docs/Sycamore_Square_Feasibility_Operator_View.pdf">
               <span class="doc-tag">PDF · FEASIBILITY</span>
               <span class="doc-title">Operator study</span>
               <span class="doc-desc">How the halls, kids’ center, fuel and a retail shop do after paying rent</span>
-              <span class="doc-meta">279 KB · Download</span>
+              <span class="doc-meta">279 KB · Open PDF</span>
             </a>
           </li>
           <li>
-            <a class="doc-card" href="docs/Sycamore_Square_Engineering_and_City_PreApplication_Package.pdf" download>
+            <a class="doc-card" href="docs/Sycamore_Square_Engineering_and_City_PreApplication_Package.pdf">
               <span class="doc-tag">PDF · ENGINEERING</span>
               <span class="doc-title">Engineering and City pre-application package</span>
               <span class="doc-desc">Asks an engineering firm to confirm the concept plans, and the City which approvals each use and parcel needs</span>
-              <span class="doc-meta">196 KB · Download</span>
+              <span class="doc-meta">196 KB · Open PDF</span>
             </a>
           </li>
           <li>
@@ -606,12 +625,19 @@
               <span class="doc-tag">WEB PAGE · PDF</span>
               <a class="doc-title doc-title-link" href="legal.html">Legal and regulatory findings</a>
               <span class="doc-desc">Confirmed findings, unverified items, open questions and contract contingencies</span>
-              <span class="doc-meta"><a class="doc-sub" href="legal.html">Read the web page</a> <a class="doc-sub" href="docs/Sycamore_Square_Legal_and_Regulatory_Findings.pdf" download>Download PDF · 118 KB</a></span>
+              <span class="doc-meta"><a class="doc-sub" href="legal.html">Read the web page</a> <a class="doc-sub" href="docs/Sycamore_Square_Legal_and_Regulatory_Findings.pdf">Open PDF · 118 KB</a></span>
             </div>
           </li>
+        </ul>
+
+        <p class="note docs-plan-note">The plan set is a large-format drawing; on a phone, open it and zoom, or view it on a computer.</p>
+
+        <h3 class="docs-group">Technical files, for engineers and designers</h3>
+        <p class="docs-group-note">These download to your device and need CAD, 3D or Blender software to open.</p>
+        <ul class="docs">
           <li>
             <a class="doc-card" href="docs/Sycamore_Square_Georeferenced_R4.dxf" download>
-              <span class="doc-tag">DXF · TN STATE PLANE</span>
+              <span class="doc-tag">CAD DRAWING · DXF</span>
               <span class="doc-title">Georeferenced CAD base</span>
               <span class="doc-desc">For civil engineers and architects; layers keep existing conditions separate from proposals</span>
               <span class="doc-meta">175 KB · Download</span>
@@ -619,7 +645,7 @@
           </li>
           <li>
             <a class="doc-card" href="assets/models/sycamore_square_site.glb" download>
-              <span class="doc-tag">GLB · 3D MODEL</span>
+              <span class="doc-tag">3D FILE · GLB</span>
               <span class="doc-title">Site massing model</span>
               <span class="doc-desc">Whole site in 3D; opens in any glTF viewer, including Windows 3D Viewer and macOS Preview</span>
               <span class="doc-meta">3.0 MB · Download</span>
@@ -627,7 +653,7 @@
           </li>
           <li>
             <a class="doc-card" href="assets/models/sycamore_square_event_cutaway.glb" download>
-              <span class="doc-tag">GLB · 3D MODEL</span>
+              <span class="doc-tag">3D FILE · GLB</span>
               <span class="doc-title">Event complex cutaway model</span>
               <span class="doc-desc">The event complex with the roof removed, rooms and seating from sheet A-1</span>
               <span class="doc-meta">3.7 MB · Download</span>
@@ -635,14 +661,40 @@
           </li>
           <li>
             <a class="doc-card" href="docs/Sycamore_Square_Massing_R4.blend" download>
-              <span class="doc-tag">BLEND · BLENDER 5.2</span>
+              <span class="doc-tag">BLENDER SCENE · BLEND</span>
               <span class="doc-title">Blender source scene</span>
               <span class="doc-desc">Full scene with materials and saved camera views, for designers and renderers</span>
               <span class="doc-meta">1.1 MB · Download</span>
             </a>
           </li>
         </ul>
-        <p class="note">The plan set is a large-format drawing; on a phone, open it and zoom, or view it on a computer.</p>
+      </div>
+    </section>
+    <!-- TERMS -->
+    <section id="terms" class="band band-ground" aria-labelledby="terms-title">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="eyebrow">TERMS EXPLAINED</p>
+          <h2 id="terms-title">What the technical words mean</h2>
+        </header>
+        <dl class="terms">
+          <div class="term"><dt>SF, ac</dt><dd>Square feet and acres. One acre is 43,560 SF.</dd></div>
+          <div class="term"><dt>Zoning, CMU-3</dt><dd>Zoning decides which uses are allowed on a lot. CMU-3 is the Memphis commercial mixed-use district these parcels are in.</dd></div>
+          <div class="term"><dt>100-year floodplain, FEMA Zone AE</dt><dd>Land with a 1% chance of flooding in any year, as mapped by FEMA. Federally backed loans there require flood insurance.</dd></div>
+          <div class="term"><dt>50% rule (substantial improvement)</dt><dd>If the work costs 50% or more of the building’s value, the whole building must meet current flood rules.</dd></div>
+          <div class="term"><dt>Elevation certificate, LOMA</dt><dd>A surveyor’s measurement of the building’s height against the flood level. If it sits above it, FEMA can issue a Letter of Map Amendment (LOMA) taking it out of the flood zone.</dd></div>
+          <div class="term"><dt>Due diligence</dt><dd>The checks a buyer makes before closing, such as survey, title, environmental and zoning.</dd></div>
+          <div class="term"><dt>ALTA survey</dt><dd>A detailed boundary survey of the kind title companies and lenders rely on.</dd></div>
+          <div class="term"><dt>Phase I</dt><dd>An environmental review of records and the site, looking for past contamination.</dd></div>
+          <div class="term"><dt>NNN (triple net) lease</dt><dd>The tenant pays rent plus its share of property tax, insurance and common-area costs.</dd></div>
+          <div class="term"><dt>Net operating income (NOI)</dt><dd>Yearly rent after the property’s running costs, before loan payments.</dd></div>
+          <div class="term"><dt>Yield on cost</dt><dd>Net operating income divided by the total project cost. Higher is better.</dd></div>
+          <div class="term"><dt>Cap rate</dt><dd>The rate buyers use to turn yearly income into a price: value = income ÷ cap rate.</dd></div>
+          <div class="term"><dt>IRR (levered)</dt><dd>The yearly return on the owner’s own cash over the holding period, counting the loan.</dd></div>
+          <div class="term"><dt>Hard cost, soft cost</dt><dd>Building work, versus design, permits, fees and financing.</dd></div>
+          <div class="term"><dt>C-store, QSR</dt><dd>A convenience store, and a quick-service (fast-food) restaurant.</dd></div>
+          <div class="term"><dt>DXF, GLB, BLEND</dt><dd>Technical file types: a CAD drawing, a 3D model and a Blender scene. They need special software to open.</dd></div>
+        </dl>
       </div>
     </section>
   </main>

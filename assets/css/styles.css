@@ -240,7 +240,8 @@ main:focus { outline: none; }
 .no-js .menu-toggle { display: none; }
 
 /* Two link groups: "Pages" (Overview, Legal findings, Feasibility) and "On this page" (sections).
-   Below 1200px both sit in a drop-down panel under the header that scrolls on its own. */
+   Phones: both live in the drop-down menu. From 768px the page links sit in the header bar.
+   From 1200px the section links also leave the menu and show as a row of chips. */
 .menu-label {
   margin: 14px 0 6px;
   font-family: var(--font-mono);
@@ -250,6 +251,33 @@ main:focus { outline: none; }
   color: var(--brass-on-navy);
 }
 .page-list, .nav-list { list-style: none; }
+
+/* Page links in the header bar (768px and up). */
+.page-nav-bar { display: none; }
+@media (min-width: 768px) {
+  .page-nav-bar { display: block; align-self: stretch; }
+  .page-nav-menu { display: none; }
+  .page-nav-bar .page-list { display: flex; height: 100%; }
+  .page-nav-bar .page-list a {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    min-height: 56px;
+    padding: 4px 14px 0;
+    border-bottom: 4px solid transparent;
+    font-family: var(--font-cond);
+    font-weight: 600;
+    font-size: 16px;
+    letter-spacing: 0.02em;
+    color: var(--on-navy-2);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .page-nav-bar .page-list a:hover { color: var(--on-navy-1); border-bottom-color: var(--navy-border); }
+  .page-nav-bar .page-list a[aria-current="page"] { color: var(--on-navy-1); border-bottom-color: var(--brass); }
+  .page-nav-bar .page-list a:focus-visible { outline-offset: -4px; outline-color: var(--highlight); }
+  .menu-toggle { margin-left: 8px; }
+}
 
 @media (max-width: 1199px) {
   .site-menu {
@@ -271,7 +299,7 @@ main:focus { outline: none; }
   .no-js .header-inner { flex-wrap: wrap; }
   .no-js .site-menu { position: static; flex: 1 1 100%; margin: 0 calc(var(--gutter) * -1); border-bottom: 0; }
 
-  .page-list a,
+  .page-nav-menu .page-list a,
   .nav-list a {
     display: flex;
     align-items: center;
@@ -286,15 +314,15 @@ main:focus { outline: none; }
     color: var(--on-navy-1);
     text-decoration: none;
   }
-  .page-list a { font-size: 19px; }
-  .page-list a:hover, .nav-list a:hover { background: var(--navy-panel); }
-  .page-list a[aria-current="page"],
+  .page-nav-menu .page-list a { font-size: 19px; }
+  .page-nav-menu .page-list a:hover, .nav-list a:hover { background: var(--navy-panel); }
+  .page-nav-menu .page-list a[aria-current="page"],
   .nav-list a[aria-current="true"] {
     background: var(--navy-panel);
     border-left-color: var(--brass);
     color: var(--brass-on-navy);
   }
-  .page-list a[aria-current="page"]::after {
+  .page-nav-menu .page-list a[aria-current="page"]::after {
     content: "You are here";
     content: "You are here" / "";
     margin-left: auto;
@@ -304,7 +332,7 @@ main:focus { outline: none; }
     letter-spacing: 0.06em;
     color: var(--on-navy-3);
   }
-  .page-list a:focus-visible, .nav-list a:focus-visible { outline-offset: -2px; outline-color: var(--highlight); }
+  .page-nav-menu .page-list a:focus-visible, .nav-list a:focus-visible { outline-offset: -2px; outline-color: var(--highlight); }
 }
 
 /* From 1200px: row 1 is the wordmark and the page links; row 2 is the "On this page" chips. */
@@ -317,27 +345,8 @@ main:focus { outline: none; }
     column-gap: 24px;
   }
   .wordmark { grid-area: mark; min-height: 56px; }
+  .page-nav-bar { grid-area: pages; justify-self: end; }
   .site-menu { display: contents; }
-  .page-nav { grid-area: pages; justify-self: end; align-self: stretch; }
-  .page-nav .menu-label { display: none; }
-  .page-list { display: flex; height: 100%; }
-  .page-list a {
-    display: flex;
-    align-items: center;
-    height: 100%;
-    min-height: 56px;
-    padding: 4px 16px 0;
-    border-bottom: 4px solid transparent;
-    font-family: var(--font-cond);
-    font-weight: 600;
-    font-size: 16px;
-    letter-spacing: 0.02em;
-    color: var(--on-navy-2);
-    text-decoration: none;
-  }
-  .page-list a:hover { color: var(--on-navy-1); border-bottom-color: var(--navy-border); }
-  .page-list a[aria-current="page"] { color: var(--on-navy-1); border-bottom-color: var(--brass); }
-  .page-list a:focus-visible { outline-offset: -4px; outline-color: var(--highlight); }
 
   .site-nav {
     grid-area: sections;
@@ -1572,3 +1581,45 @@ model-viewer:focus-visible { outline: 2px solid var(--brass); outline-offset: 2p
 @media (max-width: 720px) {
   .tablist-label { font-size: 16px; }
 }
+
+/* ---------- Usability additions ---------- */
+
+/* "In short" summary on the overview */
+.in-short {
+  margin-top: clamp(24px, 5vw, 32px);
+  max-width: 900px;
+  padding: clamp(16px, 3vw, 22px);
+  background: var(--navy-panel);
+  border: 1px solid var(--navy-border);
+  border-top: 4px solid var(--brass);
+}
+.in-short-title {
+  font-size: clamp(20px, 5vw, 24px);
+  color: var(--on-navy-1);
+}
+.in-short-list { list-style: none; margin-top: 10px; }
+.in-short-list li { color: var(--on-navy-2); padding: 10px 0; border-top: 1px solid var(--navy-border); }
+.in-short-list li:first-child { border-top: 0; padding-top: 4px; }
+.in-short-list strong { color: var(--on-navy-1); font-weight: 600; }
+.in-short-list a { color: var(--highlight); font-weight: 600; white-space: nowrap; }
+.in-short-list a::after { content: " →"; content: " →" / ""; }
+.in-short-list a:hover { color: var(--on-navy-1); }
+
+/* Document groups */
+.docs-group { font-size: clamp(20px, 5vw, 22px); margin-top: var(--gap); }
+.docs-group:first-of-type { margin-top: 0; }
+.docs-group-note { margin: 4px 0 14px; color: var(--muted); }
+
+/* Terms explained */
+.terms {
+  margin: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  border-top: 2px solid var(--ink);
+}
+@media (min-width: 900px) {
+  .terms { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 40px; }
+}
+.term { padding: 12px 0; border-bottom: 1px solid var(--rule); }
+.term dt { font-family: var(--font-cond); font-weight: 700; font-size: 18px; color: var(--ink); }
+.term dd { margin: 2px 0 0; color: var(--text-2); }

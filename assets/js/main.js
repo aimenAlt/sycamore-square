@@ -213,13 +213,21 @@
     }
   }
 
-  /* Back to top, shown after one screen of scrolling. */
+  /* Back to top: appears after one screen of scrolling, but only while the reader scrolls back up,
+     so it never sits on top of the text they are reading on the way down. */
   var toTop = document.querySelector('.to-top');
   if (toTop) {
     var ticking = false;
+    var lastY = window.scrollY;
     var updateToTop = function () {
       ticking = false;
-      toTop.hidden = window.scrollY < window.innerHeight;
+      var y = window.scrollY;
+      var goingUp = y < lastY - 2;
+      var goingDown = y > lastY + 2;
+      if (y < window.innerHeight) toTop.hidden = true;
+      else if (goingUp) toTop.hidden = false;
+      else if (goingDown && document.activeElement !== toTop) toTop.hidden = true;
+      lastY = y;
     };
     window.addEventListener('scroll', function () {
       if (!ticking) {
