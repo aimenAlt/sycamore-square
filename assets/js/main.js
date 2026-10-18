@@ -18,36 +18,36 @@
   setHeaderHeight();
   window.addEventListener('resize', setHeaderHeight);
 
-  /* Hamburger menu below 1200px: opens a panel under the header; closes on a link, Escape or a tap outside. */
-  var menuToggle = document.querySelector('.menu-toggle');
-  var menu = document.getElementById('site-menu');
-  function setMenu(open, opts) {
-    if (!menuToggle || !menu) return;
-    menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-    menu.classList.toggle('open', open);
+  /* "On this page" below 1100px: one button that names the current section and opens the full list.
+     It closes on a link, Escape, a tap outside, or when the screen grows wide enough to show the chips. */
+  var sectionToggle = document.querySelector('.section-toggle');
+  var sectionMenu = document.getElementById('section-menu');
+  function setSectionMenu(open, opts) {
+    if (!sectionToggle || !sectionMenu) return;
+    sectionToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    sectionMenu.classList.toggle('open', open);
     if (open) {
-      var cur = menu.querySelector('[aria-current="true"]');
-      if (cur) menu.scrollTop = cur.offsetTop - menu.clientHeight / 2;
+      var cur = sectionMenu.querySelector('[aria-current="true"]');
+      if (cur) sectionMenu.scrollTop = cur.offsetTop - sectionMenu.clientHeight / 2;
     } else if (opts && opts.focusToggle) {
-      menuToggle.focus();
+      sectionToggle.focus();
     }
   }
-  if (menuToggle && menu) {
-    menuToggle.addEventListener('click', function () {
-      setMenu(menuToggle.getAttribute('aria-expanded') !== 'true');
+  if (sectionToggle && sectionMenu) {
+    sectionToggle.addEventListener('click', function () {
+      setSectionMenu(sectionToggle.getAttribute('aria-expanded') !== 'true');
     });
-    menu.addEventListener('click', function (e) {
-      if (e.target.closest('a')) setMenu(false);
+    sectionMenu.addEventListener('click', function (e) {
+      if (e.target.closest('a')) setSectionMenu(false);
     });
     document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && menu.classList.contains('open')) setMenu(false, { focusToggle: true });
+      if (e.key === 'Escape' && sectionMenu.classList.contains('open')) setSectionMenu(false, { focusToggle: true });
     });
     document.addEventListener('click', function (e) {
-      if (menu.classList.contains('open') && !header.contains(e.target)) setMenu(false);
+      if (sectionMenu.classList.contains('open') && !header.contains(e.target)) setSectionMenu(false);
     });
-    window.matchMedia('(min-width: 1200px)').addEventListener('change', function () { setMenu(false); });
+    window.matchMedia('(min-width: 1100px)').addEventListener('change', function () { setSectionMenu(false); });
   }
-
 
   /* WAI-ARIA tabs with roving tabindex. Without JS every panel shows stacked. */
   function initTabs(group) {
@@ -138,49 +138,147 @@
 
   Array.prototype.forEach.call(document.querySelectorAll('[data-tabs]'), initTabs);
 
-  /* Mark the nav chip for the section in view, and keep that chip visible in the sideways-scrolling nav. */
+  /* Mark the section in view: the chip (wide screens), the name on the "On this page" button, and the
+     reading-progress bar. Sections can be shown or hidden later (feasibility.js), so the list is read each time. */
   var nav = document.querySelector('.site-nav');
-  var navLinks = nav ? Array.prototype.filter.call(nav.querySelectorAll('a[href^="#"]'), function (a) {
+  var currentLabel = document.querySelector('.section-current');
+  var progressBar = document.querySelector('.read-progress-bar');
+  var startLabel = currentLabel ? currentLabel.textContent : '';
+  var allNavLinks = nav ? Array.prototype.filter.call(nav.querySelectorAll('a[href^="#"]'), function (a) {
     return document.getElementById(a.getAttribute('href').slice(1));
   }) : [];
-  if (navLinks.length) {
-    var navTargets = navLinks.map(function (a) { return document.getElementById(a.getAttribute('href').slice(1)); });
+  if (allNavLinks.length || progressBar) {
     var current = null;
     var spyTicking = false;
     var updateCurrent = function () {
       spyTicking = false;
-      var line = header ? header.offsetHeight + 24 : 24;
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      var atBottom = window.scrollY >= max - 2;
+      if (progressBar) progressBar.style.transform = 'scaleX(' + (max > 0 ? Math.min(1, window.scrollY / max) : 0) + ')';
+
+      var links = allNavLinks.filter(function (a) { var li = a.closest('li'); return !(li && li.hidden); });
+      // A section counts as current once its top reaches the line it scrolls to when its link is used
+      // (its scroll-margin, which on the feasibility page also clears the sticky scenario bar).
       var found = null;
-      navTargets.forEach(function (target, i) {
-        if (target.getBoundingClientRect().top <= line) found = navLinks[i];
+      links.forEach(function (a) {
+        var target = document.getElementById(a.getAttribute('href').slice(1));
+        var line = (parseFloat(getComputedStyle(target).scrollMarginTop) || (header ? header.offsetHeight : 0)) + 16;
+        if (target.getBoundingClientRect().top <= line) found = a;
       });
       // At the very bottom, the last section counts as current even if it is short.
-      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) {
-        found = navLinks[navLinks.length - 1];
-      }
+      if (atBottom && links.length) found = links[links.length - 1];
       if (found === current) return;
       if (current) current.removeAttribute('aria-current');
       current = found;
+      if (currentLabel) currentLabel.textContent = current ? current.textContent : startLabel;
       if (!current) return;
       current.setAttribute('aria-current', 'true');
       // On wide screens the chip row scrolls sideways if it overflows; keep the current chip in view.
       var row = nav.querySelector('.nav-list');
-      if (row && row.scrollWidth > row.clientWidth) {
+      if (row && window.matchMedia('(min-width: 1100px)').matches && row.scrollWidth > row.clientWidth) {
         var cr = current.getBoundingClientRect(), rr = row.getBoundingClientRect();
         if (cr.left < rr.left + 28 || cr.right > rr.right - 28) {
           row.scrollTo({ left: row.scrollLeft + cr.left - rr.left - 28, behavior: scrollBehavior() });
         }
       }
     };
-    window.addEventListener('scroll', function () {
+    var requestUpdate = function () {
       if (!spyTicking) {
         spyTicking = true;
         window.requestAnimationFrame(updateCurrent);
       }
-    }, { passive: true });
-    window.addEventListener('resize', updateCurrent);
+    };
+    window.addEventListener('scroll', requestUpdate, { passive: true });
+    window.addEventListener('resize', requestUpdate);
+    window.addEventListener('load', requestUpdate);
     updateCurrent();
   }
+
+  /* Documents: filter chips narrow the library to one kind of document. Counts come from the cards. */
+  var library = document.getElementById('doc-library');
+  var filterButtons = Array.prototype.slice.call(document.querySelectorAll('.doc-filter'));
+  if (library && filterButtons.length) {
+    var docItems = Array.prototype.slice.call(library.querySelectorAll('.doc'));
+    var filterStatus = document.getElementById('doc-filter-status');
+    filterButtons.forEach(function (btn) {
+      var f = btn.getAttribute('data-filter');
+      var count = btn.querySelector('.doc-count');
+      if (count) {
+        count.textContent = docItems.filter(function (li) { return f === 'all' || li.getAttribute('data-cat') === f; }).length;
+      }
+      btn.addEventListener('click', function () {
+        var shown = 0;
+        filterButtons.forEach(function (b) { b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'); });
+        docItems.forEach(function (li) {
+          li.hidden = f !== 'all' && li.getAttribute('data-cat') !== f;
+          if (!li.hidden) shown++;
+        });
+        if (filterStatus) filterStatus.textContent = 'Showing ' + shown + ' of ' + docItems.length + ' documents.';
+      });
+    });
+  }
+
+  /* PDF viewer: on large screens with a mouse, a PDF link opens the document over the page, with
+     "Open in new tab", "Download" and "Close". Phones and tablets open the PDF in their own viewer as before. */
+  var viewer = null;
+  var viewerFrame = null;
+  var viewerOpener = null;
+  function canEmbedPdf() {
+    if (typeof HTMLDialogElement !== 'function') return false;
+    if (navigator.pdfViewerEnabled === false) return false;
+    return window.matchMedia('(min-width: 900px) and (pointer: fine)').matches;
+  }
+  function docTitle(a) {
+    if (a.getAttribute('data-doc-title')) return a.getAttribute('data-doc-title');
+    var card = a.closest('.doc-card');
+    var t = card && card.querySelector('.doc-title');
+    if (t) return t.textContent.trim();
+    var copy = a.cloneNode(true);
+    Array.prototype.forEach.call(copy.querySelectorAll('.button-meta, .visually-hidden'), function (n) { n.remove(); });
+    return copy.textContent.replace(/\s*\(PDF\)\s*/i, ' ').replace(/[→↗]/g, '').trim() || 'Document';
+  }
+  function buildViewer() {
+    viewer = document.createElement('dialog');
+    viewer.className = 'doc-viewer';
+    viewer.setAttribute('aria-labelledby', 'doc-viewer-title');
+    viewer.innerHTML =
+      '<div class="doc-viewer-bar">' +
+        '<p class="doc-viewer-title" id="doc-viewer-title"></p>' +
+        '<a class="doc-action" data-role="tab" target="_blank" rel="noopener">Open in new tab</a>' +
+        '<a class="doc-action" data-role="download" download>Download</a>' +
+        '<button type="button" class="doc-viewer-close">' +
+          '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>Close' +
+        '</button>' +
+      '</div>' +
+      '<iframe class="doc-viewer-frame"></iframe>';
+    document.body.appendChild(viewer);
+    viewerFrame = viewer.querySelector('iframe');
+    viewer.querySelector('.doc-viewer-close').addEventListener('click', function () { viewer.close(); });
+    viewer.addEventListener('click', function (e) { if (e.target === viewer) viewer.close(); });
+    viewer.addEventListener('close', function () {
+      viewerFrame.src = 'about:blank';
+      document.body.classList.remove('viewer-open');
+      if (viewerOpener) viewerOpener.focus({ preventScroll: true });
+    });
+  }
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href$=".pdf"]');
+    if (!a || a.hasAttribute('download') || a.target === '_blank') return;
+    if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    if (!canEmbedPdf()) return;
+    e.preventDefault();
+    if (!viewer) buildViewer();
+    var href = a.getAttribute('href');
+    var title = docTitle(a);
+    viewer.querySelector('.doc-viewer-title').textContent = title;
+    viewer.querySelector('[data-role="tab"]').href = href;
+    viewer.querySelector('[data-role="download"]').href = href;
+    viewerFrame.title = title;
+    viewerFrame.src = href;
+    viewerOpener = a;
+    document.body.classList.add('viewer-open');
+    viewer.showModal();
+  });
 
   /* Area bar: hide a label when its segment is too narrow to show it. */
   var segs = Array.prototype.slice.call(document.querySelectorAll('.area-bar .seg'));
