@@ -47,7 +47,7 @@ These are checked automatically, in the pages and in the text inside PDFs and im
 
 - Every PDF in `docs/` has exactly one card in the Documents section of `overview.html`, and is inside `docs/Sycamore_Square_All_PDFs_R4.3.zip`. After adding or replacing a PDF, rebuild the ZIP with `python3 scripts/check_site.py --rebuild-zip`.
 - Published PDFs must be public versions: no prices, fees, transaction terms or personal names.
-- Some PDFs have an HTML source in `pdf-src/` (it says which in each file's title). Change the source, never the PDF, then rebuild with `node scripts/build_pdf.mjs pdf-src/<name>.html docs/<PDF name>.pdf`, replace the cover, update the card's page count and size, and rebuild the ZIP.
+- Some PDFs have an HTML source in `pdf-src/`: the Operator View (`operator-view.html`) and the Engineering and City package (`engineering-city-package.html`). Change the source, never the PDF, then rebuild with `node scripts/build_pdf.mjs pdf-src/<name>.html docs/<PDF name>.pdf`, replace the cover, update the card's page count and size, and rebuild the ZIP.
 - Each PDF card shows the PDF's first page as its cover, saved as `assets/img/docs/<same name as the PDF>.jpg` at about 640 px (on a Mac: `qlmanage -t -s 900 -o . file.pdf`, then `sips -s format jpeg -Z 640`). The card also states the page count and file size, and gets a category (`data-cat`: plans, money, legal or research) so the filter buttons find it. Replace the cover whenever the PDF changes.
 
 ## Design

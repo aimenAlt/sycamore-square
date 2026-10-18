@@ -48,3 +48,4 @@ figcaption { font-size: 7.5pt; color: var(--muted); }
 .chart-sub { margin: 2px 0 6px; font-size: 8.4pt; color: var(--muted); }
 table.fixed { table-layout: fixed; }
 thead th.num { white-space: normal; }
+table.long { break-inside: auto; }
