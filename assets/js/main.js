@@ -16,19 +16,17 @@
   setHeaderHeight();
   window.addEventListener('resize', setHeaderHeight);
 
-  /* Nav edge fade: only fade the edges that have more content behind them. */
-  var nav = document.querySelector('.site-nav');
-  function updateNavFade() {
-    if (!nav) return;
-    var max = nav.scrollWidth - nav.clientWidth;
-    nav.classList.toggle('scrolled', nav.scrollLeft > 2);
-    nav.classList.toggle('at-end', nav.scrollLeft >= max - 2);
+  /* Edge fade on sideways scrollers (nav, tab rows): fade only the edges with more content behind them. */
+  function updateFade(el) {
+    var max = el.scrollWidth - el.clientWidth;
+    el.classList.toggle('scrolled', el.scrollLeft > 2);
+    el.classList.toggle('at-end', el.scrollLeft >= max - 2);
   }
-  if (nav) {
-    nav.addEventListener('scroll', updateNavFade, { passive: true });
-    window.addEventListener('resize', updateNavFade);
-    updateNavFade();
-  }
+  Array.prototype.forEach.call(document.querySelectorAll('.site-nav, .tablist'), function (el) {
+    el.addEventListener('scroll', function () { updateFade(el); }, { passive: true });
+    window.addEventListener('resize', function () { updateFade(el); });
+    updateFade(el);
+  });
 
   /* WAI-ARIA tabs with roving tabindex. Without JS every panel shows stacked. */
   function initTabs(group) {
@@ -56,7 +54,14 @@
         tab.tabIndex = on ? 0 : -1;
         panels[i].hidden = !on;
       });
-      if (opts.focus) tabs[index].focus();
+      // Keep the selected tab fully visible when the row scrolls sideways.
+      var t = tabs[index];
+      if (t.offsetLeft < list.scrollLeft) {
+        list.scrollLeft = t.offsetLeft - 32;
+      } else if (t.offsetLeft + t.offsetWidth > list.scrollLeft + list.clientWidth) {
+        list.scrollLeft = t.offsetLeft + t.offsetWidth - list.clientWidth + 32;
+      }
+      if (opts.focus) tabs[index].focus({ preventScroll: true });
       if (useHash && opts.updateHash && history.replaceState) {
         history.replaceState(null, '', '#' + panels[index].id);
       }
