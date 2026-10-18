@@ -2673,15 +2673,23 @@ html.gate-locked, html.gate-locked body { overflow: hidden; }
   .landing-links span[aria-hidden="true"] { display: none; }
 }
 
-/* ---------- What to send to whom (top of the documents library) ---------- */
-.send-block { margin-bottom: var(--gap); }
-.send-title { font-size: clamp(22px, 5vw, 26px); color: var(--ink); }
-.send-intro { margin-top: 6px; max-width: 760px; color: var(--text-2); }
-.send-sets { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--gap-sm); margin-top: 16px; }
-@media (min-width: 760px) { .send-sets { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-.send-sets .status-card { --status: var(--rose); }
-.send-sets .status-card p { margin-top: 6px; }
+/* ---------- What to send to whom: the home page's second tier, below the four main cards ---------- */
+/* Deliberately quieter than the choice cards: smaller titles, light shadow, no icons or hover lift. */
+.send-tier { margin-top: clamp(40px, 7vw, 64px); }
+.send-head { max-width: 760px; }
+.send-head h2 { margin-top: 6px; font-size: clamp(22px, 5vw, 26px); color: var(--ink); }
+.send-head p { margin-top: 6px; color: var(--text-2); }
+.send-sets { list-style: none; display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--gap-sm); margin-top: 18px; }
+@media (min-width: 720px) { .send-sets { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1100px) { .send-sets { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.send-sets > li { display: flex; min-width: 0; }
+.send-card { --status: var(--rose); flex: 1 1 auto; padding: clamp(18px, 2.5vw, 22px); box-shadow: var(--shadow-sm); }
+.send-card::before { height: 4px; }
+.send-card h3 { font-size: clamp(19px, 4.5vw, 21px); line-height: 1.2; }
+.send-card p { margin-top: 6px; }
+.send-card .bullets { margin-top: 10px; }
+.send-card .bullets li + li { margin-top: 6px; }
 .send-own { color: var(--muted); }
-.send-leave { padding-top: 12px; border-top: 1px solid var(--rule); }
+.send-leave { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--rule); }
 .send-leave strong { color: var(--ink); }
-@media (max-width: 720px) { .send-sets .status-card { font-size: 16px; } }
+@media (max-width: 720px) { .send-card { font-size: 16px; } }
