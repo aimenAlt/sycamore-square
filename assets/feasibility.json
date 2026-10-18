@@ -3144,11 +3144,11 @@
     "ground_rent": 0
    },
    "retail_tenant": {
-    "rent_psf": 10.5,
+    "rent_psf": 11.0,
     "nnn_psf": 3.33,
     "occupancy_cost_share": 0.1,
-    "sales_psf_needed": 138,
-    "sales_1500sf_shop": 207000
+    "sales_psf_needed": 143,
+    "sales_1500sf_shop": 215000
    }
   },
   "realistic": {
@@ -3180,11 +3180,11 @@
     "ground_rent": 95000.0
    },
    "retail_tenant": {
-    "rent_psf": 12.5,
+    "rent_psf": 13.5,
     "nnn_psf": 3.32,
     "occupancy_cost_share": 0.1,
-    "sales_psf_needed": 158,
-    "sales_1500sf_shop": 237000
+    "sales_psf_needed": 168,
+    "sales_1500sf_shop": 252000
    }
   },
   "best": {
@@ -3216,11 +3216,11 @@
     "ground_rent": 160000.0
    },
    "retail_tenant": {
-    "rent_psf": 15.0,
+    "rent_psf": 16.0,
     "nnn_psf": 3.05,
     "occupancy_cost_share": 0.1,
-    "sales_psf_needed": 180,
-    "sales_1500sf_shop": 270000
+    "sales_psf_needed": 190.5,
+    "sales_1500sf_shop": 286000
    }
   }
  },

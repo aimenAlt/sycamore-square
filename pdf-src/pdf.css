@@ -1,0 +1,50 @@
+/* Print style for the study PDFs built from pdf-src/ (see scripts/build_pdf.mjs).
+   Matches the look of the earlier Chromium-printed PDFs: Inter, slate text, navy table headers. */
+@page { size: Letter; margin: 0.72in 0.6in 0.7in; }
+:root {
+  --text: #1d2a33;
+  --head: #13232e;
+  --muted: #5a6b76;
+  --navy: #1f3a4a;
+  --zebra: #f2f6f8;
+  --rule: #cfd8de;
+  --rule-soft: #e3e8eb;
+  --blue: #2f6db5;
+  --track: #b9c6ce;
+}
+* { box-sizing: border-box; }
+html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+body { margin: 0; font-family: "Inter", Arial, sans-serif; font-size: 10pt; line-height: 1.5; color: var(--text); }
+h1 { margin: 0; font-size: 19pt; line-height: 1.25; font-weight: 600; color: var(--head); }
+.sub { margin: 4px 0 0; font-size: 10pt; color: var(--muted); }
+.title-rule { margin: 14px 0 0; border: 0; border-top: 1.5px solid var(--head); }
+h2 { margin: 18px 0 8px; padding-top: 14px; border-top: 1px solid var(--rule-soft); font-size: 13pt; line-height: 1.3; font-weight: 600; color: var(--head); break-after: avoid; }
+h3 { margin: 14px 0 6px; font-size: 11pt; font-weight: 600; color: var(--head); break-after: avoid; }
+p { margin: 0 0 8px; }
+ul { margin: 0 0 8px; padding-left: 18px; }
+li { margin: 2px 0; }
+a { color: var(--blue); text-decoration: none; }
+strong { font-weight: 600; }
+table { width: 100%; margin: 6px 0 10px; border-collapse: collapse; font-size: 8.4pt; line-height: 1.4; }
+thead { display: table-header-group; }
+tr { break-inside: avoid; }
+table { break-inside: avoid; }
+th, td { padding: 5px 7px; border: 0.75px solid var(--rule); text-align: left; vertical-align: top; }
+thead th { background: var(--navy); color: #fff; font-weight: 600; }
+tbody tr:nth-child(even) { background: var(--zebra); }
+tbody th { font-weight: 600; color: var(--head); }
+.num { text-align: right; white-space: nowrap; }
+tr.total th, tr.total td { font-weight: 700; }
+.note { font-size: 8.4pt; color: var(--muted); }
+.callout { margin: 10px 0 12px; padding: 10px 12px; background: var(--zebra); border-left: 3px solid var(--navy); break-inside: avoid; }
+.callout p:last-child { margin-bottom: 0; }
+.callout-title { margin-bottom: 4px; font-weight: 600; color: var(--head); }
+.headline { font-size: 11pt; }
+.keep { break-inside: avoid; }
+.page-break { break-before: page; }
+figure { margin: 6px 0 10px; break-inside: avoid; }
+figcaption { font-size: 7.5pt; color: var(--muted); }
+.chart-title { margin: 0; font-size: 11pt; font-weight: 600; color: var(--head); }
+.chart-sub { margin: 2px 0 6px; font-size: 8.4pt; color: var(--muted); }
+table.fixed { table-layout: fixed; }
+thead th.num { white-space: normal; }
