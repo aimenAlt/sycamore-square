@@ -11,7 +11,9 @@
   /* Sticky header height drives scroll-margin-top on sections. */
   var header = document.querySelector('.site-header');
   function setHeaderHeight() {
-    if (header) root.style.setProperty('--header-h', (header.offsetHeight + 8) + 'px');
+    if (!header) return;
+    root.style.setProperty('--header-h', (header.offsetHeight + 8) + 'px');
+    root.style.setProperty('--header-bar', header.offsetHeight + 'px');
   }
   setHeaderHeight();
   window.addEventListener('resize', setHeaderHeight);
@@ -46,17 +48,6 @@
     window.matchMedia('(min-width: 1200px)').addEventListener('change', function () { setMenu(false); });
   }
 
-  /* Edge fade on the sideways-scrolling nav: fade only the edges with more content behind them. */
-  function updateFade(el) {
-    var max = el.scrollWidth - el.clientWidth;
-    el.classList.toggle('scrolled', el.scrollLeft > 2);
-    el.classList.toggle('at-end', el.scrollLeft >= max - 2);
-  }
-  Array.prototype.forEach.call(document.querySelectorAll('.site-nav'), function (el) {
-    el.addEventListener('scroll', function () { updateFade(el); }, { passive: true });
-    window.addEventListener('resize', function () { updateFade(el); });
-    updateFade(el);
-  });
 
   /* WAI-ARIA tabs with roving tabindex. Without JS every panel shows stacked. */
   function initTabs(group) {
@@ -172,9 +163,13 @@
       current = found;
       if (!current) return;
       current.setAttribute('aria-current', 'true');
-      var left = current.offsetLeft - nav.offsetLeft;
-      if (left < nav.scrollLeft + 28 || left + current.offsetWidth > nav.scrollLeft + nav.clientWidth - 28) {
-        nav.scrollTo({ left: left - 28, behavior: scrollBehavior() });
+      // On wide screens the chip row scrolls sideways if it overflows; keep the current chip in view.
+      var row = nav.querySelector('.nav-list');
+      if (row && row.scrollWidth > row.clientWidth) {
+        var cr = current.getBoundingClientRect(), rr = row.getBoundingClientRect();
+        if (cr.left < rr.left + 28 || cr.right > rr.right - 28) {
+          row.scrollTo({ left: row.scrollLeft + cr.left - rr.left - 28, behavior: scrollBehavior() });
+        }
       }
     };
     window.addEventListener('scroll', function () {

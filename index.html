@@ -34,7 +34,16 @@
       <a class="wordmark" href="#top">SYCAMORE SQUARE</a>
       <button type="button" class="menu-toggle" aria-expanded="false" aria-controls="site-menu"><span class="menu-icon" aria-hidden="true"></span>Menu</button>
       <div class="site-menu" id="site-menu">
+        <nav class="page-nav" aria-label="Pages">
+          <p class="menu-label" aria-hidden="true">Pages</p>
+          <ul class="page-list">
+            <li><a href="index.html" aria-current="page">Overview</a></li>
+            <li><a href="legal.html">Legal findings</a></li>
+            <li><a href="feasibility.html">Feasibility</a></li>
+          </ul>
+        </nav>
         <nav class="site-nav" aria-label="On this page">
+          <p class="menu-label" aria-hidden="true">On this page</p>
           <ul class="nav-list">
             <li><a href="#site">Site</a></li>
             <li><a href="#plan">The plan</a></li>
@@ -46,7 +55,6 @@
             <li><a href="#documents">Documents</a></li>
           </ul>
         </nav>
-        <a class="page-link page-link-next" href="legal.html">Legal findings</a>
       </div>
     </div>
   </header>
@@ -58,7 +66,7 @@
       <div class="wrap">
         <p class="eyebrow">REDEVELOPMENT STUDY · ISSUE R4 · OCTOBER 2026</p>
         <h1 id="hero-title">Sycamore Square</h1>
-        <p class="lead hero-lead">A 127,634 SF single-story building on 11.88 acres at Sycamore View Road and Summer Avenue in northeast Memphis, planned as a wedding and event destination with family entertainment, retail and a fuel pad.</p>
+        <p class="lead hero-lead">A 127,634 SF single-story building on about 11.9 acres at Sycamore View Road and Summer Avenue in northeast Memphis, planned as a wedding and event destination with family entertainment, retail and a fuel pad.</p>
         <p class="hero-address">1699–1735 Sycamore View Rd · 5800 &amp; 5810 Summer Ave · Memphis, TN 38134</p>
 
         <ul class="stats">
@@ -93,6 +101,13 @@
             <p class="stat-src">City flood layer · confirm</p>
           </li>
         </ul>
+
+        <a class="feas-teaser" href="feasibility.html">
+          <p class="eyebrow">FEASIBILITY · WHAT THE NUMBERS SAY</p>
+          <p class="feas-teaser-num">4.9%<small>Realistic yield on cost</small></p>
+          <p class="feas-teaser-num feas-teaser-best">12.4%<small>Best case</small></p>
+          <span class="feas-teaser-cta">See costs, income and returns →</span>
+        </a>
 
         <p class="hero-note">Conceptual planning study from public records and desk research. Not for construction, permits or conveyance, and not an offer of securities.</p>
       </div>
@@ -182,7 +197,7 @@
             <div class="plan-frame">
               <picture>
                 <source media="(max-width: 720px)" srcset="assets/img/building-plan-800.jpg">
-                <img src="assets/img/building-plan.jpg" srcset="assets/img/building-plan-800.jpg 800w, assets/img/building-plan.jpg 1600w" sizes="(min-width: 1248px) 680px, (min-width: 721px) 56vw, 100vw" width="1600" height="1587" loading="lazy" decoding="async" alt="Building division plan: retail along the north and east, flex reserve, play zone, Hall A and Hall B with family suites, twin kitchens, dining and gallery between the halls; dots mark existing columns">
+                <img src="assets/img/building-plan.jpg" srcset="assets/img/building-plan-800.jpg 800w, assets/img/building-plan.jpg 1600w" sizes="(min-width: 1248px) 680px, (min-width: 721px) 56vw, 100vw" width="1601" height="1590" loading="lazy" decoding="async" alt="Building division plan: retail along the north and east, flex reserve, play zone, Hall A and Hall B with family suites, twin kitchens, dining and gallery between the halls; dots mark existing columns">
               </picture>
             </div>
             <figcaption>Sheet A-1, building division plan. Dots mark existing Area A columns scaled from the 1997 plans. <a class="full-link" href="assets/img/building-plan.jpg" target="_blank" rel="noopener">Open full size<span class="visually-hidden"> (building plan, opens in a new tab)</span></a></figcaption>
@@ -297,7 +312,7 @@
         <header class="section-head">
           <p class="eyebrow">04 · THE EVENT COMPLEX</p>
           <h2 id="events-title">Two halls that work apart or together</h2>
-          <p class="lead">Built for weddings where men and women celebrate separately, while staying fully marketable for any event.</p>
+          <p class="lead">Hall A and Hall B can host one large wedding across two rooms, two separate events at once, or one coordinated event.</p>
         </header>
 
         <ul class="tiles">
@@ -309,19 +324,19 @@
 
         <div class="tabs" data-tabs>
           <div class="tablist" data-label="Event configurations">
-            <button type="button" class="tab" id="ev-tab-1" aria-controls="ev-separated">One wedding, separated</button>
+            <button type="button" class="tab" id="ev-tab-1" aria-controls="ev-both">One wedding, both halls</button>
             <button type="button" class="tab" id="ev-tab-2" aria-controls="ev-independent">Two independent events</button>
             <button type="button" class="tab" id="ev-tab-3" aria-controls="ev-coordinated">One coordinated event</button>
           </div>
 
-          <div class="panel" id="ev-separated">
-            <p class="panel-tag">One wedding, separated</p>
-            <h3>Two groups, one in each hall</h3>
-            <p>One family books both halls. Each side has its own screened entrance, foyer, toilets and family suites, so neither group passes through the other.</p>
+          <div class="panel" id="ev-both">
+            <p class="panel-tag">One wedding, both halls</p>
+            <h3>One family books Hall A and Hall B</h3>
+            <p>Guests are split between the two rooms. Each hall has its own screened entrance, foyer, toilets and family suites, so neither room passes through the other.</p>
             <ul class="bullets">
-              <li>Families reach the private child and family zone directly from Hall A, without crossing Hall B or the public play lobby.</li>
+              <li>Hall A guests reach the private child and family zone directly, without crossing Hall B or the public play lobby.</li>
               <li>One caterer can run both kitchens through the controlled connecting door.</li>
-              <li>Each hall can be assigned its own service team.</li>
+              <li>Each hall can have its own service team and schedule.</li>
             </ul>
           </div>
 
@@ -563,11 +578,35 @@
             </a>
           </li>
           <li>
+            <a class="doc-card" href="docs/Sycamore_Square_Feasibility_Landlord_View.pdf" download>
+              <span class="doc-tag">PDF · FEASIBILITY</span>
+              <span class="doc-title">Landlord study</span>
+              <span class="doc-desc">Costs, rent, income and returns for leasing the building, by scenario</span>
+              <span class="doc-meta">308 KB · Download</span>
+            </a>
+          </li>
+          <li>
+            <a class="doc-card" href="docs/Sycamore_Square_Feasibility_Operator_View.pdf" download>
+              <span class="doc-tag">PDF · FEASIBILITY</span>
+              <span class="doc-title">Operator study</span>
+              <span class="doc-desc">How the halls, kids’ center, fuel and a retail shop do after paying rent</span>
+              <span class="doc-meta">279 KB · Download</span>
+            </a>
+          </li>
+          <li>
+            <a class="doc-card" href="docs/Sycamore_Square_Engineering_and_City_PreApplication_Package.pdf" download>
+              <span class="doc-tag">PDF · ENGINEERING</span>
+              <span class="doc-title">Engineering and City pre-application package</span>
+              <span class="doc-desc">Asks an engineering firm to confirm the concept plans, and the City which approvals each use and parcel needs</span>
+              <span class="doc-meta">196 KB · Download</span>
+            </a>
+          </li>
+          <li>
             <div class="doc-card doc-card-split">
               <span class="doc-tag">WEB PAGE · PDF</span>
               <a class="doc-title doc-title-link" href="legal.html">Legal and regulatory findings</a>
               <span class="doc-desc">Confirmed findings, unverified items, open questions and contract contingencies</span>
-              <span class="doc-meta"><a class="doc-sub" href="legal.html">Read the web page</a> <a class="doc-sub" href="docs/Sycamore_Square_Legal_and_Regulatory_Findings.pdf" download>Download PDF · 119 KB</a></span>
+              <span class="doc-meta"><a class="doc-sub" href="legal.html">Read the web page</a> <a class="doc-sub" href="docs/Sycamore_Square_Legal_and_Regulatory_Findings.pdf" download>Download PDF · 118 KB</a></span>
             </div>
           </li>
           <li>

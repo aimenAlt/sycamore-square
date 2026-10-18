@@ -1,0 +1,1121 @@
+{
+ "as_of": "2026-10-18",
+ "scenarios": [
+  "worst",
+  "realistic",
+  "best"
+ ],
+ "default": "realistic",
+ "notes": {
+  "method": "Landlord leases space NNN; operators pay that rent in their own models. Market inputs from sources opened 18 Oct 2026; costs are planning estimates, not bids."
+ },
+ "landlord": {
+  "worst": {
+   "kpis": {
+    "total_cost": 27116378.0,
+    "cost_psf": 212.0,
+    "noi": 409612.0,
+    "yield_on_cost": 0.0151,
+    "exit_cap": 0.09,
+    "value": 4551249.0,
+    "value_minus_cost": -22565129.0,
+    "equity": 12202370.0,
+    "loan": 14914008.0,
+    "dscr": 0.31,
+    "cash_on_cash": -0.0761,
+    "irr_unlevered": -0.1265,
+    "irr_levered": null
+   },
+   "budget": [
+    [
+     "Closing and due diligence",
+     270000.0
+    ],
+    [
+     "Roof",
+     1591200
+    ],
+    [
+     "HVAC (rooftop units)",
+     1250000
+    ],
+    [
+     "Sprinkler changes",
+     510536
+    ],
+    [
+     "Fire alarm",
+     382902
+    ],
+    [
+     "Interior demolition",
+     638170
+    ],
+    [
+     "22 storefront openings",
+     990000.0
+    ],
+    [
+     "Hall and play-center entrances",
+     1000000.0
+    ],
+    [
+     "Retail and flex demising walls",
+     928560
+    ],
+    [
+     "Restroom cores",
+     1200000.0
+    ],
+    [
+     "Electrical service and meters",
+     900000.0
+    ],
+    [
+     "Plumbing, sewer, grease",
+     400000.0
+    ],
+    [
+     "Parking lot",
+     1525000.0
+    ],
+    [
+     "Lighting, landscaping, signs",
+     600000.0
+    ],
+    [
+     "Exterior refresh",
+     600000.0
+    ],
+    [
+     "Flood mitigation",
+     3000000.0
+    ],
+    [
+     "Design, permits, legal",
+     1861964.0
+    ],
+    [
+     "Contingency",
+     2327455.0
+    ],
+    [
+     "Tenant improvement allowances",
+     2058086.0
+    ],
+    [
+     "Leasing commissions",
+     275120.0
+    ],
+    [
+     "Construction interest and carry",
+     1202384.0
+    ]
+   ],
+   "budget_subtotal_hard": 15516368.0,
+   "rent_roll": [
+    [
+     "Retail shops",
+     242550.0,
+     "$11.00 NNN, 70% leased"
+    ],
+    [
+     "Flex",
+     76677.0,
+     "$6.00, 50% leased"
+    ],
+    [
+     "Event halls (one operator)",
+     190920.0,
+     "$4.00/SF"
+    ],
+    [
+     "Kids recreation (one operator)",
+     108000.0,
+     "$6.00/SF"
+    ],
+    [
+     "Fuel pad ground lease",
+     0,
+     "No operator"
+    ],
+    [
+     "QSR pad ground lease",
+     0,
+     "None"
+    ]
+   ],
+   "income": [
+    [
+     "Base rent less credit loss",
+     599603.0
+    ],
+    [
+     "Tenant reimbursements (NNN)",
+     401272.0
+    ],
+    [
+     "Effective gross income",
+     1000875.0
+    ],
+    [
+     "Property tax",
+     -188515.0
+    ],
+    [
+     "Insurance incl. flood",
+     -97435.0
+    ],
+    [
+     "Common area (CAM)",
+     -223360.0
+    ],
+    [
+     "Management",
+     -50044.0
+    ],
+    [
+     "Reserves",
+     -31908.0
+    ],
+    [
+     "Net operating income",
+     409612.0
+    ],
+    [
+     "Annual debt service",
+     -1337946.0
+    ],
+    [
+     "Cash flow after debt",
+     -928333.0
+    ]
+   ],
+   "owner_run": {
+    "cash_flow": -288050.0,
+    "capital": 34483328.0,
+    "yield": -0.0084
+   }
+  },
+  "realistic": {
+   "kpis": {
+    "total_cost": 17732485.0,
+    "cost_psf": 139.0,
+    "noi": 871219.0,
+    "yield_on_cost": 0.0491,
+    "exit_cap": 0.0825,
+    "value": 10560230.0,
+    "value_minus_cost": -7172255.0,
+    "equity": 7092994.0,
+    "loan": 10639491.0,
+    "dscr": 0.95,
+    "cash_on_cash": -0.0059,
+    "irr_unlevered": 0.0115,
+    "irr_levered": -0.0828
+   },
+   "budget": [
+    [
+     "Closing and due diligence",
+     175000.0
+    ],
+    [
+     "Roof",
+     928200
+    ],
+    [
+     "HVAC (rooftop units)",
+     924000
+    ],
+    [
+     "Sprinkler changes",
+     382902
+    ],
+    [
+     "Fire alarm",
+     255268
+    ],
+    [
+     "Interior demolition",
+     446719.0
+    ],
+    [
+     "22 storefront openings",
+     704000.0
+    ],
+    [
+     "Hall and play-center entrances",
+     600000.0
+    ],
+    [
+     "Retail and flex demising walls",
+     680944
+    ],
+    [
+     "Restroom cores",
+     800000.0
+    ],
+    [
+     "Electrical service and meters",
+     600000.0
+    ],
+    [
+     "Plumbing, sewer, grease",
+     250000.0
+    ],
+    [
+     "Parking lot",
+     573400.0
+    ],
+    [
+     "Lighting, landscaping, signs",
+     400000.0
+    ],
+    [
+     "Exterior refresh",
+     400000.0
+    ],
+    [
+     "Flood mitigation",
+     1500000.0
+    ],
+    [
+     "Design, permits, legal",
+     944543.0
+    ],
+    [
+     "Contingency",
+     1133452.0
+    ],
+    [
+     "Tenant improvement allowances",
+     1623686.0
+    ],
+    [
+     "Leasing commissions",
+     469673.0
+    ],
+    [
+     "Construction interest and carry",
+     850698.0
+    ]
+   ],
+   "budget_subtotal_hard": 9445433.0,
+   "rent_roll": [
+    [
+     "Retail shops",
+     361462.0,
+     "$13.50 NNN, 85% leased"
+    ],
+    [
+     "Flex",
+     153354.0,
+     "$7.50, 80% leased"
+    ],
+    [
+     "Event halls (one operator)",
+     286380.0,
+     "$6.00/SF"
+    ],
+    [
+     "Kids recreation (one operator)",
+     144000.0,
+     "$8.00/SF"
+    ],
+    [
+     "Fuel pad ground lease",
+     95000.0,
+     "Regional operator"
+    ],
+    [
+     "QSR pad ground lease",
+     0,
+     "None"
+    ]
+   ],
+   "income": [
+    [
+     "Base rent less credit loss",
+     1019393.0
+    ],
+    [
+     "Tenant reimbursements (NNN)",
+     362788.0
+    ],
+    [
+     "Effective gross income",
+     1382181.0
+    ],
+    [
+     "Property tax",
+     -161585.0
+    ],
+    [
+     "Insurance incl. flood",
+     -69672.0
+    ],
+    [
+     "Common area (CAM)",
+     -178688.0
+    ],
+    [
+     "Management",
+     -69109.0
+    ],
+    [
+     "Reserves",
+     -31908.0
+    ],
+    [
+     "Net operating income",
+     871219.0
+    ],
+    [
+     "Annual debt service",
+     -912980.0
+    ],
+    [
+     "Cash flow after debt",
+     -41761.0
+    ]
+   ],
+   "owner_run": {
+    "cash_flow": 1530752.0,
+    "capital": 23379785.0,
+    "yield": 0.0655
+   }
+  },
+  "best": {
+   "kpis": {
+    "total_cost": 10655698.0,
+    "cost_psf": 83.0,
+    "noi": 1316386.0,
+    "yield_on_cost": 0.1235,
+    "exit_cap": 0.075,
+    "value": 17551815.0,
+    "value_minus_cost": 6896117.0,
+    "equity": 3729494.0,
+    "loan": 6926204.0,
+    "dscr": 2.32,
+    "cash_on_cash": 0.2007,
+    "irr_unlevered": 0.1471,
+    "irr_levered": 0.2196
+   },
+   "budget": [
+    [
+     "Closing and due diligence",
+     121250.0
+    ],
+    [
+     "Roof",
+     265200
+    ],
+    [
+     "HVAC (rooftop units)",
+     600000
+    ],
+    [
+     "Sprinkler changes",
+     255268
+    ],
+    [
+     "Fire alarm",
+     191451.0
+    ],
+    [
+     "Interior demolition",
+     319085.0
+    ],
+    [
+     "22 storefront openings",
+     484000.0
+    ],
+    [
+     "Hall and play-center entrances",
+     350000.0
+    ],
+    [
+     "Retail and flex demising walls",
+     495232
+    ],
+    [
+     "Restroom cores",
+     500000.0
+    ],
+    [
+     "Electrical service and meters",
+     350000.0
+    ],
+    [
+     "Plumbing, sewer, grease",
+     150000.0
+    ],
+    [
+     "Parking lot",
+     374500.0
+    ],
+    [
+     "Lighting, landscaping, signs",
+     250000.0
+    ],
+    [
+     "Exterior refresh",
+     250000.0
+    ],
+    [
+     "Flood mitigation",
+     0.0
+    ],
+    [
+     "Design, permits, legal",
+     386779.0
+    ],
+    [
+     "Contingency",
+     483474.0
+    ],
+    [
+     "Tenant improvement allowances",
+     1161009.0
+    ],
+    [
+     "Leasing commissions",
+     563597.0
+    ],
+    [
+     "Construction interest and carry",
+     529853.0
+    ]
+   ],
+   "budget_subtotal_hard": 4834736.0,
+   "rent_roll": [
+    [
+     "Retail shops",
+     463680.0,
+     "$16.00 NNN, 92% leased"
+    ],
+    [
+     "Flex",
+     207028.0,
+     "$9.00, 90% leased"
+    ],
+    [
+     "Event halls (one operator)",
+     381840.0,
+     "$8.00/SF"
+    ],
+    [
+     "Kids recreation (one operator)",
+     180000.0,
+     "$10.00/SF"
+    ],
+    [
+     "Fuel pad ground lease",
+     160000.0,
+     "Credit operator"
+    ],
+    [
+     "QSR pad ground lease",
+     70000.0,
+     "Quick-service restaurant"
+    ]
+   ],
+   "income": [
+    [
+     "Base rent less credit loss",
+     1447922.0
+    ],
+    [
+     "Tenant reimbursements (NNN)",
+     316003.0
+    ],
+    [
+     "Effective gross income",
+     1763925.0
+    ],
+    [
+     "Property tax",
+     -148119.0
+    ],
+    [
+     "Insurance incl. flood",
+     -47738.0
+    ],
+    [
+     "Common area (CAM)",
+     -146779.0
+    ],
+    [
+     "Management",
+     -79377.0
+    ],
+    [
+     "Reserves",
+     -25527.0
+    ],
+    [
+     "Net operating income",
+     1316386.0
+    ],
+    [
+     "Annual debt service",
+     -567820.0
+    ],
+    [
+     "Cash flow after debt",
+     748566.0
+    ]
+   ],
+   "owner_run": {
+    "cash_flow": 3822691.0,
+    "capital": 14812298.0,
+    "yield": 0.2581
+   }
+  }
+ },
+ "operator": {
+  "worst": {
+   "halls": {
+    "events": 120,
+    "lines": [
+     [
+      "Hall rental income",
+      330000
+     ],
+     [
+      "Catering income",
+      262500.0
+     ],
+     [
+      "Kitchen fees from outside caterers",
+      39000.0
+     ],
+     [
+      "Revenue",
+      631500.0
+     ],
+     [
+      "Food cost",
+      -89250.0
+     ],
+     [
+      "Catering labor",
+      -84000.0
+     ],
+     [
+      "Event staff",
+      -144000
+     ],
+     [
+      "Salaried staff",
+      -360000.0
+     ],
+     [
+      "Utilities",
+      -143190.0
+     ],
+     [
+      "Marketing, repairs, admin, insurance",
+      -124465.0
+     ],
+     [
+      "Profit before rent",
+      -313405.0
+     ],
+     [
+      "Rent plus NNN to landlord",
+      -381382.0
+     ],
+     [
+      "Profit after rent",
+      -694787.0
+     ]
+    ],
+    "investment": 4386950.0,
+    "breakeven_events": 461.0,
+    "cash_return": -0.1584,
+    "payback_years": null
+   },
+   "kids": {
+    "lines": [
+     [
+      "Revenue",
+      1007200.0
+     ],
+     [
+      "Operating costs",
+      -839216.0
+     ],
+     [
+      "Profit before rent",
+      167984.0
+     ],
+     [
+      "Rent plus NNN",
+      -179827.0
+     ],
+     [
+      "Profit after rent",
+      -11843.0
+     ]
+    ],
+    "investment": 2980000.0,
+    "breakeven_revenue": 1041528.0,
+    "cash_return": -0.004,
+    "payback_years": null
+   },
+   "fuel": {
+    "gallons_month": 60000.0,
+    "lines": [
+     [
+      "Fuel gross profit",
+      172800.0
+     ],
+     [
+      "Store sales",
+      1080000.0
+     ],
+     [
+      "Store gross profit",
+      324000.0
+     ],
+     [
+      "Store operating costs",
+      -624000.0
+     ],
+     [
+      "Ground rent",
+      -95000.0
+     ],
+     [
+      "Profit after rent",
+      -222200.0
+     ]
+    ],
+    "investment": 5000000.0,
+    "cash_return": -0.0444,
+    "payback_years": null
+   },
+   "retail_tenant": {
+    "rent_psf": 11.0,
+    "nnn_psf": 3.99,
+    "sales_psf_needed": 150.0,
+    "sales_1500sf_shop": 225000.0
+   }
+  },
+  "realistic": {
+   "halls": {
+    "events": 220,
+    "lines": [
+     [
+      "Hall rental income",
+      1045000
+     ],
+     [
+      "Catering income",
+      1355200.0
+     ],
+     [
+      "Kitchen fees from outside caterers",
+      74250.0
+     ],
+     [
+      "Revenue",
+      2474450.0
+     ],
+     [
+      "Food cost",
+      -420112.0
+     ],
+     [
+      "Catering labor",
+      -379456.0
+     ],
+     [
+      "Event staff",
+      -220000
+     ],
+     [
+      "Salaried staff",
+      -300000.0
+     ],
+     [
+      "Utilities",
+      -131258.0
+     ],
+     [
+      "Marketing, repairs, admin, insurance",
+      -267700.0
+     ],
+     [
+      "Profit before rent",
+      755924.0
+     ],
+     [
+      "Rent plus NNN to landlord",
+      -439683.0
+     ],
+     [
+      "Profit after rent",
+      316241.0
+     ]
+    ],
+    "investment": 3407300.0,
+    "breakeven_events": 164.0,
+    "cash_return": 0.0928,
+    "payback_years": 10.8
+   },
+   "kids": {
+    "lines": [
+     [
+      "Revenue",
+      1576400.0
+     ],
+     [
+      "Operating costs",
+      -1039902.0
+     ],
+     [
+      "Profit before rent",
+      536498.0
+     ],
+     [
+      "Rent plus NNN",
+      -201814.0
+     ],
+     [
+      "Profit after rent",
+      334684.0
+     ]
+    ],
+    "investment": 2240000.0,
+    "breakeven_revenue": 824300.0,
+    "cash_return": 0.1494,
+    "payback_years": 6.7
+   },
+   "fuel": {
+    "gallons_month": 100000.0,
+    "lines": [
+     [
+      "Fuel gross profit",
+      372000.0
+     ],
+     [
+      "Store sales",
+      1740000.0
+     ],
+     [
+      "Store gross profit",
+      609000.0
+     ],
+     [
+      "Store operating costs",
+      -768000.0
+     ],
+     [
+      "Ground rent",
+      -95000.0
+     ],
+     [
+      "Profit after rent",
+      118000.0
+     ]
+    ],
+    "investment": 3800000.0,
+    "cash_return": 0.0311,
+    "payback_years": 32.2
+   },
+   "retail_tenant": {
+    "rent_psf": 13.5,
+    "nnn_psf": 3.21,
+    "sales_psf_needed": 167.0,
+    "sales_1500sf_shop": 251000.0
+   }
+  },
+  "best": {
+   "halls": {
+    "events": 300,
+    "lines": [
+     [
+      "Hall rental income",
+      1800000
+     ],
+     [
+      "Catering income",
+      2964000.0
+     ],
+     [
+      "Kitchen fees from outside caterers",
+      105000.0
+     ],
+     [
+      "Revenue",
+      4869000.0
+     ],
+     [
+      "Food cost",
+      -829920.0
+     ],
+     [
+      "Catering labor",
+      -741000.0
+     ],
+     [
+      "Event staff",
+      -270000
+     ],
+     [
+      "Salaried staff",
+      -280000.0
+     ],
+     [
+      "Utilities",
+      -119325.0
+     ],
+     [
+      "Marketing, repairs, admin, insurance",
+      -403175.0
+     ],
+     [
+      "Profit before rent",
+      2225580.0
+     ],
+     [
+      "Rent plus NNN to landlord",
+      -509972.0
+     ],
+     [
+      "Profit after rent",
+      1715608.0
+     ]
+    ],
+    "investment": 2476600.0,
+    "breakeven_events": 107.0,
+    "cash_return": 0.6927,
+    "payback_years": 1.4
+   },
+   "kids": {
+    "lines": [
+     [
+      "Revenue",
+      2260000.0
+     ],
+     [
+      "Operating costs",
+      -1246600.0
+     ],
+     [
+      "Profit before rent",
+      1013400.0
+     ],
+     [
+      "Rent plus NNN",
+      -228321.0
+     ],
+     [
+      "Profit after rent",
+      785079.0
+     ]
+    ],
+    "investment": 1680000.0,
+    "breakeven_revenue": 735575.0,
+    "cash_return": 0.4673,
+    "payback_years": 2.1
+   },
+   "fuel": {
+    "gallons_month": 140000.0,
+    "lines": [
+     [
+      "Fuel gross profit",
+      621600.0
+     ],
+     [
+      "Store sales",
+      2640000.0
+     ],
+     [
+      "Store gross profit",
+      1003200.0
+     ],
+     [
+      "Store operating costs",
+      -900000.0
+     ],
+     [
+      "Ground rent",
+      -160000.0
+     ],
+     [
+      "Profit after rent",
+      564800.0
+     ]
+    ],
+    "investment": 2800000.0,
+    "cash_return": 0.2017,
+    "payback_years": 5.0
+   },
+   "retail_tenant": {
+    "rent_psf": 16.0,
+    "nnn_psf": 2.68,
+    "sales_psf_needed": 187.0,
+    "sales_1500sf_shop": 280000.0
+   }
+  }
+ },
+ "levers": [
+  [
+   "Realistic case",
+   4.91
+  ],
+  [
+   "No flood work",
+   5.51
+  ],
+  [
+   "Lower price",
+   5.7
+  ],
+  [
+   "Operators fund own fit-out",
+   6.12
+  ],
+  [
+   "Roof repair, half HVAC",
+   6.65
+  ],
+  [
+   "Flex as-is",
+   6.76
+  ],
+  [
+   "Retail $15, 90% leased",
+   7.24
+  ]
+ ],
+ "sources": [
+  [
+   "Avison Young teaser (Ten-X auction, 0% occupancy)",
+   "https://cdn.sharplaunch.com/v2/client-333/02d85f20604ac8c/Sycamore_Square_OM___Teaser_updated.pdf"
+  ],
+  [
+   "Marcus & Millichap via REBusiness: Memphis retail 2026",
+   "https://rebusinessonline.com/redevelopment-reinvestment-shape-memphis-retail-sectors-next-chapter/"
+  ],
+  [
+   "Marcus & Millichap Memphis 3Q26 retail",
+   "https://www.marcusmillichap.com/research/market-report/memphis/memphis-3q26-retail-market-report"
+  ],
+  [
+   "Cushman & Wakefield Memphis industrial Q3 2026",
+   "https://content.cushmanwakefield.com/api/public/content/98d386c66df1448d8e10b6aa827d09b1?v=e6a3bbf6"
+  ],
+  [
+   "Terrapin: retail TI costs 2026",
+   "https://terrapincg.com/news/tenant-improvement-buildout-costs-commercial-retail-2026"
+  ],
+  [
+   "U.S. Treasury daily yields, Oct 2026",
+   "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value_month=202610"
+  ],
+  [
+   "Daily Memphian: 2025 city tax notice",
+   "https://dailymemphian.com/article/52825/2025-tax-notice"
+  ],
+  [
+   "FEMA NFIP non-residential guide",
+   "https://agents.floodsmart.gov/sites/default/files/media/document/2025-07/nfip-risk-rating-2.0-simple-guide-non-residential-buildings.pdf"
+  ],
+  [
+   "RSMeans Q2 2025 change notice (Memphis factor)",
+   "https://www.rsmeans.com/media/wysiwyg/quarterly_updates/Q2-2025-Change-Notice.pdf"
+  ],
+  [
+   "Esplanade Memphis (venue pricing)",
+   "https://www.herecomestheguide.com/wedding-venues/tennessee/esplanade-memphis"
+  ],
+  [
+   "The Columns at One Commerce Square",
+   "https://www.zola.com/wedding-vendors/wedding-venues/the-columns-at-one-commerce-square"
+  ],
+  [
+   "The Knot: average wedding cost",
+   "https://www.theknot.com/content/average-wedding-cost"
+  ],
+  [
+   "Urban Air Cordova",
+   "https://www.urbanair.com/tennessee-cordova/"
+  ],
+  [
+   "Franchise Times: trampoline parks, Mar 2026",
+   "https://www.franchisetimes.com/issue-archive/2026/march/jump-around-top-trampoline-park-franchise/article_9162f84f-0f4e-4237-ab55-9217b8b29659.html"
+  ],
+  [
+   "NACS State of the Industry 2025",
+   "https://www.convenience.org/events/SOI/Presentations/Financial-and-Operational-Lessons_SOI2025.pdf"
+  ],
+  [
+   "iExit: I-40 Exit 12 fuel stations",
+   "https://www.iexitapp.com/Tennessee/I-40/Exit%2012/13207"
+  ],
+  [
+   "National Restaurant Association: occupancy costs 2024",
+   "https://restaurant.org/research-and-media/research/restaurant-economic-insights/analysis-commentary/restaurant-occupancy-costs-were-more-than-5-of-sales-in-2024/"
+  ]
+ ],
+ "lever_refs": {
+  "exit_cap": 8.25,
+  "target": 10.0,
+  "as_is_benchmark": 6.0
+ },
+ "operator_rent_capacity": {
+  "halls_base_rent_psf_at_15pct": 1.9,
+  "kids_base_rent_psf_at_15pct": 7.9
+ },
+ "verdicts": {
+  "halls": "Works only with strong bookings or owner operation",
+  "kids": "Best risk-adjusted business",
+  "fuel": "Ground-lease to a fuel operator instead of running it",
+  "retail_tenant": "Workable for service retail"
+ },
+ "risks": [
+  [
+   "Building below base flood elevation; 50% rule applies",
+   "Floodproofing adds $1.5M-$3.0M",
+   "Elevation certificate first; floodplain administrator's written method"
+  ],
+  [
+   "Ten-X auction: fast close, no due-diligence contingency",
+   "Buyer carries every unknown",
+   "Read the auction purchase agreement; finish elevation certificate, Phase I and zoning letter before bidding"
+  ],
+  [
+   "Event and recreation uses need a special use permit",
+   "Months of delay and conditions",
+   "Zoning verification letter; pre-application meeting"
+  ],
+  [
+   "Outside hall operator cannot pay $6/SF",
+   "Yield on cost falls to about 3.8%",
+   "Operator letter of intent, or the owner runs the halls"
+  ],
+  [
+   "Retail leases slowly",
+   "Year-2 income near 50%",
+   "Pre-lease target before full build-out"
+  ],
+  [
+   "Former quick-lube contamination",
+   "Clean-up cost, fuel-pad delay",
+   "Phase I, then Phase II if flagged"
+  ],
+  [
+   "Roof, HVAC or structure worse than assumed",
+   "Hard cost toward $15.5M",
+   "Roof and MEP condition survey"
+  ],
+  [
+   "10-year Treasury stays above 5%",
+   "Debt coverage below 1.0",
+   "Size the loan to NOI; plan more equity"
+  ]
+ ]
+}

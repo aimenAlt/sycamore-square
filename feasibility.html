@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sycamore Square — Feasibility</title>
+  <meta name="description" content="Landlord and operator feasibility for the Sycamore Square redevelopment study: what it costs, what it earns, and what it would take to reach a target return.">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#1E3442">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Sycamore Square — Feasibility">
+  <meta property="og:description" content="What the numbers say: landlord and operator views, by scenario.">
+  <meta property="og:image" content="https://aimenalt.github.io/sycamore-square/assets/img/site-plan.jpg">
+  <meta property="og:url" content="https://aimenalt.github.io/sycamore-square/feasibility.html">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans+Condensed:wght@500;600;700&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans+Condensed:wght@500;600;700&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans+Condensed:wght@500;600;700&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap"></noscript>
+  <link rel="preload" href="assets/feasibility.json" as="fetch" type="application/json" crossorigin>
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <script>document.documentElement.className = 'js';</script>
+  <script src="assets/js/main.js" defer></script>
+  <script src="assets/js/feasibility.js" defer></script>
+</head>
+<body class="feas-page">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="wordmark" href="index.html">SYCAMORE SQUARE</a>
+      <button type="button" class="menu-toggle" aria-expanded="false" aria-controls="site-menu"><span class="menu-icon" aria-hidden="true"></span>Menu</button>
+      <div class="site-menu" id="site-menu">
+        <nav class="page-nav" aria-label="Pages">
+          <p class="menu-label" aria-hidden="true">Pages</p>
+          <ul class="page-list">
+            <li><a href="index.html">Overview</a></li>
+            <li><a href="legal.html">Legal findings</a></li>
+            <li><a href="feasibility.html" aria-current="page">Feasibility</a></li>
+          </ul>
+        </nav>
+        <nav class="site-nav" aria-label="On this page">
+          <p class="menu-label" aria-hidden="true">On this page</p>
+          <ul class="nav-list">
+            <li><a href="#landlord">Landlord view</a></li>
+            <li><a href="#levers">What it takes</a></li>
+            <li><a href="#operators">Operator view</a></li>
+            <li><a href="#risks">Risks</a></li>
+            <li><a href="#downloads">Downloads</a></li>
+            <li><a href="#sources">Sources</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+
+    <!-- HERO -->
+    <section id="top" class="band band-navy hero feas-hero" aria-labelledby="feas-title">
+      <div class="wrap">
+        <p class="eyebrow">FEASIBILITY</p>
+        <h1 id="feas-title">What the numbers say</h1>
+        <p class="lead hero-lead" id="feas-lead" data-loading>Loading the numbers…</p>
+        <ul class="feas-notes" id="feas-notes"></ul>
+        <noscript><p class="hero-note">This page needs JavaScript to show the numbers. The landlord and operator studies are available as PDFs under Downloads.</p></noscript>
+      </div>
+    </section>
+
+    <!-- SCENARIO SWITCH -->
+    <div class="scenario-bar" id="scenario-bar">
+      <div class="wrap scenario-inner">
+        <p class="scenario-label" id="scenario-label">Show the</p>
+        <div class="segmented" role="group" aria-labelledby="scenario-label">
+          <button type="button" class="seg-btn" data-scenario="worst" aria-pressed="false">Worst<span class="seg-sub"> case</span></button>
+          <button type="button" class="seg-btn" data-scenario="realistic" aria-pressed="true">Realistic<span class="seg-sub"> case</span></button>
+          <button type="button" class="seg-btn" data-scenario="best" aria-pressed="false">Best<span class="seg-sub"> case</span></button>
+        </div>
+        <p class="scenario-status" id="scenario-status" aria-live="polite"></p>
+      </div>
+    </div>
+
+    <!-- LANDLORD VIEW -->
+    <section id="landlord" class="band band-ground" aria-labelledby="landlord-title">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="eyebrow">01 · LANDLORD VIEW</p>
+          <h2 id="landlord-title">If the owner fixes the building and leases it out</h2>
+          <p class="lead">The landlord collects rent from shops and from the operators of the halls, kids' center and fuel pad. These are the headline results for the <strong class="scenario-name">realistic</strong> case.</p>
+        </header>
+
+        <ul class="kpis" id="kpis"></ul>
+
+        <div class="detail-tables">
+          <details class="detail" data-open-desktop>
+            <summary><span class="detail-title">Development budget</span><span class="detail-hint">What the work costs, line by line</span></summary>
+            <div class="detail-body"><table class="money-table" id="budget-table"></table></div>
+          </details>
+          <details class="detail" data-open-desktop>
+            <summary><span class="detail-title">Rent roll</span><span class="detail-hint">Who pays rent, and how much a year</span></summary>
+            <div class="detail-body"><table class="money-table stack-table" id="rent-table"></table></div>
+          </details>
+          <details class="detail" data-open-desktop>
+            <summary><span class="detail-title">Income and debt</span><span class="detail-hint">From rent to cash left after the loan</span></summary>
+            <div class="detail-body"><table class="money-table" id="income-table"></table></div>
+          </details>
+        </div>
+
+        <p class="note owner-note" id="owner-note"></p>
+      </div>
+    </section>
+
+    <!-- WHAT IT TAKES -->
+    <section id="levers" class="band band-white" aria-labelledby="levers-title">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="eyebrow">02 · WHAT IT TAKES</p>
+          <h2 id="levers-title">What would lift the return</h2>
+          <p class="lead">Each green step is one change to the plan, added on top of the ones before it.</p>
+        </header>
+        <figure class="chart-figure">
+          <h3 class="chart-title" id="waterfall-title">Yield on cost, lever by lever</h3>
+          <div class="chart" id="waterfall"></div>
+          <figcaption id="waterfall-caption"></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- OPERATOR VIEW -->
+    <section id="operators" class="band band-ground" aria-labelledby="operators-title">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="eyebrow">03 · OPERATOR VIEW</p>
+          <h2 id="operators-title">How each business does after paying rent</h2>
+          <p class="lead">Each business pays the landlord's rent. "Profit after rent" is what its operator keeps each year, shown for the <strong class="scenario-name">realistic</strong> case.</p>
+        </header>
+
+        <div class="op-cards" id="op-cards"></div>
+        <p class="note" id="rent-capacity"></p>
+
+        <figure class="chart-figure">
+          <h3 class="chart-title" id="range-title">Operator cash return by business</h3>
+          <div class="chart" id="range-chart"></div>
+          <figcaption id="range-caption"></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- RISKS -->
+    <section id="risks" class="band band-white" aria-labelledby="risks-title">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="eyebrow">04 · RISKS</p>
+          <h2 id="risks-title">What could change the answer</h2>
+        </header>
+        <table class="risk-table stack-table" id="risk-table"></table>
+      </div>
+    </section>
+
+    <!-- DOWNLOADS -->
+    <section id="downloads" class="band band-ground" aria-labelledby="downloads-title">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="eyebrow">05 · DOWNLOADS</p>
+          <h2 id="downloads-title">The full studies</h2>
+        </header>
+        <ul class="download-list">
+          <li><a class="button download" href="docs/Sycamore_Square_Feasibility_Landlord_View.pdf" download>Landlord study (PDF)<span class="button-meta">308 KB</span></a></li>
+          <li><a class="button download" href="docs/Sycamore_Square_Feasibility_Operator_View.pdf" download>Operator study (PDF)<span class="button-meta">279 KB</span></a></li>
+          <li><a class="button download" href="docs/Sycamore_Square_Engineering_and_City_PreApplication_Package.pdf" download>Engineering and City pre-application package (PDF)<span class="button-meta">196 KB</span></a></li>
+          <li><a class="button download" href="docs/Sycamore_Square_Legal_and_Regulatory_Findings.pdf" download>Legal findings (PDF)<span class="button-meta">118 KB</span></a></li>
+          <li><a class="button download" href="docs/Sycamore_Square_Master_Plan_R4.pdf" download>Master plan set (PDF)<span class="button-meta">1.5 MB</span></a></li>
+          <li><a class="button download" href="docs/Sycamore_Square_Georeferenced_R4.dxf" download>CAD base (DXF)<span class="button-meta">175 KB</span></a></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- SOURCES -->
+    <section id="sources" class="band band-white" aria-labelledby="sources-title">
+      <div class="wrap">
+        <h2 id="sources-title" class="eyebrow sources-title">SOURCES</h2>
+        <ul class="sources" id="source-list"></ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p class="footer-mark">SYCAMORE SQUARE</p>
+      <p>Planning estimates from public data and market research, 18 Oct 2026. Not an offer, appraisal or financial advice; numbers change with survey, flood, zoning and bids.</p>
+      <p><a class="footer-back" href="index.html">← Back to the overview</a></p>
+    </div>
+  </footer>
+
+  <button type="button" class="to-top" aria-label="Back to top" hidden>
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M12 5 4 13l1.4 1.4L11 8.8V20h2V8.8l5.6 5.6L20 13z" fill="currentColor"/></svg>
+  </button>
+</body>
+</html>
