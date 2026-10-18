@@ -52,6 +52,7 @@
           <p class="menu-label" aria-hidden="true">On this page</p>
           <ul class="nav-list">
             <li><a href="#plans">Five plans</a></li>
+            <li data-nav="whatif" hidden><a href="#whatif">Try your numbers</a></li>
             <li data-nav="levers" hidden><a href="#levers">Ways to improve</a></li>
             <li><a href="#range">Range</a></li>
             <li><a href="#events">Events needed</a></li>
@@ -110,6 +111,40 @@
         </header>
         <p class="plans-summary" id="plans-summary"></p>
         <div class="plan-cards" id="plan-cards"></div>
+      </div>
+    </section>
+
+    <!-- 02 TRY YOUR OWN NUMBERS (shown once the numbers load) -->
+    <section id="whatif" class="band band-white whatif" aria-labelledby="whatif-title" hidden>
+      <div class="wrap">
+        <header class="section-head">
+          <p class="eyebrow">02 · TRY YOUR OWN NUMBERS</p>
+          <h2 id="whatif-title">Try your own numbers</h2>
+          <p class="lead">Pick a plan, then change any cost, income or number of events. The totals and the years to earn back work themselves out as you type. Nothing is saved and the study does not change: reload the page or press “Reset to the study’s numbers” to go back.</p>
+        </header>
+        <fieldset class="wi-plans">
+          <legend class="wi-plans-title">Plan to test</legend>
+          <div class="wi-plan-options" id="wi-plan-options"></div>
+        </fieldset>
+        <p class="wi-case" id="wi-case"></p>
+        <details class="detail detail-compact wi-how">
+          <summary><span class="detail-title">How the totals are worked out</span><span class="detail-hint">The same arithmetic as the study</span></summary>
+          <div class="detail-body">
+            <ul class="wi-how-list">
+              <li><strong>Money to build it</strong> is the one-time items added up.</li>
+              <li><strong>Money coming in each year</strong> is events a year times the money from each event, plus the rents and other income.</li>
+              <li><strong>Money going out each year</strong> is events a year times the cost of each event, plus the year-round hall costs and the other yearly costs.</li>
+              <li><strong>Profit each year</strong> is money coming in minus money going out, before any loan payments.</li>
+              <li><strong>Years to earn back the build money</strong> is the money to build it divided by the profit each year. If you type a price for the property, it is added to the money to build it.</li>
+              <li>Each line stands on its own: changing one does not change the others. In real life some move together, for example cheaper building work also lowers design and permit costs, and higher prices also mean higher card fees.</li>
+            </ul>
+          </div>
+        </details>
+        <div class="wi-layout">
+          <aside class="wi-results" id="wi-results" aria-label="Totals"></aside>
+          <div class="wi-inputs" id="wi-inputs"></div>
+        </div>
+        <p class="visually-hidden" id="wi-live" aria-live="polite"></p>
       </div>
     </section>
 
@@ -272,6 +307,7 @@
           <div class="term"><dt>Profit each year for every $100 spent</dt><dd>The same idea the other way round: $10 a year for every $100 spent earns the money back in 10 years.</dd></div>
           <div class="term"><dt>Typical investment property</dt><dd>A finished, rented property like this one usually sells for about 12 years of its profit. A plan that earns back faster creates value; one that takes longer is worth less than it cost to build.</dd></div>
           <div class="term"><dt>The 10-year goal</dt><dd>This study’s goal: earn back the build money in 10 years or less, which is $10 a year for every $100 spent.</dd></div>
+          <div class="term"><dt>Your test numbers</dt><dd>Numbers you type in “Try your own numbers”. They stay on your screen for this visit only, are not saved and are not part of the study.</dd></div>
           <div class="term"><dt>Owner-run</dt><dd>Run by the owners’ own operating company instead of being rented to another business.</dd></div>
           <div class="term"><dt>Tenant’s share of property costs</dt><dd>On top of rent, tenants pay their share of property tax, insurance and upkeep of shared areas.</dd></div>
           <div class="term"><dt>Land lease</dt><dd>A business rents only the land, builds its own building on it and pays rent for the land.</dd></div>
