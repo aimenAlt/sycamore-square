@@ -1063,6 +1063,8 @@
   // are per event (the line divided by that case's events) and the year-round hall costs stay fixed: with these the study's own
   // "events needed to cover the hall costs" come out the same in every case. Each change is added to the published totals, so an
   // untouched plan shows exactly the study's numbers. A price typed for the property is added to the build money; it starts empty.
+  // The study's events are hall bookings: each hall, each time it is rented (its "$1,000 more per hall booking" change adds $1,000
+  // for each of them). So a day with both halls rented counts twice, one side once; the optional days boxes work the total out.
 
   var HALL_INCOME = /^Hall bookings:\s*/i;
   var HALL_COST = /^Halls?:\s*/i;
@@ -1085,6 +1087,8 @@
   }
   function per100Short(r) { return isNum(r) ? (r < 0 ? 'Loses ' + dollars2(-r * 100) : dollars2(r * 100)) : 'n/a'; }
   function hasOwn(o, k) { return Object.prototype.hasOwnProperty.call(o, k); }
+  function startsEmpty(f) { return f.kind === 'price' || f.kind === 'days'; }
+  function plainNumber(v) { return isNum(v) ? v.toLocaleString('en-US', { maximumFractionDigits: 2 }) : ''; }
 
   // The editable lines of one plan in one case. Lines that are zero in every case (they do not apply to the plan) are left out.
   function whatIfLines(p, sc) {
@@ -1192,11 +1196,12 @@
       var hint = opts.hint ? el('p', { class: 'wi-hint', id: fid + '-hint' }, opts.hint) : null;
       if (hint) wrap.appendChild(hint);
       var row = el('div', { class: 'wi-control' });
-      var holder = el('span', { class: 'wi-box' + (f.kind === 'count' ? '' : ' has-unit') });
-      if (f.kind !== 'count') holder.appendChild(el('span', { class: 'wi-unit', 'aria-hidden': 'true' }, '$'));
+      var isMoney = f.kind !== 'count' && f.kind !== 'days';
+      var holder = el('span', { class: 'wi-box' + (isMoney ? ' has-unit' : '') });
+      if (isMoney) holder.appendChild(el('span', { class: 'wi-unit', 'aria-hidden': 'true' }, '$'));
       var input = el('input', { type: 'text', id: fid, inputmode: 'numeric', autocomplete: 'off', spellcheck: 'false',
         'aria-describedby': (hint ? fid + '-hint ' : '') + fid + '-echo ' + fid + '-note' });
-      input.value = hasOwn(T.raw, f.id) ? T.raw[f.id] : (f.kind === 'price' ? '' : grouped(f.shown));
+      input.value = hasOwn(T.raw, f.id) ? T.raw[f.id] : (startsEmpty(f) ? '' : grouped(f.shown));
       holder.appendChild(input);
       row.appendChild(holder);
       var echo = el('span', { class: 'wi-echo', id: fid + '-echo' });
@@ -1210,7 +1215,7 @@
       input.addEventListener('blur', function () {
         // Tidy a valid number into the page's style (commas), leave anything else as typed so it can be fixed.
         var r = parsePlain(input.value);
-        if (!r.error && !r.empty) { input.value = r.value.toLocaleString('en-US', { maximumFractionDigits: 2 }); if (hasOwn(T.raw, f.id)) T.raw[f.id] = input.value; }
+        if (!r.error && !r.empty && !input.readOnly) { input.value = plainNumber(r.value); if (hasOwn(T.raw, f.id)) T.raw[f.id] = input.value; }
       });
       fields.push(rec);
       return rec;
@@ -1218,7 +1223,7 @@
 
     function useStudy(rec) {
       delete T.raw[rec.f.id];
-      rec.input.value = rec.f.kind === 'price' ? '' : grouped(rec.f.shown);
+      rec.input.value = startsEmpty(rec.f) ? '' : grouped(rec.f.shown);
       update();
       rec.input.focus();
     }
@@ -1239,7 +1244,7 @@
       thead.appendChild(hr); table.appendChild(thead);
       var tbody = el('tbody');
       out.rows = {};
-      var rows = [['events', L.events !== null ? 'Events a year' : null], ['build', 'Money to build it (one-time)'], ['moneyIn', 'Money coming in each year'],
+      var rows = [['events', L.events !== null ? 'Hall bookings a year' : null], ['build', 'Money to build it (one-time)'], ['moneyIn', 'Money coming in each year'],
         ['moneyOut', 'Money going out each year'], ['profit', 'Profit each year', 'is-key'], ['years', 'Years to earn back the build money', 'is-key'],
         ['rate', 'Profit each year for every $100 spent'], ['price', 'Price you typed for the property', 'is-price'],
         ['yearsWithPrice', 'Years to earn back the build money and the price', 'is-key is-price']];
@@ -1259,7 +1264,7 @@
       var reset = el('button', { type: 'button', class: 'button wi-reset' }, 'Reset to the study’s numbers');
       reset.addEventListener('click', function () {
         T.raw = {};
-        fields.forEach(function (rec) { rec.input.value = rec.f.kind === 'price' ? '' : grouped(rec.f.shown); });
+        fields.forEach(function (rec) { rec.input.readOnly = false; rec.derived = false; rec.input.value = startsEmpty(rec.f) ? '' : grouped(rec.f.shown); });
         update(true);
         live.textContent = 'Back to the study’s numbers for ' + planName(p) + ', ' + LABELS[cur.sc] + ' case.';
       });
@@ -1282,18 +1287,25 @@
       if (L.events !== null) {
         var hallAOnly = p.phase1 && !(phaseTwoCost(p, sc) > 1000);
         var g = group(hallAOnly ? 'Hall bookings (only Hall A is built in this case)' : 'Hall bookings (Hall A and Hall B)',
-          'The study counts ' + int(L.events) + ' events a year in the ' + LABELS[sc] + ' case. The money and costs for each event are averages over all the events in a year.');
+          'The study counts ' + int(L.events) + ' hall bookings a year in the ' + LABELS[sc] + ' case (it calls them events): each hall, each time it is rented. The money and costs for each booking are averages over the year.');
         var maxEvents = Math.max.apply(null, SCENARIOS.map(function (s) { var v = at(p.hall_events, s); return isNum(v) ? v : 0; }));
         out.events = field(g, { id: 'events', base: L.events, shown: L.events, kind: 'count' }, {
-          label: hallAOnly ? 'Events a year in Hall A' : 'Events a year, Hall A and Hall B together',
-          hint: hallAOnly ? 'Count each booking once.' : 'Count each booking once, whichever hall it is in. To test one busy hall, type only its events; the building and year-round hall costs below stay as they are unless you change them.' });
+          label: hallAOnly ? 'Hall A bookings a year' : 'Hall bookings a year, Hall A and Hall B together',
+          hint: hallAOnly ? 'Count each time Hall A is rented.' : 'Count each hall each time it is rented. Both halls on the same day count as 2, whether that is two customers or one big event using both halls. A day with one side rented counts as 1.' });
         out.events.max = maxEvents;
-        g.appendChild(el('h4', { class: 'wi-sub' }, 'Money from each event'));
+        if (!hallAOnly) {
+          g.appendChild(el('h4', { class: 'wi-sub' }, 'Or work it out from days (optional)'));
+          g.appendChild(el('p', { class: 'wi-sub-intro' }, 'Fill in either box and the hall bookings above are worked out for you. Empty both boxes to type the bookings yourself.'));
+          field(g, { id: 'days1', kind: 'days', weight: 1 }, { label: 'Days a year with one hall rented', hint: 'Hall A or Hall B, not both.' });
+          field(g, { id: 'days2', kind: 'days', weight: 2 }, { label: 'Days a year with both halls rented',
+            hint: 'Two customers, or one customer using both halls. Each of these days counts as 2 bookings, as if both rooms are paid for.' });
+        }
+        g.appendChild(el('h4', { class: 'wi-sub' }, 'Money from each booking'));
         L.hallIn.forEach(function (f) { field(g, f); });
-        g.appendChild(el('h4', { class: 'wi-sub' }, 'Cost of each event'));
+        g.appendChild(el('h4', { class: 'wi-sub' }, 'Cost of each booking'));
         L.hallCost.forEach(function (f) { field(g, f); });
         if (L.hallFixed.length) {
-          g.appendChild(el('h4', { class: 'wi-sub' }, 'Hall costs that stay the same however many events (per year)'));
+          g.appendChild(el('h4', { class: 'wi-sub' }, 'Hall costs that stay the same however many bookings (per year)'));
           L.hallFixed.forEach(function (f) { field(g, f); });
         }
       }
@@ -1324,11 +1336,31 @@
     function update(quiet) {
       var p = planBy(cur.key), sc = cur.sc;
       var vals = {}, changed = 0, errors = 0;
+      var parsed = function (f) { return hasOwn(T.raw, f.id) ? parsePlain(T.raw[f.id]) : { empty: true }; };
+      // While either days box has something in it, the bookings box is worked out from the days and cannot be typed in.
+      var dayRecs = fields.filter(function (rec) { return rec.f.kind === 'days'; });
+      var daysMode = dayRecs.some(function (rec) { return !parsed(rec.f).empty; });
+      var dayCount = { days1: 0, days2: 0 }, fromDays = 0;
+      dayRecs.forEach(function (rec) { var r = parsed(rec.f); if (isNum(r.value)) { dayCount[rec.f.id] = r.value; fromDays += r.value * rec.f.weight; } });
       fields.forEach(function (rec) {
         var f = rec.f, raw = hasOwn(T.raw, f.id) ? T.raw[f.id] : null, state = 'same', r = raw === null ? { empty: true } : parsePlain(raw);
-        if (f.kind === 'price') {
+        if (f.kind === 'count') {
+          if (daysMode) {
+            rec.derived = true;
+            rec.input.readOnly = true;
+            rec.input.value = plainNumber(fromDays);
+          } else if (rec.derived) {
+            rec.derived = false;
+            rec.input.readOnly = false;
+            rec.input.value = raw !== null ? raw : grouped(f.shown);
+          }
+        }
+        if (f.kind === 'count' && daysMode) {
+          if (fromDays !== f.shown) vals.events = fromDays;
+          state = 'derived';
+        } else if (startsEmpty(f)) {
           if (r.error) state = 'error';
-          else if (!r.empty) { vals.price = r.value; state = 'changed'; }
+          else if (!r.empty) { if (f.kind === 'price') vals.price = r.value; state = 'changed'; }
         } else if (raw !== null) {
           if (r.empty || r.error) state = 'error';
           else if (r.value !== f.shown) { vals[f.id] = r.value; state = 'changed'; }
@@ -1336,14 +1368,19 @@
         rec.state = state;
         if (state === 'changed') changed += 1;
         if (state === 'error') errors += 1;
-        rec.wrap.classList.toggle('is-changed', state === 'changed' && f.kind !== 'price');
+        rec.wrap.classList.toggle('is-changed', (state === 'changed' && f.kind !== 'price') || (state === 'derived' && fromDays !== f.shown));
+        rec.wrap.classList.toggle('is-derived', state === 'derived');
         rec.wrap.classList.toggle('is-error', state === 'error');
         if (state === 'error') rec.input.setAttribute('aria-invalid', 'true'); else rec.input.removeAttribute('aria-invalid');
         rec.note.textContent = '';
         if (state === 'error') {
           rec.note.textContent = r.empty ? 'Type a number (0 is fine).' : 'Type a plain number of 0 or more, like 250000.';
-        } else if (state === 'changed' && f.kind !== 'price') {
-          rec.note.appendChild(document.createTextNode('Changed. The study has ' + grouped(f.shown) + (f.kind === 'count' ? ' events. ' : '. ')));
+        } else if (state === 'derived') {
+          rec.note.textContent = 'Worked out from the days below: ' + int(dayCount.days1) + ' days × 1 + ' + int(dayCount.days2) + ' days × 2 = ' + plainNumber(fromDays) +
+            ' bookings. The study has ' + grouped(f.shown) + '. To type your own number here, empty both day boxes.' +
+            (dayCount.days1 + dayCount.days2 > 365 ? ' Note: that is more days than a year has.' : '');
+        } else if (state === 'changed' && f.kind !== 'price' && f.kind !== 'days') {
+          rec.note.appendChild(document.createTextNode('Changed. The study has ' + grouped(f.shown) + (f.kind === 'count' ? ' bookings. ' : '. ')));
           var undo = el('button', { type: 'button', class: 'wi-undo' }, 'Use the study’s number');
           undo.addEventListener('click', function () { useStudy(rec); });
           rec.note.appendChild(undo);
@@ -1355,16 +1392,18 @@
       // Echo each box in the page's money style, and what each per-event amount comes to over the year.
       fields.forEach(function (rec) {
         var f = rec.f, v = hasOwn(vals, f.id) ? vals[f.id] : (f.kind === 'event' ? f.per : f.base);
-        if (rec.state === 'error' && f.kind !== 'price') {
-          rec.echo.textContent = 'Using the study’s ' + (f.kind === 'count' ? int(v) + ' events' : f.kind === 'event' ? '$' + grouped(v) : money(v) + (f.kind === 'year' ? ' a year' : '')) + ' for now';
+        if (f.kind === 'days') {
+          rec.echo.textContent = rec.state === 'changed' ? '× ' + f.weight + ' = ' + plainNumber(dayCount[f.id] * f.weight) + ' bookings' : 'days a year';
+        } else if (rec.state === 'error' && f.kind !== 'price') {
+          rec.echo.textContent = 'Using the study’s ' + (f.kind === 'count' ? int(v) + ' bookings' : f.kind === 'event' ? '$' + grouped(v) : money(v) + (f.kind === 'year' ? ' a year' : '')) + ' for now';
         } else if (f.kind === 'count') {
           var wk = t.events / 52;
-          rec.echo.textContent = t.events === 0 ? 'events a year: none' : 'events a year, about ' + (wk >= 10 ? Math.round(wk) : wk.toFixed(1)) + ' a week';
+          rec.echo.textContent = t.events === 0 ? 'bookings a year: none' : 'bookings a year, about ' + (wk >= 10 ? Math.round(wk) : wk.toFixed(1)) + ' a week';
           if (rec.hint) {
             rec.hint.textContent = rec.hintText + (isNum(rec.max) && t.events > rec.max ? ' That is more than any case in the study counts (' + int(rec.max) +
               ' a year at most). In the study’s events chart, profit grows more slowly above that, so this test may read a little high.' : '');
           }
-        } else if (f.kind === 'event') rec.echo.textContent = '× ' + int(t.events) + ' events = ' + money(v * t.events) + ' a year';
+        } else if (f.kind === 'event') rec.echo.textContent = '× ' + int(t.events) + ' bookings = ' + money(v * t.events) + ' a year';
         else if (f.kind === 'year') rec.echo.textContent = money(v) + ' a year';
         else if (f.kind === 'once') rec.echo.textContent = money(v);
         else rec.echo.textContent = hasOwn(vals, 'price') ? money(vals.price) : '';
@@ -1373,7 +1412,7 @@
       var any = changed > 0;
       var sy = payback(p, sc), sr = rate(p, sc);
       var ty = any ? t.years : sy, tr = any ? t.rate : sr;
-      setCell('events', L.events !== null ? int(L.events) : '', int(t.events), L.events !== null && Math.abs(t.events - L.events) > 1e-9);
+      setCell('events', L.events !== null ? int(L.events) : '', plainNumber(t.events), L.events !== null && Math.abs(t.events - L.events) > 1e-9);
       setCell('build', money(buildMoney(p, sc)), money(t.build), money(t.build) !== money(buildMoney(p, sc)));
       setCell('moneyIn', money(moneyIn(p, sc)), money(t.moneyIn), money(t.moneyIn) !== money(moneyIn(p, sc)));
       setCell('moneyOut', money(moneyOut(p, sc)), money(t.moneyOut), money(t.moneyOut) !== money(moneyOut(p, sc)));
