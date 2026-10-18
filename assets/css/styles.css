@@ -1140,6 +1140,8 @@ main:focus { outline: none; }
 .callout p:not(.eyebrow):not(.callout-big) { max-width: 840px; }
 .callout a { color: var(--highlight); }
 .callout a:hover { color: var(--on-navy-1); }
+.callout .bullets { max-width: 840px; }
+.callout .bullets + p { margin-top: 16px; }
 
 .cards3 {
   display: grid;
