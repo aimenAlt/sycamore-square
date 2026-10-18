@@ -4,14 +4,22 @@
 Run from anywhere:   python3 scripts/check_site.py
 Rebuild the PDF ZIP: python3 scripts/check_site.py --rebuild-zip
 
-Exit code 0 means every check passed. Standard library only.
+Exit code 0 means every check passed. Standard library only, plus two outside tools for the text inside
+PDFs and images (the naming and privacy rules apply there too):
+  - PDF text:   pdftotext and pdfimages (poppler-utils), or the PyMuPDF package if it is installed.
+  - Image text: tesseract, or on a Mac without it, macOS Vision through scripts/ocr_macos.swift.
+The Site checks workflow installs poppler-utils and tesseract-ocr.
 """
 import glob
+import hashlib
 import html.parser
 import json
 import os
 import re
+import shutil
+import subprocess
 import sys
+import tempfile
 import zipfile
 from urllib.parse import unquote, urlsplit
 
@@ -43,7 +51,13 @@ BANNED = [
     (r'[\w.+-]+@[\w-]+\.(?:com|net|org|gov|edu|io|us)\b', re.I, 'An email address. Keep contact details off the public site.'),
 ]
 
+# The rules that also apply to text inside PDFs, images, CAD and 3D files: hall naming and privacy.
+BINARY_RULES = [r for r in BANNED if r[2].startswith(('Gendered', 'A personal name', 'An email', 'Something that looks like a secret'))]
+EXCEPTIONS_FILE = 'scripts/text_exceptions.json'
+IMAGE_EXT = ('.jpg', '.jpeg', '.png', '.webp')
+
 problems = []
+notes = []
 
 
 def rel(path):
@@ -228,13 +242,137 @@ def check_other_files():
                     fail(full, 1, f'File is larger than {MAX_FILE_MB} MB; make a smaller web version.')
 
 
+def sha256(path):
+    return hashlib.sha256(open(path, 'rb').read()).hexdigest()
+
+
+def load_exceptions():
+    path = os.path.join(ROOT, EXCEPTIONS_FILE)
+    if not os.path.isfile(path):
+        return []
+    return json.load(open(path, encoding='utf-8')).get('exceptions', [])
+
+
+def pdf_text_and_images(path, tmp):
+    """Returns (text, [image files]) for one PDF: its text layer and the pictures embedded in it."""
+    if shutil.which('pdftotext') and shutil.which('pdfimages'):
+        text = subprocess.run(['pdftotext', '-enc', 'UTF-8', path, '-'], capture_output=True, text=True, check=True).stdout
+        prefix = os.path.join(tmp, hashlib.md5(path.encode()).hexdigest())
+        subprocess.run(['pdfimages', '-png', path, prefix], capture_output=True, check=True)
+        return text, sorted(glob.glob(prefix + '*.png'))
+    try:
+        import fitz  # PyMuPDF
+    except ImportError:
+        return None, []
+    doc, text, images = fitz.open(path), [], []
+    for page in doc:
+        text.append(page.get_text())
+        for img in page.get_images(full=True):
+            pix = fitz.Pixmap(doc, img[0])
+            if pix.n - pix.alpha >= 4:
+                pix = fitz.Pixmap(fitz.csRGB, pix)
+            out = os.path.join(tmp, f'{hashlib.md5(path.encode()).hexdigest()}-{len(images)}.png')
+            pix.save(out)
+            images.append(out)
+    return '\n'.join(text), images
+
+
+def ocr(paths):
+    """Returns {path: text found in the image}, or None when no OCR tool is available."""
+    if not paths:
+        return {}
+    if shutil.which('tesseract'):
+        found = {}
+        for p in paths:
+            r = subprocess.run(['tesseract', p, 'stdout', '--psm', '11', '-l', 'eng'], capture_output=True, text=True)
+            found[p] = r.stdout
+        return found
+    if sys.platform == 'darwin' and shutil.which('swift'):
+        r = subprocess.run(['swift', os.path.join(ROOT, 'scripts', 'ocr_macos.swift')] + list(paths), capture_output=True, text=True)
+        found, current = {}, None
+        for line in r.stdout.splitlines():
+            if line.startswith('=== '):
+                current = line[4:]
+                found[current] = ''
+            elif current:
+                found[current] += line + '\n'
+        return found
+    return None
+
+
+def check_binary_text():
+    """Applies the naming and privacy rules to text inside PDFs, images, CAD and 3D model files."""
+    exceptions = load_exceptions()
+    used, seen, known = set(), set(), {}
+
+    def apply(label, full, text):
+        for pattern, flags, message in BINARY_RULES:
+            for m in re.finditer(pattern, text, flags):
+                hit = m.group(0)
+                if (label, hit.lower()) in seen:
+                    continue
+                seen.add((label, hit.lower()))
+                for i, ex in enumerate(exceptions):
+                    if ex['file'] == label and ex['sha256'] == sha256(full) and any(w.lower() in hit.lower() for w in ex['words']):
+                        used.add(i)
+                        known.setdefault(label, (set(), ex['reason']))[0].add(hit.lower())
+                        break
+                else:
+                    fail(label, 1, f'{message} Found inside the file: "{hit}"')
+
+    with tempfile.TemporaryDirectory() as tmp:
+        to_ocr = {}   # image file -> (label, the file whose hash the exceptions pin)
+        for pdf in sorted(glob.glob(os.path.join(ROOT, 'docs', '*.pdf'))):
+            label = rel(pdf)
+            text, images = pdf_text_and_images(pdf, tmp)
+            if text is None:
+                fail(label, 1, 'Cannot read PDF text. Install poppler-utils (pdftotext) or PyMuPDF, then run the checks again.')
+                break
+            apply(label, pdf, text)
+            for img in images:
+                to_ocr[img] = (label + ' (picture inside)', pdf)
+        for dirpath, _, files in os.walk(os.path.join(ROOT, 'assets', 'img')):
+            for f in sorted(files):
+                full = os.path.join(dirpath, f)
+                if f.lower().endswith(IMAGE_EXT):
+                    to_ocr[full] = (rel(full), full)
+                elif f.lower().endswith('.svg'):
+                    apply(rel(full), full, open(full, encoding='utf-8', errors='replace').read())
+        for full in sorted(glob.glob(os.path.join(ROOT, 'docs', '*.dxf'))):
+            apply(rel(full), full, open(full, encoding='utf-8', errors='replace').read())
+        for full in sorted(glob.glob(os.path.join(ROOT, 'assets', 'models', '*.glb'))):
+            data = open(full, 'rb').read()
+            size = int.from_bytes(data[12:16], 'little')
+            apply(rel(full), full, data[20:20 + size].decode('utf-8', errors='replace'))
+
+        found = ocr(sorted(to_ocr))
+        if found is None:
+            fail('assets/img', 1, 'Cannot read text in images. Install tesseract (apt install tesseract-ocr, or brew install tesseract), then run the checks again.')
+        else:
+            for img, (label, pinned) in sorted(to_ocr.items()):
+                apply(label.replace(' (picture inside)', ''), pinned, found.get(img, ''))
+
+    for label, (hits, reason) in sorted(known.items()):
+        notes.append(f'{label}: known exception ({", ".join(sorted(hits))}). {reason}')
+    for i, ex in enumerate(exceptions):
+        full = os.path.join(ROOT, ex['file'])
+        if not os.path.isfile(full) or sha256(full) != ex['sha256']:
+            fail(EXCEPTIONS_FILE, 1, f'The exception for {ex["file"]} no longer matches that file. If the file was fixed, remove the exception.')
+        elif i not in used and found is not None:
+            notes.append(f'{ex["file"]}: the text this exception allows was not found by this OCR tool; the exception stays until the file changes.')
+
+
 def main():
     if '--rebuild-zip' in sys.argv:
         rebuild_zip()
     parsed = check_pages()
     check_zip()
     check_other_files()
+    if '--no-binary' not in sys.argv:
+        check_binary_text()
     print(f'Sycamore Square site checks: {len(parsed)} pages')
+    for note in notes:
+        print(f'NOTE  {note}')
     if problems:
         for path, line, message in problems:
             print(f'FAIL  {path}:{line}  {message}')

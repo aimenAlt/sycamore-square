@@ -1,0 +1,68 @@
+{
+ "note": "Known, reviewed exceptions to the naming and privacy rules for text inside PDFs and images. Each is pinned to the file's SHA-256, so it lapses as soon as the file changes. Add one only with the owner's agreement.",
+ "exceptions": [
+  {
+   "file": "assets/img/3d/render-cutaway-800.jpg",
+   "sha256": "cea1e3997647a3b9d4408b0da8d082fd64e603ec7a4bf89c02f9393ea2e0d412",
+   "words": [
+    "bride",
+    "groom"
+   ],
+   "reason": "The R4.2 render labels the suites \"bride / groom suites\". It must be re-rendered to say \"family suites\"; the label overlay tool and a Blender install are not in the repo, so the owner has to supply them. Remove this entry once the image is replaced."
+  },
+  {
+   "file": "assets/img/3d/render-cutaway-1600.jpg",
+   "sha256": "0f5c3e8c4f5cdb7b89be4c72b5946af8f986ce6054b60bf50195e797ec769179",
+   "words": [
+    "bride",
+    "groom"
+   ],
+   "reason": "The R4.2 render labels the suites \"bride / groom suites\". It must be re-rendered to say \"family suites\"; the label overlay tool and a Blender install are not in the repo, so the owner has to supply them. Remove this entry once the image is replaced."
+  },
+  {
+   "file": "assets/img/3d/render-cutaway-1920.jpg",
+   "sha256": "2d3799c87ffd45b736d5e017e6978982cc5b488e29e2a8796350343e5323fb2b",
+   "words": [
+    "bride",
+    "groom"
+   ],
+   "reason": "The R4.2 render labels the suites \"bride / groom suites\". It must be re-rendered to say \"family suites\"; the label overlay tool and a Blender install are not in the repo, so the owner has to supply them. Remove this entry once the image is replaced."
+  },
+  {
+   "file": "assets/img/3d/render-cutaway-plan-800.jpg",
+   "sha256": "a57e2dc8753e6f36086e40b0013545811ba978e61f7f63a20321d61a71434393",
+   "words": [
+    "bride",
+    "groom"
+   ],
+   "reason": "The R4.2 render labels the suites \"bride / groom suites\". It must be re-rendered to say \"family suites\"; the label overlay tool and a Blender install are not in the repo, so the owner has to supply them. Remove this entry once the image is replaced."
+  },
+  {
+   "file": "assets/img/3d/render-cutaway-plan-1600.jpg",
+   "sha256": "d62c009d2d24ec13f705feb150f0f31f7a3e8156f969cc340be02f257614e3fa",
+   "words": [
+    "bride",
+    "groom"
+   ],
+   "reason": "The R4.2 render labels the suites \"bride / groom suites\". It must be re-rendered to say \"family suites\"; the label overlay tool and a Blender install are not in the repo, so the owner has to supply them. Remove this entry once the image is replaced."
+  },
+  {
+   "file": "assets/img/3d/render-cutaway-plan-1920.jpg",
+   "sha256": "539f5083c47a935fea4e663d8b883920f0abd113ad362c445d3837636e332644",
+   "words": [
+    "bride",
+    "groom"
+   ],
+   "reason": "The R4.2 render labels the suites \"bride / groom suites\". It must be re-rendered to say \"family suites\"; the label overlay tool and a Blender install are not in the repo, so the owner has to supply them. Remove this entry once the image is replaced."
+  },
+  {
+   "file": "docs/Sycamore_Square_Halls_With_Columns_Research.pdf",
+   "sha256": "8e008d735d0e67fc07a45c8ac20bf6e54e49b3fac3f3fb7890721ee135cc1390",
+   "words": [
+    "bride",
+    "groom"
+   ],
+   "reason": "Verbatim quotations from cited outside sources about seating at other venues (pages 6-7). They do not name the halls."
+  }
+ ]
+}
