@@ -337,17 +337,48 @@
       lineSentence(data, sc));
 
     var wrap = byId('plan-cards');
-    var openState = {};
+    var narrow = !!(NARROW && NARROW.matches);
+    var openState = PLAN_OPEN; // kept across redraws, so a plan opened on a phone stays open after a resize
     Array.prototype.forEach.call(wrap.querySelectorAll('details'), function (d) { openState[d.getAttribute('data-key')] = d.open; });
     wrap.textContent = '';
 
     data.plans.forEach(function (p) {
       var g = grade(data, p, sc), c = profit(p, sc), y = payback(p, sc), r = rate(p, sc);
       var inc = moneyIn(p, sc), out = moneyOut(p, sc);
-      var card = el('article', { class: 'plan-card is-' + g.cls, 'aria-labelledby': 'plan-' + p.key });
+      var h3 = el('h3', { id: 'plan-' + p.key }, p.name);
+      var meta = 'Opens in about ' + p.opens_months + ' months' + (p.phase1 ? ' (first step)' : '');
       var head = el('div', { class: 'plan-head' });
-      head.appendChild(el('h3', { id: 'plan-' + p.key }, p.name));
-      head.appendChild(el('p', { class: 'plan-meta' }, 'Opens in about ' + p.opens_months + ' months' + (p.phase1 ? ' (first step)' : '')));
+      var outer, card;
+      if (narrow) {
+        // Phones: the card folds. The summary carries the figures people compare across plans; the rest opens on tap.
+        outer = el('details', { class: 'plan-card plan-fold is-' + g.cls, 'data-key': 'card-' + p.key });
+        if (openState['card-' + p.key]) outer.open = true;
+        var sumEl = el('summary', { class: 'plan-sum' });
+        sumEl.appendChild(h3);
+        sumEl.appendChild(el('span', { class: 'plan-meta' }, meta));
+        var spine = el('span', { class: 'plan-spine' });
+        [['Money in', money(buildMoney(p, sc)), ''], ['Profit a year', money(c), isNum(c) && c < 0 ? ' is-neg' : ''],
+          ['Earns back', yearsMid(isNum(y) ? y : null).replace(/\u00a0/g, ' '), '']].forEach(function (s) {
+          var item = el('span', { class: 'spine-item' + s[2] });
+          item.appendChild(el('span', { class: 'spine-label' }, s[0]));
+          item.appendChild(el('span', { class: 'spine-value' }, s[1]));
+          spine.appendChild(item);
+        });
+        sumEl.appendChild(spine);
+        sumEl.addEventListener('click', function () {
+          // About to open: start the body faded and 4px up, then let it ease in.
+          if (outer.open) return;
+          outer.classList.add('is-opening');
+          window.requestAnimationFrame(function () { window.requestAnimationFrame(function () { outer.classList.remove('is-opening'); }); });
+        });
+        outer.appendChild(sumEl);
+        card = el('div', { class: 'plan-fold-body' });
+        outer.appendChild(card);
+      } else {
+        outer = card = el('article', { class: 'plan-card is-' + g.cls, 'aria-labelledby': 'plan-' + p.key });
+        head.appendChild(h3);
+        head.appendChild(el('p', { class: 'plan-meta' }, meta));
+      }
       var badge = el('p', { class: 'plan-status status-' + g.cls });
       badge.appendChild(el('span', { class: 'status-icon', 'aria-hidden': 'true' }, g.icon));
       badge.appendChild(document.createTextNode(g.text));
@@ -459,8 +490,23 @@
       body.appendChild(el('p', { class: 'plan-colnote' }, columnsNote(data, p, sc)));
       det.appendChild(body);
       card.appendChild(det);
-      wrap.appendChild(card);
+      wrap.appendChild(outer);
     });
+  }
+
+  var PLAN_OPEN = {};
+  // Phones (one column) fold the plan cards; wider screens keep them open as before.
+  var NARROW = window.matchMedia ? window.matchMedia('(max-width: 759px)') : null;
+
+  // A link to a plan (feasibility.html#plan-full) opens that plan and scrolls to it.
+  function openPlanFromHash() {
+    var h = location.hash.slice(1);
+    if (!/^plan-/.test(h)) return;
+    var t = byId(h);
+    if (!t) return;
+    var fold = t.closest ? t.closest('details.plan-fold') : null;
+    if (fold) fold.open = true;
+    (fold || t.closest('.plan-card') || t).scrollIntoView({ block: 'start' });
   }
 
   /* ---------- Ways to improve (optional data) ---------- */
@@ -1572,7 +1618,12 @@
         setScenario(buttons[n].getAttribute('data-scenario'), { updateHash: true });
       });
     });
-    window.addEventListener('hashchange', function () { var h = fromHash(); if (h) setScenario(h); });
+    window.addEventListener('hashchange', function () { var h = fromHash(); if (h) setScenario(h); else openPlanFromHash(); });
+    // Crossing the phone width redraws the cards in the other layout, keeping open plans open.
+    if (NARROW) {
+      var relayout = function () { if (current) renderPlans(data, current); };
+      if (NARROW.addEventListener) NARROW.addEventListener('change', relayout); else if (NARROW.addListener) NARROW.addListener(relayout);
+    }
     // "Try your own numbers for this plan" on each card opens that plan in the test.
     byId('plan-cards').addEventListener('click', function (e) {
       var b = e.target.closest ? e.target.closest('.wi-open') : null;
@@ -1584,6 +1635,7 @@
     renderLevers(data);
     renderRangeTable(data);
     setScenario(fromHash() || 'realistic');
+    openPlanFromHash();
 
     var draw = function () { renderRange(data); renderEvents(data); numberSections(); };
     draw();
