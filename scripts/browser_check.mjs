@@ -32,9 +32,32 @@ const BASE = `http://127.0.0.1:${server.address().port}/`;
 const browser = await chromium.launch(process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {});
 const problems = [];
 
+// The site sits behind a one-time password panel. Read its hash from the gate script and mark this
+// browser as already unlocked, the way a visitor's device is after entering the password once.
+const GATE_HASH = (fs.readFileSync(path.join(ROOT, 'assets/js/gate-head.js'), 'utf8').match(/HASH = '([0-9a-f]{64})'/) || [])[1];
+async function unlockedContext(options) {
+  const ctx = await browser.newContext(options);
+  if (GATE_HASH) await ctx.addInitScript(h => { try { localStorage.setItem('sq-pass', h); } catch (e) {} }, GATE_HASH);
+  return ctx;
+}
+
+// A first-time visitor must see only the password panel, on every page.
+for (const page of PAGES) {
+  const ctx = await browser.newContext({ viewport: { width: 390, height: 844 } });
+  const p = await ctx.newPage();
+  await p.goto(BASE + page, { waitUntil: 'networkidle' });
+  const state = await p.evaluate(() => ({
+    gate: !!document.querySelector('.gate .gate-input'),
+    visible: [...document.body.children].filter(el => !el.classList.contains('gate') && el.getBoundingClientRect().height > 0).length
+  }));
+  if (!state.gate) problems.push(`${page}: a first-time visitor does not see the password panel`);
+  if (state.visible) problems.push(`${page}: page content shows behind the password panel`);
+  await ctx.close();
+}
+
 for (const width of WIDTHS) {
   for (const page of PAGES) {
-    const ctx = await browser.newContext({ viewport: { width, height: 860 } });
+    const ctx = await unlockedContext({ viewport: { width, height: 860 } });
     const p = await ctx.newPage();
     const where = `${page} at ${width}px`;
     p.on('console', m => { if (m.type() === 'error' && !THIRD_PARTY.test(m.text())) problems.push(`${where}: console error: ${m.text().slice(0, 200)}`); });

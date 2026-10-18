@@ -9,14 +9,14 @@ paths:
   /aimenAlt/sycamore-square/main/{page}:
     get:
       operationId: readPage
-      summary: Read the current source of one page. Overview is index.html, Legal findings is legal.html, Feasibility is feasibility.html. AGENTS.md holds the site rules.
+      summary: Read the current source of one page. The front page is index.html, Overview is overview.html, Legal findings is legal.html, Feasibility is feasibility.html, Before and during the auction is auction.html. AGENTS.md holds the site rules.
       parameters:
         - name: page
           in: path
           required: true
           schema:
             type: string
-            enum: [index.html, legal.html, feasibility.html, README.md, AGENTS.md]
+            enum: [index.html, overview.html, legal.html, feasibility.html, auction.html, README.md, AGENTS.md]
       responses:
         "200":
           description: The current file.

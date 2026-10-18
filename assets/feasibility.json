@@ -6,7 +6,7 @@
   "realistic",
   "best"
  ],
- "basis": "Purchase price left out. Every number on this page leaves out what is paid for the property, its closing costs and fees. Every dollar paid for the property means less profit for each dollar spent and a longer wait to earn the money back.",
+ "basis": "Purchase included. Every number on this page includes buying the property at an assumed price of $3.0M, plus fees, closing costs, surveys and inspections. Building costs are at Memphis prices, with the ownership group managing the work and hiring each trade directly instead of paying one general contractor to do everything.",
  "refs": {
   "exit_cap": 0.0825,
   "target": 0.1,
@@ -22,19 +22,19 @@
    "what": "The full program as drawn, but every space is leased: an outside operator rents Hall A and Hall B, a playground operator rents the kids’ center, shops and flex space are leased, and a fuel company rents the frontage land for a gas station.",
    "who": "Tenants only",
    "work_cost": [
-    24216000.0,
-    14944000.0,
-    9192000.0
+    23219000.0,
+    15089000.0,
+    10454000.0
    ],
    "cash_flow": [
     299000.0,
     638000.0,
-    1270000.0
+    1271000.0
    ],
    "return_on_work": [
-    0.0123,
-    0.0427,
-    0.1381
+    0.0129,
+    0.0423,
+    0.1216
    ],
    "hall_events": [
     null,
@@ -43,11 +43,19 @@
    ],
    "cost_groups": [
     [
+     "Buying the property (assumed $3.0M) and closing",
+     [
+      3350000.0,
+      3265000.0,
+      3218000.0
+     ]
+    ],
+    [
      "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
      [
-      16962000.0,
-      10167000.0,
-      5750000.0
+      13867000.0,
+      7801000.0,
+      4230000.0
      ]
     ],
     [
@@ -61,9 +69,9 @@
     [
      "Design, permits and contingency",
      [
-      4580000.0,
-      2237000.0,
-      1035000.0
+      3328000.0,
+      1482000.0,
+      677000.0
      ]
     ],
     [
@@ -79,15 +87,27 @@
      [
       453000.0,
       641000.0,
-      708000.0
+      632000.0
      ]
     ]
    ],
    "column_removal": [
-    1980000.0,
-    1100000.0,
-    420000.0
+    1200000.0,
+    700000.0,
+    340000.0
    ],
+   "hired_out": {
+    "work_cost": [
+     25196000.0,
+     16845000.0,
+     11632000.0
+    ],
+    "payback_years": [
+     84.3,
+     26.4,
+     9.2
+    ]
+   },
    "income_lines": [
     [
      "Shop rents",
@@ -126,7 +146,7 @@
      [
       341000.0,
       396000.0,
-      357000.0
+      342000.0
      ]
     ],
     [
@@ -160,7 +180,7 @@
      [
       70000.0,
       163000.0,
-      165000.0
+      149000.0
      ]
     ],
     [
@@ -184,7 +204,7 @@
      [
       39000.0,
       58000.0,
-      79000.0
+      78000.0
      ]
     ],
     [
@@ -199,17 +219,17 @@
    "money_in": [
     810000.0,
     1183000.0,
-    1775000.0
+    1759000.0
    ],
    "money_out": [
     511000.0,
     544000.0,
-    505000.0
+    488000.0
    ],
    "payback_years": [
-    81.0,
-    23.4,
-    7.2
+    77.7,
+    23.7,
+    8.2
    ],
    "levers": [
     {
@@ -218,7 +238,7 @@
      "kind": "income",
      "profit_change": 48000.0,
      "onetime_change": 104000.0,
-     "payback_years": 21.9
+     "payback_years": 22.1
     },
     {
      "label": "Kids’ center pays $6.00/SF instead of $4.50",
@@ -226,7 +246,7 @@
      "kind": "income",
      "profit_change": 24000.0,
      "onetime_change": 26000.0,
-     "payback_years": 22.6
+     "payback_years": 22.8
     },
     {
      "label": "Add a food pad on Summer Ave (ground lease, about $70,000 a year)",
@@ -234,31 +254,31 @@
      "kind": "income",
      "profit_change": 62000.0,
      "onetime_change": 68000.0,
-     "payback_years": 21.4
+     "payback_years": 21.7
     },
     {
      "label": "Keep the hall columns and decorate around them",
      "note": "Saves the steel beams; each main room keeps 2 columns",
      "kind": "saving",
      "profit_change": -0.0,
-     "onetime_change": -1342000.0,
-     "payback_years": 21.3
+     "onetime_change": -833000.0,
+     "payback_years": 22.3
     },
     {
      "label": "Roof needs only repairs and a coating",
      "note": "Only if a roofer confirms the roof is sound",
      "kind": "saving",
      "profit_change": -0.0,
-     "onetime_change": -777000.0,
-     "payback_years": 22.2
+     "onetime_change": -593000.0,
+     "payback_years": 22.7
     },
     {
      "label": "Patch and reseal the parking lot instead of repaving",
      "note": "Keep repaving for the worst areas",
      "kind": "saving",
      "profit_change": -0.0,
-     "onetime_change": -280000.0,
-     "payback_years": 23.0
+     "onetime_change": -214000.0,
+     "payback_years": 23.3
     },
     {
      "label": "Insurance shopped 15% cheaper",
@@ -266,8 +286,245 @@
      "kind": "saving",
      "profit_change": 1000.0,
      "onetime_change": 1000.0,
-     "payback_years": 23.4
+     "payback_years": 23.6
     }
+   ],
+   "cost_items": [
+    [
+     "Buying the property (assumed $3.0M) and closing",
+     "Purchase price (assumed)",
+     [
+      3000000.0,
+      3000000.0,
+      3000000.0
+     ]
+    ],
+    [
+     "Buying the property (assumed $3.0M) and closing",
+     "Fees, closing costs, surveys and inspections",
+     [
+      350000.0,
+      265000.0,
+      218000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Roof repairs, coating or replacement",
+     [
+      1457000.0,
+      727000.0,
+      194000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Heating and air conditioning (rooftop units)",
+     [
+      1480000.0,
+      921000.0,
+      504000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Fire sprinklers",
+     [
+      432000.0,
+      300000.0,
+      186000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Fire alarm with voice evacuation",
+     [
+      647000.0,
+      450000.0,
+      326000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Clearing out the old store interior",
+     [
+      540000.0,
+      350000.0,
+      233000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "New shop fronts",
+     [
+      837000.0,
+      551000.0,
+      353000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "New entrances and canopies",
+     [
+      845000.0,
+      470000.0,
+      255000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Walls between tenant spaces",
+     [
+      785000.0,
+      533000.0,
+      361000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Restrooms",
+     [
+      1184000.0,
+      783000.0,
+      438000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Electrical",
+     [
+      761000.0,
+      470000.0,
+      255000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Plumbing",
+     [
+      338000.0,
+      196000.0,
+      109000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Parking lot repair and repaving",
+     [
+      1289000.0,
+      449000.0,
+      273000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Site work, lighting and landscaping",
+     [
+      507000.0,
+      313000.0,
+      182000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Outside walls and paint",
+     [
+      507000.0,
+      313000.0,
+      182000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Stormwater detention",
+     [
+      211000.0,
+      78000.0,
+      0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Flood compliance work",
+     [
+      845000.0,
+      196000.0,
+      36000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Removing the 4 hall columns (steel beams)",
+     [
+      1200000.0,
+      700000.0,
+      340000.0
+     ]
+    ],
+    [
+     "Design, permits and contingency",
+     "Design, engineering, permits and surveys",
+     [
+      1248000.0,
+      546000.0,
+      254000.0
+     ]
+    ],
+    [
+     "Design, permits and contingency",
+     "Cushion for surprises",
+     [
+      2080000.0,
+      936000.0,
+      423000.0
+     ]
+    ],
+    [
+     "Leasing: tenant improvements and commissions",
+     "Fit-out help for tenants",
+     [
+      2058000.0,
+      1624000.0,
+      1161000.0
+     ]
+    ],
+    [
+     "Leasing: tenant improvements and commissions",
+     "Leasing commissions",
+     [
+      163000.0,
+      277000.0,
+      537000.0
+     ]
+    ],
+    [
+     "Holding costs and construction interest",
+     "Tax, insurance and upkeep while building",
+     [
+      286000.0,
+      263000.0,
+      241000.0
+     ]
+    ],
+    [
+     "Holding costs and construction interest",
+     "Construction-loan interest",
+     [
+      167000.0,
+      378000.0,
+      391000.0
+     ]
+    ]
+   ],
+   "build_cost": [
+    19869000.0,
+    11824000.0,
+    7236000.0
+   ],
+   "purchase": [
+    3350000.0,
+    3265000.0,
+    3218000.0
    ]
   },
   {
@@ -275,22 +532,22 @@
    "name": "Full plan (as drawn)",
    "short": "Full plan",
    "opens_months": 18,
-   "what": "Everything at once: Hall A and Hall B with twin kitchens and dining, the 18,000 SF kids’ playground, about 22 small shops, flex space split into rentable units and the fuel pad.",
+   "what": "Everything at once: Hall A and Hall B with twin kitchens and dining, the 18,000 SF kids’ playground, about 22 small shops, flex space split into rentable units and the fuel pad. Each main room has a movable wall, so it can hold one large event or two 150–350 guest events at once.",
    "who": "Owners’ operating company runs the halls. Tenants: shops, flex, kids’ center, fuel.",
    "work_cost": [
-    29816000.0,
-    19046000.0,
-    12001000.0
+    28223000.0,
+    18472000.0,
+    12542000.0
    ],
    "cash_flow": [
-    -334000.0,
-    991000.0,
-    2026000.0
+    -200000.0,
+    1110000.0,
+    2502000.0
    ],
    "return_on_work": [
-    -0.0112,
-    0.052,
-    0.1688
+    -0.0071,
+    0.0601,
+    0.1995
    ],
    "hall_events": [
     120.0,
@@ -299,27 +556,35 @@
    ],
    "cost_groups": [
     [
+     "Buying the property (assumed $3.0M) and closing",
+     [
+      3350000.0,
+      3265000.0,
+      3218000.0
+     ]
+    ],
+    [
      "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
      [
-      16962000.0,
-      10167000.0,
-      5750000.0
+      14205000.0,
+      8036000.0,
+      4390000.0
      ]
     ],
     [
      "Hall and kitchen fit-out",
      [
-      6725000.0,
-      4990000.0,
-      3485000.0
+      5709000.0,
+      3934000.0,
+      2570000.0
      ]
     ],
     [
      "Design, permits and contingency",
      [
-      4580000.0,
-      2237000.0,
-      1035000.0
+      3409000.0,
+      1527000.0,
+      702000.0
      ]
     ],
     [
@@ -334,16 +599,28 @@
      "Holding costs and construction interest",
      [
       326000.0,
-      511000.0,
-      682000.0
+      569000.0,
+      613000.0
      ]
     ]
    ],
    "column_removal": [
-    1980000.0,
-    1100000.0,
-    420000.0
+    1200000.0,
+    700000.0,
+    340000.0
    ],
+   "hired_out": {
+    "work_cost": [
+     30525000.0,
+     20754000.0,
+     14310000.0
+    ],
+    "payback_years": [
+     null,
+     18.7,
+     5.7
+    ]
+   },
    "income_lines": [
     [
      "Shop rents",
@@ -373,24 +650,32 @@
      "Tenants repay their share of tax, insurance and upkeep",
      [
       176000.0,
-      199000.0,
-      233000.0
+      212000.0,
+      220000.0
      ]
     ],
     [
      "Hall bookings: room rental",
      [
-      330000.0,
-      1045000.0,
-      1495000.0
+      480000.0,
+      1210000.0,
+      1885000.0
      ]
     ],
     [
      "Hall bookings: catering",
      [
       262000.0,
-      1355000.0,
+      1162000.0,
       2075000.0
+     ]
+    ],
+    [
+     "Hall bookings: service charge on catering",
+     [
+      47000.0,
+      232000.0,
+      456000.0
      ]
     ],
     [
@@ -431,8 +716,8 @@
      "Property tax",
      [
       62000.0,
-      107000.0,
-      202000.0
+      132000.0,
+      178000.0
      ]
     ],
     [
@@ -455,7 +740,7 @@
      "Property management",
      [
       27000.0,
-      43000.0,
+      44000.0,
       56000.0
      ]
     ],
@@ -471,7 +756,7 @@
      "Halls: food for catered events",
      [
       89000.0,
-      420000.0,
+      360000.0,
       622000.0
      ]
     ],
@@ -479,24 +764,32 @@
      "Halls: catering staff",
      [
       84000.0,
-      379000.0,
+      325000.0,
       560000.0
+     ]
+    ],
+    [
+     "Halls: service charge paid to event staff",
+     [
+      24000.0,
+      116000.0,
+      228000.0
      ]
     ],
     [
      "Halls: event-day staff (setup, cleaning, security)",
      [
-      144000.0,
-      220000.0,
-      247000.0
+      156000.0,
+      264000.0,
+      299000.0
      ]
     ],
     [
      "Halls: card fees, marketing, supplies, repairs",
      [
-      88000.0,
-      322000.0,
-      441000.0
+      116000.0,
+      348000.0,
+      542000.0
      ]
     ],
     [
@@ -509,68 +802,68 @@
     ]
    ],
    "money_in": [
-    1181000.0,
-    3364000.0,
-    4943000.0
+    1378000.0,
+    3581000.0,
+    5776000.0
    ],
    "money_out": [
-    1515000.0,
-    2373000.0,
-    2917000.0
+    1578000.0,
+    2471000.0,
+    3274000.0
    ],
    "payback_years": [
     null,
-    19.2,
-    5.9
+    16.6,
+    5.0
    ],
    "levers": [
     {
      "label": "One more event a week across the halls (+52 a year)",
      "note": "Weddings, engagements, corporate and community events",
      "kind": "income",
-     "profit_change": 258000.0,
-     "onetime_change": 46000.0,
-     "payback_years": 15.3
+     "profit_change": 266000.0,
+     "onetime_change": 152000.0,
+     "payback_years": 13.5
     },
     {
      "label": "Charge $1,000 more per hall booking",
-     "note": "Saturday rates in the area run $6,000–9,000 for 400+ guests",
+     "note": "Comparable Memphis halls ask $7,000–9,000 on a Saturday; premium venues $10,000–12,000",
      "kind": "income",
-     "profit_change": 190000.0,
-     "onetime_change": 8000.0,
-     "payback_years": 16.1
+     "profit_change": 170000.0,
+     "onetime_change": 97000.0,
+     "payback_years": 14.5
     },
     {
      "label": "Cater 10% more of the events in-house",
      "note": "In-house catering earns more than an outside-caterer kitchen fee",
      "kind": "income",
-     "profit_change": 55000.0,
-     "onetime_change": 0.0,
-     "payback_years": 18.2
+     "profit_change": 54000.0,
+     "onetime_change": 31000.0,
+     "payback_years": 15.9
     },
     {
      "label": "Charge $5 more per guest for catering",
-     "note": "Local plated meals run $28–32 per guest; buffets $18–22",
+     "note": "Memphis buffets run $18–35 per guest and plated meals $28–52",
      "kind": "income",
-     "profit_change": 59000.0,
-     "onetime_change": 0.0,
-     "payback_years": 18.1
+     "profit_change": 57000.0,
+     "onetime_change": 33000.0,
+     "payback_years": 15.9
     },
     {
      "label": "Run the halls with $60,000 less year-round staff",
      "note": "Owner-managed, with part-time event staff",
      "kind": "saving",
-     "profit_change": 60000.0,
-     "onetime_change": 0.0,
-     "payback_years": 18.1
+     "profit_change": 53000.0,
+     "onetime_change": 31000.0,
+     "payback_years": 15.9
     },
     {
      "label": "Shops 95% leased instead of 85%",
      "note": "Needs strong anchors or a busy hall complex",
      "kind": "income",
-     "profit_change": 43000.0,
-     "onetime_change": 101000.0,
-     "payback_years": 18.5
+     "profit_change": 44000.0,
+     "onetime_change": 102000.0,
+     "payback_years": 16.1
     },
     {
      "label": "Kids’ center pays $6.00/SF instead of $4.50",
@@ -578,7 +871,7 @@
      "kind": "income",
      "profit_change": 22000.0,
      "onetime_change": 25000.0,
-     "payback_years": 18.8
+     "payback_years": 16.3
     },
     {
      "label": "Add a food pad on Summer Ave (ground lease, about $70,000 a year)",
@@ -586,47 +879,47 @@
      "kind": "income",
      "profit_change": 57000.0,
      "onetime_change": 65000.0,
-     "payback_years": 18.2
+     "payback_years": 15.9
     },
     {
      "label": "Keep the hall columns and decorate around them",
      "note": "Saves the steel beams; each main room keeps 2 columns",
      "kind": "saving",
      "profit_change": -0.0,
-     "onetime_change": -1342000.0,
-     "payback_years": 17.9
+     "onetime_change": -833000.0,
+     "payback_years": 15.9
     },
     {
      "label": "Roof needs only repairs and a coating",
      "note": "Only if a roofer confirms the roof is sound",
      "kind": "saving",
      "profit_change": -0.0,
-     "onetime_change": -777000.0,
-     "payback_years": 18.4
+     "onetime_change": -593000.0,
+     "payback_years": 16.1
     },
     {
      "label": "Patch and reseal the parking lot instead of repaving",
      "note": "Keep repaving for the worst areas",
      "kind": "saving",
      "profit_change": -0.0,
-     "onetime_change": -280000.0,
-     "payback_years": 18.9
+     "onetime_change": -214000.0,
+     "payback_years": 16.4
     },
     {
      "label": "Basic hall finishes ($20/SF less)",
      "note": "Simpler ceilings and lighting; décor rented per event",
      "kind": "saving",
-     "profit_change": -0.0,
-     "onetime_change": -877000.0,
-     "payback_years": 18.3
+     "profit_change": -11000.0,
+     "onetime_change": -634000.0,
+     "payback_years": 16.2
     },
     {
      "label": "Caterers bring and own the kitchen equipment",
      "note": "Kitchen shell, hoods and grease trap stay with the owner",
      "kind": "saving",
-     "profit_change": -0.0,
-     "onetime_change": -545000.0,
-     "payback_years": 18.7
+     "profit_change": -7000.0,
+     "onetime_change": -394000.0,
+     "payback_years": 16.4
     },
     {
      "label": "Insurance shopped 15% cheaper",
@@ -634,8 +927,281 @@
      "kind": "saving",
      "profit_change": 4000.0,
      "onetime_change": 2000.0,
-     "payback_years": 19.1
+     "payback_years": 16.6
     }
+   ],
+   "cost_items": [
+    [
+     "Buying the property (assumed $3.0M) and closing",
+     "Purchase price (assumed)",
+     [
+      3000000.0,
+      3000000.0,
+      3000000.0
+     ]
+    ],
+    [
+     "Buying the property (assumed $3.0M) and closing",
+     "Fees, closing costs, surveys and inspections",
+     [
+      350000.0,
+      265000.0,
+      218000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Roof repairs, coating or replacement",
+     [
+      1457000.0,
+      727000.0,
+      194000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Heating and air conditioning (rooftop units)",
+     [
+      1480000.0,
+      921000.0,
+      504000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Fire sprinklers",
+     [
+      432000.0,
+      300000.0,
+      186000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Fire alarm with voice evacuation",
+     [
+      647000.0,
+      450000.0,
+      326000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Clearing out the old store interior",
+     [
+      540000.0,
+      350000.0,
+      233000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "New shop fronts",
+     [
+      837000.0,
+      551000.0,
+      353000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "New entrances and canopies",
+     [
+      845000.0,
+      470000.0,
+      255000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Walls between tenant spaces",
+     [
+      785000.0,
+      533000.0,
+      361000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Restrooms",
+     [
+      1184000.0,
+      783000.0,
+      438000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Electrical",
+     [
+      761000.0,
+      470000.0,
+      255000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Plumbing",
+     [
+      338000.0,
+      196000.0,
+      109000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Parking lot repair and repaving",
+     [
+      1289000.0,
+      449000.0,
+      273000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Site work, lighting and landscaping",
+     [
+      507000.0,
+      313000.0,
+      182000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Outside walls and paint",
+     [
+      507000.0,
+      313000.0,
+      182000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Stormwater detention",
+     [
+      211000.0,
+      78000.0,
+      0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Flood compliance work",
+     [
+      845000.0,
+      196000.0,
+      36000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Removing the 4 hall columns (steel beams)",
+     [
+      1200000.0,
+      700000.0,
+      340000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Movable walls that split each main room",
+     [
+      338000.0,
+      235000.0,
+      161000.0
+     ]
+    ],
+    [
+     "Hall and kitchen fit-out",
+     "Hall finishes, lighting and sound",
+     [
+      4077000.0,
+      2747000.0,
+      1759000.0
+     ]
+    ],
+    [
+     "Hall and kitchen fit-out",
+     "Kitchens: hoods, fire suppression, grease trap, walk-ins",
+     [
+      1482000.0,
+      1068000.0,
+      711000.0
+     ]
+    ],
+    [
+     "Hall and kitchen fit-out",
+     "Opening costs and starting cash for the halls",
+     [
+      150000.0,
+      120000.0,
+      100000.0
+     ]
+    ],
+    [
+     "Design, permits and contingency",
+     "Design, engineering, permits and surveys",
+     [
+      1278000.0,
+      563000.0,
+      263000.0
+     ]
+    ],
+    [
+     "Design, permits and contingency",
+     "Cushion for surprises",
+     [
+      2131000.0,
+      964000.0,
+      439000.0
+     ]
+    ],
+    [
+     "Leasing: tenant improvements and commissions",
+     "Fit-out help for tenants",
+     [
+      1103000.0,
+      908000.0,
+      684000.0
+     ]
+    ],
+    [
+     "Leasing: tenant improvements and commissions",
+     "Leasing commissions",
+     [
+      120000.0,
+      234000.0,
+      365000.0
+     ]
+    ],
+    [
+     "Holding costs and construction interest",
+     "Tax, insurance and upkeep while building",
+     [
+      286000.0,
+      263000.0,
+      241000.0
+     ]
+    ],
+    [
+     "Holding costs and construction interest",
+     "Construction-loan interest",
+     [
+      41000.0,
+      306000.0,
+      372000.0
+     ]
+    ]
+   ],
+   "build_cost": [
+    24873000.0,
+    15207000.0,
+    9325000.0
+   ],
+   "purchase": [
+    3350000.0,
+    3265000.0,
+    3218000.0
    ]
   },
   {
@@ -643,22 +1209,22 @@
    "name": "Full plan, built efficiently",
    "short": "Efficient full plan",
    "opens_months": 15,
-   "what": "Same final uses, built leaner: 12 larger shop bays instead of 22, flex left open until leased, roof repaired and coated where sound, HVAC replaced only for the halls and kids’ center, existing restroom cores reused, hall furniture and kitchen equipment leased.",
+   "what": "Same final uses, built leaner: 12 larger shop bays instead of 22, flex left open until leased, roof repaired and coated where sound, HVAC replaced only for the halls and kids’ center, existing restroom cores reused, hall furniture and kitchen equipment leased. The movable walls in the main rooms stay.",
    "who": "Same as the full plan.",
    "work_cost": [
-    23329000.0,
-    14817000.0,
-    9667000.0
+    22977000.0,
+    15195000.0,
+    10766000.0
    ],
    "cash_flow": [
-    -401000.0,
-    957000.0,
-    2045000.0
+    -261000.0,
+    1071000.0,
+    2544000.0
    ],
    "return_on_work": [
-    -0.0172,
-    0.0646,
-    0.2115
+    -0.0114,
+    0.0705,
+    0.2363
    ],
    "hall_events": [
     120.0,
@@ -667,27 +1233,35 @@
    ],
    "cost_groups": [
     [
+     "Buying the property (assumed $3.0M) and closing",
+     [
+      3350000.0,
+      3265000.0,
+      3218000.0
+     ]
+    ],
+    [
      "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
      [
-      13365000.0,
-      7833000.0,
-      4618000.0
+      11164000.0,
+      6208000.0,
+      3564000.0
      ]
     ],
     [
      "Hall and kitchen fit-out",
      [
-      5852000.0,
-      4347000.0,
-      3158000.0
+      4968000.0,
+      3428000.0,
+      2329000.0
      ]
     ],
     [
      "Design, permits and contingency",
      [
-      3074000.0,
-      1488000.0,
-      693000.0
+      2456000.0,
+      1055000.0,
+      499000.0
      ]
     ],
     [
@@ -702,16 +1276,28 @@
      "Holding costs and construction interest",
      [
       264000.0,
-      402000.0,
-      504000.0
+      491000.0,
+      462000.0
      ]
     ]
    ],
    "column_removal": [
-    1980000.0,
-    1100000.0,
-    420000.0
+    1200000.0,
+    700000.0,
+    340000.0
    ],
+   "hired_out": {
+    "work_cost": [
+     24679000.0,
+     16969000.0,
+     12176000.0
+    ],
+    "payback_years": [
+     null,
+     15.8,
+     4.8
+    ]
+   },
    "income_lines": [
     [
      "Shop rents",
@@ -741,24 +1327,32 @@
      "Tenants repay their share of tax, insurance and upkeep",
      [
       176000.0,
-      189000.0,
-      225000.0
+      213000.0,
+      213000.0
      ]
     ],
     [
      "Hall bookings: room rental",
      [
-      330000.0,
-      1045000.0,
-      1495000.0
+      480000.0,
+      1210000.0,
+      1885000.0
      ]
     ],
     [
      "Hall bookings: catering",
      [
       262000.0,
-      1355000.0,
+      1162000.0,
       2075000.0
+     ]
+    ],
+    [
+     "Hall bookings: service charge on catering",
+     [
+      47000.0,
+      232000.0,
+      456000.0
      ]
     ],
     [
@@ -799,8 +1393,8 @@
      "Property tax",
      [
       62000.0,
-      95000.0,
-      186000.0
+      141000.0,
+      166000.0
      ]
     ],
     [
@@ -823,7 +1417,7 @@
      "Property management",
      [
       26000.0,
-      40000.0,
+      41000.0,
       53000.0
      ]
     ],
@@ -839,7 +1433,7 @@
      "Halls: food for catered events",
      [
       89000.0,
-      420000.0,
+      360000.0,
       622000.0
      ]
     ],
@@ -847,24 +1441,32 @@
      "Halls: catering staff",
      [
       84000.0,
-      379000.0,
+      325000.0,
       560000.0
+     ]
+    ],
+    [
+     "Halls: service charge paid to event staff",
+     [
+      24000.0,
+      116000.0,
+      228000.0
      ]
     ],
     [
      "Halls: event-day staff (setup, cleaning, security)",
      [
-      144000.0,
-      220000.0,
-      247000.0
+      156000.0,
+      264000.0,
+      299000.0
      ]
     ],
     [
      "Halls: card fees, marketing, supplies, repairs",
      [
-      69000.0,
-      247000.0,
-      331000.0
+      91000.0,
+      268000.0,
+      407000.0
      ]
     ],
     [
@@ -877,68 +1479,68 @@
     ]
    ],
    "money_in": [
-    1163000.0,
-    3298000.0,
-    4882000.0
+    1360000.0,
+    3526000.0,
+    5717000.0
    ],
    "money_out": [
-    1564000.0,
-    2342000.0,
-    2837000.0
+    1621000.0,
+    2455000.0,
+    3173000.0
    ],
    "payback_years": [
     null,
-    15.5,
-    4.7
+    14.2,
+    4.2
    ],
    "levers": [
     {
      "label": "One more event a week across the halls (+52 a year)",
      "note": "Weddings, engagements, corporate and community events",
      "kind": "income",
-     "profit_change": 261000.0,
-     "onetime_change": 93000.0,
-     "payback_years": 12.2
+     "profit_change": 295000.0,
+     "onetime_change": 87000.0,
+     "payback_years": 11.2
     },
     {
      "label": "Charge $1,000 more per hall booking",
-     "note": "Saturday rates in the area run $6,000–9,000 for 400+ guests",
+     "note": "Comparable Memphis halls ask $7,000–9,000 on a Saturday; premium venues $10,000–12,000",
      "kind": "income",
-     "profit_change": 183000.0,
-     "onetime_change": 56000.0,
-     "payback_years": 13.0
+     "profit_change": 176000.0,
+     "onetime_change": 84000.0,
+     "payback_years": 12.3
     },
     {
      "label": "Cater 10% more of the events in-house",
      "note": "In-house catering earns more than an outside-caterer kitchen fee",
      "kind": "income",
-     "profit_change": 62000.0,
-     "onetime_change": 0.0,
-     "payback_years": 14.5
+     "profit_change": 60000.0,
+     "onetime_change": 29000.0,
+     "payback_years": 13.5
     },
     {
      "label": "Charge $5 more per guest for catering",
-     "note": "Local plated meals run $28–32 per guest; buffets $18–22",
+     "note": "Memphis buffets run $18–35 per guest and plated meals $28–52",
      "kind": "income",
-     "profit_change": 66000.0,
-     "onetime_change": 0.0,
-     "payback_years": 14.5
+     "profit_change": 63000.0,
+     "onetime_change": 30000.0,
+     "payback_years": 13.4
     },
     {
      "label": "Run the halls with $60,000 less year-round staff",
      "note": "Owner-managed, with part-time event staff",
      "kind": "saving",
-     "profit_change": 60000.0,
-     "onetime_change": 0.0,
-     "payback_years": 14.6
+     "profit_change": 53000.0,
+     "onetime_change": 25000.0,
+     "payback_years": 13.5
     },
     {
      "label": "Shops 95% leased instead of 85%",
      "note": "Needs strong anchors or a busy hall complex",
      "kind": "income",
-     "profit_change": 40000.0,
+     "profit_change": 41000.0,
      "onetime_change": 79000.0,
-     "payback_years": 14.9
+     "payback_years": 13.7
     },
     {
      "label": "Kids’ center pays $6.00/SF instead of $4.50",
@@ -946,7 +1548,7 @@
      "kind": "income",
      "profit_change": 22000.0,
      "onetime_change": 23000.0,
-     "payback_years": 15.2
+     "payback_years": 13.9
     },
     {
      "label": "Add a food pad on Summer Ave (ground lease, about $70,000 a year)",
@@ -954,47 +1556,47 @@
      "kind": "income",
      "profit_change": 57000.0,
      "onetime_change": 60000.0,
-     "payback_years": 14.7
+     "payback_years": 13.5
     },
     {
      "label": "Keep the hall columns and decorate around them",
      "note": "Saves the steel beams; each main room keeps 2 columns",
      "kind": "saving",
      "profit_change": -0.0,
-     "onetime_change": -1309000.0,
-     "payback_years": 14.1
+     "onetime_change": -819000.0,
+     "payback_years": 13.4
     },
     {
      "label": "Roof needs only repairs and a coating",
      "note": "Only if a roofer confirms the roof is sound",
      "kind": "saving",
      "profit_change": -0.0,
-     "onetime_change": -363000.0,
-     "payback_years": 15.1
+     "onetime_change": -279000.0,
+     "payback_years": 13.9
     },
     {
      "label": "Patch and reseal the parking lot instead of repaving",
      "note": "Keep repaving for the worst areas",
      "kind": "saving",
      "profit_change": -0.0,
-     "onetime_change": -262000.0,
-     "payback_years": 15.2
+     "onetime_change": -202000.0,
+     "payback_years": 14.0
     },
     {
      "label": "Basic hall finishes ($20/SF less)",
      "note": "Simpler ceilings and lighting; décor rented per event",
      "kind": "saving",
-     "profit_change": -7000.0,
-     "onetime_change": -849000.0,
-     "payback_years": 14.7
+     "profit_change": -11000.0,
+     "onetime_change": -643000.0,
+     "payback_years": 13.7
     },
     {
      "label": "Caterers bring and own the kitchen equipment",
      "note": "Kitchen shell, hoods and grease trap stay with the owner",
      "kind": "saving",
-     "profit_change": -0.0,
-     "onetime_change": -466000.0,
-     "payback_years": 15.0
+     "profit_change": -6000.0,
+     "onetime_change": -343000.0,
+     "payback_years": 13.9
     },
     {
      "label": "Insurance shopped 15% cheaper",
@@ -1002,8 +1604,281 @@
      "kind": "saving",
      "profit_change": 4000.0,
      "onetime_change": 2000.0,
-     "payback_years": 15.4
+     "payback_years": 14.1
     }
+   ],
+   "cost_items": [
+    [
+     "Buying the property (assumed $3.0M) and closing",
+     "Purchase price (assumed)",
+     [
+      3000000.0,
+      3000000.0,
+      3000000.0
+     ]
+    ],
+    [
+     "Buying the property (assumed $3.0M) and closing",
+     "Fees, closing costs, surveys and inspections",
+     [
+      350000.0,
+      265000.0,
+      218000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Roof repairs, coating or replacement",
+     [
+      1009000.0,
+      467000.0,
+      242000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Heating and air conditioning (rooftop units)",
+     [
+      977000.0,
+      614000.0,
+      369000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Fire sprinklers",
+     [
+      380000.0,
+      258000.0,
+      161000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Fire alarm with voice evacuation",
+     [
+      647000.0,
+      450000.0,
+      326000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Clearing out the old store interior",
+     [
+      440000.0,
+      282000.0,
+      190000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "New shop fronts",
+     [
+      457000.0,
+      301000.0,
+      193000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "New entrances and canopies",
+     [
+      550000.0,
+      352000.0,
+      204000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Walls between tenant spaces",
+     [
+      305000.0,
+      207000.0,
+      131000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Restrooms",
+     [
+      888000.0,
+      587000.0,
+      350000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Electrical",
+     [
+      676000.0,
+      407000.0,
+      234000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Plumbing",
+     [
+      296000.0,
+      172000.0,
+      95000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Parking lot repair and repaving",
+     [
+      1184000.0,
+      431000.0,
+      255000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Site work, lighting and landscaping",
+     [
+      380000.0,
+      235000.0,
+      146000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Outside walls and paint",
+     [
+      380000.0,
+      235000.0,
+      131000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Stormwater detention",
+     [
+      211000.0,
+      78000.0,
+      0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Flood compliance work",
+     [
+      845000.0,
+      196000.0,
+      36000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Removing the 4 hall columns (steel beams)",
+     [
+      1200000.0,
+      700000.0,
+      340000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Movable walls that split each main room",
+     [
+      338000.0,
+      235000.0,
+      161000.0
+     ]
+    ],
+    [
+     "Hall and kitchen fit-out",
+     "Hall finishes, lighting and sound",
+     [
+      3521000.0,
+      2403000.0,
+      1600000.0
+     ]
+    ],
+    [
+     "Hall and kitchen fit-out",
+     "Kitchens: hoods, fire suppression, grease trap, walk-ins",
+     [
+      1317000.0,
+      915000.0,
+      640000.0
+     ]
+    ],
+    [
+     "Hall and kitchen fit-out",
+     "Opening costs and starting cash for the halls",
+     [
+      130000.0,
+      110000.0,
+      90000.0
+     ]
+    ],
+    [
+     "Design, permits and contingency",
+     "Design, engineering, permits and surveys",
+     [
+      1005000.0,
+      435000.0,
+      214000.0
+     ]
+    ],
+    [
+     "Design, permits and contingency",
+     "Cushion for surprises",
+     [
+      1451000.0,
+      621000.0,
+      285000.0
+     ]
+    ],
+    [
+     "Leasing: tenant improvements and commissions",
+     "Fit-out help for tenants",
+     [
+      659000.0,
+      530000.0,
+      344000.0
+     ]
+    ],
+    [
+     "Leasing: tenant improvements and commissions",
+     "Leasing commissions",
+     [
+      115000.0,
+      217000.0,
+      350000.0
+     ]
+    ],
+    [
+     "Holding costs and construction interest",
+     "Tax, insurance and upkeep while building",
+     [
+      238000.0,
+      219000.0,
+      201000.0
+     ]
+    ],
+    [
+     "Holding costs and construction interest",
+     "Construction-loan interest",
+     [
+      25000.0,
+      271000.0,
+      261000.0
+     ]
+    ]
+   ],
+   "build_cost": [
+    19627000.0,
+    11930000.0,
+    7548000.0
+   ],
+   "purchase": [
+    3350000.0,
+    3265000.0,
+    3218000.0
    ]
   },
   {
@@ -1011,22 +1886,22 @@
    "name": "Hybrid (phased)",
    "short": "Hybrid",
    "opens_months": 10,
-   "what": "Phase 1: Hall A, Kitchen A, the dining room and the kids’ center; the rest is rented in its current condition on short leases. Phase 2 (year 3 in the realistic case): Hall B and Kitchen B once Hall A books about 100 events a year.",
+   "what": "Phase 1: Hall A, Kitchen A, the dining room and the kids’ center; the rest is rented in its current condition on short leases. Phase 2 (year 3 in the realistic case): Hall B and Kitchen B once Hall A books about 100 events a year. Each main room gets a movable wall when it is built.",
    "who": "Owners’ operating company runs the halls. Tenants: kids’ center, the rest of the space, fuel.",
    "work_cost": [
-    16550000.0,
-    13323000.0,
-    8557000.0
+    17294000.0,
+    13862000.0,
+    9878000.0
    ],
    "cash_flow": [
-    -377000.0,
-    782000.0,
-    1836000.0
+    -313000.0,
+    903000.0,
+    2334000.0
    ],
    "return_on_work": [
-    -0.0228,
-    0.0587,
-    0.2145
+    -0.0181,
+    0.0651,
+    0.2363
    ],
    "hall_events": [
     55.0,
@@ -1035,27 +1910,35 @@
    ],
    "cost_groups": [
     [
+     "Buying the property (assumed $3.0M) and closing",
+     [
+      3350000.0,
+      3265000.0,
+      3218000.0
+     ]
+    ],
+    [
      "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
      [
-      10121000.0,
-      5712000.0,
-      3358000.0
+      8490000.0,
+      4510000.0,
+      2548000.0
      ]
     ],
     [
      "Hall and kitchen fit-out",
      [
-      3427000.0,
-      2542000.0,
-      1839000.0
+      2913000.0,
+      2008000.0,
+      1359000.0
      ]
     ],
     [
      "Design, permits and contingency",
      [
-      2328000.0,
-      1085000.0,
-      504000.0
+      1868000.0,
+      767000.0,
+      357000.0
      ]
     ],
     [
@@ -1071,43 +1954,55 @@
      [
       159000.0,
       244000.0,
-      298000.0
+      276000.0
      ]
     ],
     [
      "Hall B and Kitchen B (phase 2)",
      [
       0.0,
-      3238000.0,
-      2048000.0
+      2566000.0,
+      1611000.0
      ]
     ]
    ],
    "column_removal": [
-    990000.0,
-    550000.0,
-    210000.0
+    600000.0,
+    350000.0,
+    170000.0
    ],
-   "phase1": {
-    "cash_flow": [
-     -377000.0,
-     441000.0,
-     1210000.0
-    ],
+   "hired_out": {
     "work_cost": [
-     16550000.0,
-     10086000.0,
-     6509000.0
-    ],
-    "return_on_work": [
-     -0.0228,
-     0.0438,
-     0.1859
+     18384000.0,
+     15546000.0,
+     11158000.0
     ],
     "payback_years": [
      null,
-     22.9,
-     5.4
+     17.2,
+     4.8
+    ]
+   },
+   "phase1": {
+    "cash_flow": [
+     -313000.0,
+     504000.0,
+     1450000.0
+    ],
+    "work_cost": [
+     17294000.0,
+     11297000.0,
+     8266000.0
+    ],
+    "return_on_work": [
+     -0.0181,
+     0.0446,
+     0.1754
+    ],
+    "payback_years": [
+     null,
+     22.4,
+     5.7
     ]
    },
    "income_lines": [
@@ -1131,24 +2026,32 @@
      "Tenants repay their share of tax, insurance and upkeep",
      [
       202000.0,
-      168000.0,
-      226000.0
+      184000.0,
+      216000.0
      ]
     ],
     [
      "Hall bookings: room rental",
      [
-      151000.0,
-      1045000.0,
-      1495000.0
+      220000.0,
+      1210000.0,
+      1885000.0
      ]
     ],
     [
      "Hall bookings: catering",
      [
       120000.0,
-      1355000.0,
+      1162000.0,
       2075000.0
+     ]
+    ],
+    [
+     "Hall bookings: service charge on catering",
+     [
+      22000.0,
+      232000.0,
+      456000.0
      ]
     ],
     [
@@ -1189,8 +2092,8 @@
      "Property tax",
      [
       62000.0,
-      62000.0,
-      181000.0
+      94000.0,
+      162000.0
      ]
     ],
     [
@@ -1213,7 +2116,7 @@
      "Property management",
      [
       21000.0,
-      29000.0,
+      30000.0,
       43000.0
      ]
     ],
@@ -1229,7 +2132,7 @@
      "Halls: food for catered events",
      [
       41000.0,
-      420000.0,
+      360000.0,
       622000.0
      ]
     ],
@@ -1237,24 +2140,32 @@
      "Halls: catering staff",
      [
       38000.0,
-      379000.0,
+      325000.0,
       560000.0
+     ]
+    ],
+    [
+     "Halls: service charge paid to event staff",
+     [
+      11000.0,
+      116000.0,
+      228000.0
      ]
     ],
     [
      "Halls: event-day staff (setup, cleaning, security)",
      [
-      66000.0,
-      220000.0,
-      247000.0
+      72000.0,
+      264000.0,
+      299000.0
      ]
     ],
     [
      "Halls: card fees, marketing, supplies, repairs",
      [
-      32000.0,
-      247000.0,
-      331000.0
+      42000.0,
+      268000.0,
+      407000.0
      ]
     ],
     [
@@ -1267,133 +2178,406 @@
     ]
    ],
    "money_in": [
-    727000.0,
-    3075000.0,
-    4653000.0
+    817000.0,
+    3295000.0,
+    5489000.0
    ],
    "money_out": [
-    1104000.0,
-    2292000.0,
-    2817000.0
+    1131000.0,
+    2392000.0,
+    3155000.0
    ],
    "payback_years": [
     null,
-    17.0,
-    4.7
+    15.4,
+    4.2
    ],
    "levers": [
     {
      "label": "One more event a week across the halls (+52 a year)",
      "note": "Weddings, engagements, corporate and community events",
      "kind": "income",
-     "profit_change": 268000.0,
-     "onetime_change": 0.0,
-     "payback_years": 12.7
+     "profit_change": 295000.0,
+     "onetime_change": 14000.0,
+     "payback_years": 11.6
     },
     {
      "label": "Charge $1,000 more per hall booking",
-     "note": "Saturday rates in the area run $6,000–9,000 for 400+ guests",
+     "note": "Comparable Memphis halls ask $7,000–9,000 on a Saturday; premium venues $10,000–12,000",
      "kind": "income",
-     "profit_change": 191000.0,
+     "profit_change": 176000.0,
      "onetime_change": 0.0,
-     "payback_years": 13.7
+     "payback_years": 12.8
     },
     {
      "label": "Cater 10% more of the events in-house",
      "note": "In-house catering earns more than an outside-caterer kitchen fee",
      "kind": "income",
-     "profit_change": 62000.0,
+     "profit_change": 60000.0,
      "onetime_change": 0.0,
-     "payback_years": 15.8
+     "payback_years": 14.4
     },
     {
      "label": "Charge $5 more per guest for catering",
-     "note": "Local plated meals run $28–32 per guest; buffets $18–22",
+     "note": "Memphis buffets run $18–35 per guest and plated meals $28–52",
      "kind": "income",
-     "profit_change": 66000.0,
+     "profit_change": 63000.0,
      "onetime_change": 0.0,
-     "payback_years": 15.7
+     "payback_years": 14.3
     },
     {
      "label": "Run the halls with $60,000 less year-round staff",
      "note": "Owner-managed, with part-time event staff",
      "kind": "saving",
-     "profit_change": 60000.0,
+     "profit_change": 53000.0,
      "onetime_change": 0.0,
-     "payback_years": 15.8
+     "payback_years": 14.5
     },
     {
      "label": "Kids’ center pays $6.00/SF instead of $4.50",
      "note": "Depends on the playground operator’s sales",
      "kind": "income",
-     "profit_change": 25000.0,
+     "profit_change": 22000.0,
      "onetime_change": 20000.0,
-     "payback_years": 16.5
+     "payback_years": 15.0
     },
     {
      "label": "As-is space 85% leased instead of the base case",
      "note": "Large blocks lease slowly; this is the upside",
      "kind": "income",
-     "profit_change": 47000.0,
+     "profit_change": 43000.0,
      "onetime_change": 63000.0,
-     "payback_years": 16.2
+     "payback_years": 14.7
     },
     {
      "label": "Add a food pad on Summer Ave (ground lease, about $70,000 a year)",
      "note": "Needs a restaurant tenant and the 5800/5810 Summer pads",
      "kind": "income",
-     "profit_change": 63000.0,
+     "profit_change": 57000.0,
      "onetime_change": 51000.0,
-     "payback_years": 15.8
+     "payback_years": 14.5
     },
     {
      "label": "Keep the hall columns and decorate around them",
      "note": "Saves the steel beams; each main room keeps 2 columns",
      "kind": "saving",
      "profit_change": 0.0,
-     "onetime_change": -655000.0,
-     "payback_years": 16.2
+     "onetime_change": -410000.0,
+     "payback_years": 14.9
     },
     {
      "label": "Roof needs only repairs and a coating",
      "note": "Only if a roofer confirms the roof is sound",
      "kind": "saving",
      "profit_change": 0.0,
-     "onetime_change": -363000.0,
-     "payback_years": 16.6
+     "onetime_change": -279000.0,
+     "payback_years": 15.0
     },
     {
      "label": "Patch and reseal the parking lot instead of repaving",
      "note": "Keep repaving for the worst areas",
      "kind": "saving",
      "profit_change": 0.0,
-     "onetime_change": -262000.0,
-     "payback_years": 16.7
+     "onetime_change": -202000.0,
+     "payback_years": 15.1
     },
     {
      "label": "Basic hall finishes ($20/SF less)",
      "note": "Simpler ceilings and lighting; décor rented per event",
      "kind": "saving",
-     "profit_change": 0.0,
-     "onetime_change": -537000.0,
-     "payback_years": 16.4
+     "profit_change": -7000.0,
+     "onetime_change": -420000.0,
+     "payback_years": 15.0
     },
     {
      "label": "Caterers bring and own the kitchen equipment",
      "note": "Kitchen shell, hoods and grease trap stay with the owner",
      "kind": "saving",
-     "profit_change": 0.0,
-     "onetime_change": -234000.0,
-     "payback_years": 16.7
+     "profit_change": -3000.0,
+     "onetime_change": -183000.0,
+     "payback_years": 15.2
     },
     {
      "label": "Insurance shopped 15% cheaper",
      "note": "Needs quotes from two or three brokers",
      "kind": "saving",
-     "profit_change": 5000.0,
+     "profit_change": 4000.0,
      "onetime_change": 1000.0,
-     "payback_years": 16.9
+     "payback_years": 15.3
     }
+   ],
+   "cost_items": [
+    [
+     "Buying the property (assumed $3.0M) and closing",
+     "Purchase price (assumed)",
+     [
+      3000000.0,
+      3000000.0,
+      3000000.0
+     ]
+    ],
+    [
+     "Buying the property (assumed $3.0M) and closing",
+     "Fees, closing costs, surveys and inspections",
+     [
+      350000.0,
+      265000.0,
+      218000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Roof repairs, coating or replacement",
+     [
+      1009000.0,
+      467000.0,
+      242000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Heating and air conditioning (rooftop units)",
+     [
+      681000.0,
+      417000.0,
+      252000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Fire sprinklers",
+     [
+      321000.0,
+      219000.0,
+      139000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Fire alarm with voice evacuation",
+     [
+      592000.0,
+      407000.0,
+      292000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Clearing out the old store interior",
+     [
+      279000.0,
+      172000.0,
+      117000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "New entrances and canopies",
+     [
+      380000.0,
+      235000.0,
+      131000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Walls between tenant spaces",
+     [
+      273000.0,
+      190000.0,
+      118000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Restrooms",
+     [
+      592000.0,
+      376000.0,
+      219000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Electrical",
+     [
+      507000.0,
+      313000.0,
+      182000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Plumbing",
+     [
+      211000.0,
+      125000.0,
+      73000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Parking lot repair and repaving",
+     [
+      1184000.0,
+      431000.0,
+      255000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Site work, lighting and landscaping",
+     [
+      338000.0,
+      219000.0,
+      131000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Outside walls and paint",
+     [
+      296000.0,
+      196000.0,
+      109000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Stormwater detention",
+     [
+      211000.0,
+      78000.0,
+      0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Flood compliance work",
+     [
+      845000.0,
+      196000.0,
+      36000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Removing the 2 Hall A columns (steel beams)",
+     [
+      600000.0,
+      350000.0,
+      170000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Movable wall that splits Hall A",
+     [
+      169000.0,
+      117000.0,
+      80000.0
+     ]
+    ],
+    [
+     "Hall and kitchen fit-out",
+     "Hall finishes, lighting and sound",
+     [
+      2155000.0,
+      1471000.0,
+      979000.0
+     ]
+    ],
+    [
+     "Hall and kitchen fit-out",
+     "Kitchens: hoods, fire suppression, grease trap, walk-ins",
+     [
+      658000.0,
+      457000.0,
+      320000.0
+     ]
+    ],
+    [
+     "Hall and kitchen fit-out",
+     "Opening costs and starting cash for the halls",
+     [
+      100000.0,
+      80000.0,
+      60000.0
+     ]
+    ],
+    [
+     "Design, permits and contingency",
+     "Design, engineering, permits and surveys",
+     [
+      764000.0,
+      316000.0,
+      153000.0
+     ]
+    ],
+    [
+     "Design, permits and contingency",
+     "Cushion for surprises",
+     [
+      1104000.0,
+      451000.0,
+      204000.0
+     ]
+    ],
+    [
+     "Leasing: tenant improvements and commissions",
+     "Fit-out help for tenants",
+     [
+      436000.0,
+      323000.0,
+      194000.0
+     ]
+    ],
+    [
+     "Leasing: tenant improvements and commissions",
+     "Leasing commissions",
+     [
+      79000.0,
+      180000.0,
+      316000.0
+     ]
+    ],
+    [
+     "Holding costs and construction interest",
+     "Tax, insurance and upkeep while building",
+     [
+      159000.0,
+      146000.0,
+      134000.0
+     ]
+    ],
+    [
+     "Holding costs and construction interest",
+     "Construction-loan interest",
+     [
+      0.0,
+      98000.0,
+      142000.0
+     ]
+    ],
+    [
+     "Hall B and Kitchen B (phase 2)",
+     "Hall B and Kitchen B in year 3 (2 more columns, its movable wall, finishes and kitchen)",
+     [
+      0,
+      2566000.0,
+      1611000.0
+     ]
+    ]
+   ],
+   "build_cost": [
+    13944000.0,
+    10597000.0,
+    6660000.0
+   ],
+   "purchase": [
+    3350000.0,
+    3265000.0,
+    3218000.0
    ]
   },
   {
@@ -1404,19 +2588,19 @@
    "what": "No halls yet. Repair the roof, HVAC, fire systems and parking, split the building into large blocks and rent them in their current condition to service, showroom, church, school, medical or back-office users. The halls stay an option for later.",
    "who": "Tenants only.",
    "work_cost": [
-    7058000.0,
-    4271000.0,
-    2771000.0
+    9466000.0,
+    6780000.0,
+    5448000.0
    ],
    "cash_flow": [
     -11000.0,
     388000.0,
-    836000.0
+    837000.0
    ],
    "return_on_work": [
-    -0.0016,
-    0.0909,
-    0.3016
+    -0.0012,
+    0.0572,
+    0.1536
    ],
    "hall_events": [
     null,
@@ -1425,11 +2609,19 @@
    ],
    "cost_groups": [
     [
+     "Buying the property (assumed $3.0M) and closing",
+     [
+      3350000.0,
+      3265000.0,
+      3218000.0
+     ]
+    ],
+    [
      "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
      [
-      5328000.0,
-      2979000.0,
-      1731000.0
+      4505000.0,
+      2333000.0,
+      1263000.0
      ]
     ],
     [
@@ -1443,9 +2635,9 @@
     [
      "Design, permits and contingency",
      [
-      1066000.0,
-      506000.0,
-      242000.0
+      946000.0,
+      397000.0,
+      177000.0
      ]
     ],
     [
@@ -1461,7 +2653,7 @@
      [
       95000.0,
       164000.0,
-      154000.0
+      147000.0
      ]
     ]
    ],
@@ -1470,6 +2662,18 @@
     0.0,
     0.0
    ],
+   "hired_out": {
+    "work_cost": [
+     9705000.0,
+     7152000.0,
+     5768000.0
+    ],
+    "payback_years": [
+     null,
+     18.4,
+     6.9
+    ]
+   },
    "income_lines": [
     [
      "Rents from as-is space",
@@ -1484,7 +2688,7 @@
      [
       204000.0,
       257000.0,
-      281000.0
+      276000.0
      ]
     ],
     [
@@ -1518,7 +2722,7 @@
      [
       62000.0,
       99000.0,
-      122000.0
+      117000.0
      ]
     ],
     [
@@ -1557,26 +2761,26 @@
    "money_in": [
     465000.0,
     846000.0,
-    1267000.0
+    1263000.0
    ],
    "money_out": [
     476000.0,
     458000.0,
-    432000.0
+    426000.0
    ],
    "payback_years": [
     null,
-    11.0,
-    3.3
+    17.5,
+    6.5
    ],
    "levers": [
     {
      "label": "As-is space 85% leased instead of the base case",
      "note": "Large blocks lease slowly; this is the upside",
      "kind": "income",
-     "profit_change": 143000.0,
-     "onetime_change": 152000.0,
-     "payback_years": 8.3
+     "profit_change": 144000.0,
+     "onetime_change": 143000.0,
+     "payback_years": 13.0
     },
     {
      "label": "Add a food pad on Summer Ave (ground lease, about $70,000 a year)",
@@ -1584,23 +2788,23 @@
      "kind": "income",
      "profit_change": 59000.0,
      "onetime_change": 43000.0,
-     "payback_years": 9.6
+     "payback_years": 15.3
     },
     {
      "label": "Roof needs only repairs and a coating",
      "note": "Only if a roofer confirms the roof is sound",
      "kind": "saving",
      "profit_change": -0.0,
-     "onetime_change": -302000.0,
-     "payback_years": 10.2
+     "onetime_change": -237000.0,
+     "payback_years": 16.9
     },
     {
      "label": "Patch and reseal the parking lot instead of repaving",
      "note": "Keep repaving for the worst areas",
      "kind": "saving",
      "profit_change": -0.0,
-     "onetime_change": -154000.0,
-     "payback_years": 10.6
+     "onetime_change": -121000.0,
+     "payback_years": 17.2
     },
     {
      "label": "Insurance shopped 15% cheaper",
@@ -1608,8 +2812,218 @@
      "kind": "saving",
      "profit_change": 3000.0,
      "onetime_change": 1000.0,
-     "payback_years": 10.9
+     "payback_years": 17.3
     }
+   ],
+   "cost_items": [
+    [
+     "Buying the property (assumed $3.0M) and closing",
+     "Purchase price (assumed)",
+     [
+      3000000.0,
+      3000000.0,
+      3000000.0
+     ]
+    ],
+    [
+     "Buying the property (assumed $3.0M) and closing",
+     "Fees, closing costs, surveys and inspections",
+     [
+      350000.0,
+      265000.0,
+      218000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Roof repairs, coating or replacement",
+     [
+      845000.0,
+      431000.0,
+      219000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Heating and air conditioning (rooftop units)",
+     [
+      503000.0,
+      307000.0,
+      168000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Fire sprinklers",
+     [
+      127000.0,
+      70000.0,
+      44000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Fire alarm with voice evacuation",
+     [
+      169000.0,
+      117000.0,
+      73000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Clearing out the old store interior",
+     [
+      127000.0,
+      78000.0,
+      44000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "New entrances and canopies",
+     [
+      169000.0,
+      94000.0,
+      58000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Walls between tenant spaces",
+     [
+      324000.0,
+      225000.0,
+      139000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Restrooms",
+     [
+      211000.0,
+      117000.0,
+      73000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Electrical",
+     [
+      254000.0,
+      157000.0,
+      88000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Plumbing",
+     [
+      85000.0,
+      47000.0,
+      29000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Parking lot repair and repaving",
+     [
+      423000.0,
+      258000.0,
+      161000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Site work, lighting and landscaping",
+     [
+      211000.0,
+      117000.0,
+      73000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Outside walls and paint",
+     [
+      211000.0,
+      117000.0,
+      58000.0
+     ]
+    ],
+    [
+     "Building work (roof, HVAC, fire, restrooms, parking, flood, column removal)",
+     "Flood compliance work",
+     [
+      845000.0,
+      196000.0,
+      36000.0
+     ]
+    ],
+    [
+     "Design, permits and contingency",
+     "Design, engineering, permits and surveys",
+     [
+      405000.0,
+      163000.0,
+      76000.0
+     ]
+    ],
+    [
+     "Design, permits and contingency",
+     "Cushion for surprises",
+     [
+      541000.0,
+      233000.0,
+      101000.0
+     ]
+    ],
+    [
+     "Leasing: tenant improvements and commissions",
+     "Fit-out help for tenants",
+     [
+      491000.0,
+      430000.0,
+      313000.0
+     ]
+    ],
+    [
+     "Leasing: tenant improvements and commissions",
+     "Leasing commissions",
+     [
+      78000.0,
+      191000.0,
+      331000.0
+     ]
+    ],
+    [
+     "Holding costs and construction interest",
+     "Tax, insurance and upkeep while building",
+     [
+      95000.0,
+      88000.0,
+      80000.0
+     ]
+    ],
+    [
+     "Holding costs and construction interest",
+     "Construction-loan interest",
+     [
+      0.0,
+      77000.0,
+      66000.0
+     ]
+    ]
+   ],
+   "build_cost": [
+    6116000.0,
+    3515000.0,
+    2230000.0
+   ],
+   "purchase": [
+    3350000.0,
+    3265000.0,
+    3218000.0
    ]
   }
  ],
@@ -1634,69 +3048,69 @@
   "realistic_events": 220,
   "series": {
    "full": [
-    0.0196,
-    0.025,
-    0.0304,
-    0.0358,
-    0.0412,
-    0.0466,
-    0.052,
-    0.0574,
-    0.0626,
-    0.0673,
-    0.0719,
-    0.0764,
-    0.0812,
-    0.0865,
-    0.0919
+    0.0235,
+    0.0297,
+    0.036,
+    0.0422,
+    0.0485,
+    0.0547,
+    0.0601,
+    0.0654,
+    0.0707,
+    0.0763,
+    0.0825,
+    0.0886,
+    0.0948,
+    0.101,
+    0.1071
    ],
    "efficient": [
-    0.0201,
-    0.0275,
-    0.0349,
-    0.0423,
-    0.0498,
-    0.0572,
-    0.0646,
-    0.0716,
-    0.0779,
-    0.0842,
-    0.0904,
-    0.0973,
-    0.1047,
-    0.112,
-    0.1193
+    0.0239,
+    0.032,
+    0.0401,
+    0.0481,
+    0.0562,
+    0.0635,
+    0.0705,
+    0.0774,
+    0.0846,
+    0.0926,
+    0.1006,
+    0.1086,
+    0.1166,
+    0.1246,
+    0.1326
    ],
    "hybrid": [
-    0.0093,
-    0.0175,
-    0.0258,
-    0.034,
-    0.0422,
-    0.0505,
-    0.0587,
-    0.067,
-    0.0745,
-    0.0818,
-    0.0891,
-    0.0969,
-    0.1051,
-    0.1132,
-    0.1213
+    0.0134,
+    0.0223,
+    0.0311,
+    0.0399,
+    0.0487,
+    0.0573,
+    0.0652,
+    0.073,
+    0.0811,
+    0.0898,
+    0.0985,
+    0.1072,
+    0.1159,
+    0.1246,
+    0.1334
    ]
   },
   "needed": {
    "full": {
-    "cap": 345,
-    "target": null
+    "cap": 300,
+    "target": 357
    },
    "efficient": {
-    "cap": 275,
-    "target": 327
+    "cap": 254,
+    "target": 298
    },
    "hybrid": {
-    "cap": 282,
-    "target": 328
+    "cap": 263,
+    "target": 303
    }
   }
  },
@@ -1704,11 +3118,11 @@
   "worst": {
    "halls": {
     "events": 120,
-    "revenue": 632000.0,
-    "profit_before_rent": -448000.0,
-    "margin": -0.71,
-    "breakeven_events": 340,
-    "fitout": 5852000.0,
+    "revenue": 829000.0,
+    "profit_before_rent": -308000.0,
+    "margin": -0.372,
+    "breakeven_events": 216,
+    "fitout": 4968000.0,
     "outside_operator_rent_psf": 2.0
    },
    "kids": {
@@ -1740,11 +3154,11 @@
   "realistic": {
    "halls": {
     "events": 220,
-    "revenue": 2474000.0,
-    "profit_before_rent": 586000.0,
-    "margin": 0.237,
-    "breakeven_events": 113,
-    "fitout": 4347000.0,
+    "revenue": 2678000.0,
+    "profit_before_rent": 724000.0,
+    "margin": 0.27,
+    "breakeven_events": 102,
+    "fitout": 3428000.0,
     "outside_operator_rent_psf": 2.0
    },
    "kids": {
@@ -1767,20 +3181,20 @@
    },
    "retail_tenant": {
     "rent_psf": 12.5,
-    "nnn_psf": 2.95,
+    "nnn_psf": 3.32,
     "occupancy_cost_share": 0.1,
-    "sales_psf_needed": 154,
-    "sales_1500sf_shop": 231000
+    "sales_psf_needed": 158,
+    "sales_1500sf_shop": 237000
    }
   },
   "best": {
    "halls": {
     "events": 260,
-    "revenue": 3674000.0,
-    "profit_before_rent": 1329000.0,
-    "margin": 0.362,
-    "breakeven_events": 79,
-    "fitout": 3158000.0,
+    "revenue": 4520000.0,
+    "profit_before_rent": 1819000.0,
+    "margin": 0.402,
+    "breakeven_events": 63,
+    "fitout": 2329000.0,
     "outside_operator_rent_psf": 8.0
    },
    "kids": {
@@ -1803,10 +3217,10 @@
    },
    "retail_tenant": {
     "rent_psf": 15.0,
-    "nnn_psf": 3.21,
+    "nnn_psf": 3.05,
     "occupancy_cost_share": 0.1,
-    "sales_psf_needed": 182,
-    "sales_1500sf_shop": 273000
+    "sales_psf_needed": 180,
+    "sales_1500sf_shop": 270000
    }
   }
  },
@@ -1814,9 +3228,14 @@
   "per_hall": 2,
   "total": 4,
   "cost_per_column": [
-   495000.0,
-   275000.0,
-   105000.0
+   300000.0,
+   175000.0,
+   85000.0
+  ],
+  "cost_per_column_hired_out": [
+   441000.0,
+   245000.0,
+   93000.0
   ],
   "note": "The 1997 drawings show existing roof columns on a ~44.5 ft grid, two inside each 11,000 SF main room. Every plan with halls takes them out and adds long steel beams (transfer girders) to hold the roof, so both rooms are open. A structural engineer must confirm the framing, footings and clear height before any binding commitment."
  },
@@ -1828,11 +3247,19 @@
    ],
    [
     "Bids come in under desk estimates",
-    "Roof, HVAC and parking are the biggest swings. County permits show $249,911 of repairs in 2020 and a $423,850 alteration in 2012, so some systems may be newer than assumed. Coating a sound roof instead of replacing it saves about $0.3–0.8M."
+    "Roof, HVAC and parking are the biggest swings. County permits show $249,911 of repairs in 2020 and a $423,850 alteration in 2012, so some systems may be newer than assumed. Coating a sound roof instead of replacing it saves about $0.2–0.6M."
+   ],
+   [
+    "Prices reach the premium tier",
+    "Once the halls have reviews, premium Memphis venues ask $10,000–12,000 for a 300–400 guest Saturday (the Cadre Building $12,200; Memphis Botanic Garden $10,000), and a full room for 650–700 guests rents for $11,000–15,000. The realistic case averages $5,500 per event across all days."
    ],
    [
     "Hall demand beats 220 events a year",
-    "Early commitments from families and caterers and a regional draw would lift bookings. The largest listed banquet halls in Jackson, MS hold about 350 guests."
+    "Daytime and evening events on weekends, weekday corporate and church business, and lower off-peak prices can push bookings toward 260–300 a year once each room can be split. About 1,100–1,200 girls in the metro’s Hispanic community turn 15 each year, and the largest listed banquet halls in Jackson, MS hold about 350 guests."
+   ],
+   [
+    "Few large halls nearby",
+    "No hall outside the hotels seating 500 or more was found in northeast Memphis, Raleigh or Bartlett. The nearest are in Cordova and Germantown (FedEx Event Center, about 500 seated; Esplanade, 400) and downtown (The Kent, 600), and the 900-seat ballroom at the former Memphis Vitality Hotel has closed."
    ],
    [
     "The outparcels earn more",
@@ -1854,7 +3281,11 @@
    ],
    [
     "Bookings start slow",
-    "A new venue has no track record, and large 400+ guest events are a limited market: hotel ballrooms, the Esplanade and The Columns already compete for them."
+    "Couples book their venue 12–18 months ahead, so a new hall needs about three years to fill: roughly 110–140 events in year 1 and 170–200 in year 2. Mid-market Memphis halls fill Saturdays only 3–9 months ahead and discount late dates (The Palace at Cordova sells dates inside 30 days from $3,500), and hotel ballrooms, the Esplanade and The Columns compete for large events."
+   ],
+   [
+    "Most weddings are smaller than these rooms",
+    "The average wedding has about 117 guests, and most Memphis halls hold 100–350. Two rooms have only 104 Saturdays a year between them, so most of the 220 events must be smaller events on other days. Without the movable walls that split each room, bookings could stay near 120–160 a year."
    ],
    [
     "The building hides costs",
@@ -1862,7 +3293,11 @@
    ],
    [
     "Removing the columns costs more than assumed",
-    "The steel beams that replace the columns need sound footings at their ends and enough height below the roof. The budget is about $275,000 per column (about $1.1M for four); the closest documented job ran $207,000–480,000 per column."
+    "The steel beams that replace the columns need sound footings at their ends and enough height below the roof. The budget is about $175,000 per column (about $0.7M for four), with the steel fabricator and structural engineer hired directly; contractor-delivered jobs elsewhere ran $207,000–480,000 per column."
+   ],
+   [
+    "One contractor does the whole job",
+    "The costs assume the ownership group manages the work and hires each trade directly. A general contractor typically adds about 11–22% for its overhead and profit: about $1.8M more for the efficient full plan, which would then take about 12.7 years instead of 11.1 to earn back."
    ],
    [
     "The earthquake code applies",
@@ -1929,8 +3364,48 @@
     "https://www.theknot.com/content/average-wedding-cost"
    ],
    [
-    "Esplanade Memphis (official venue site)",
-    "https://esplanadememphis.com/venues-2/"
+    "The Palace at Cordova (rate card)",
+    "https://thepalaceatcordova.com/pricing/"
+   ],
+   [
+    "The Knot 2026 Real Weddings Study (data read-out)",
+    "https://images.theknot.com/rules/2026/the-knot-real-weddings-study-data-read-out-2026.pdf"
+   ],
+   [
+    "US wedding venue market report, 2026 (MMCG)",
+    "https://mmcginvest.com/post/the-u-s-wedding-venue-market-a-investment-thesis-for-2026-2030"
+   ],
+   [
+    "Events a year at a typical venue (ProjectionHub)",
+    "https://www.projectionhub.com/post/how-to-start-a-wedding-venue"
+   ],
+   [
+    "Memphis venue capacities (Memphis Magazine, Aug 2025)",
+    "https://memphismagazine.com/business/spaces-and-places/"
+   ],
+   [
+    "CDC state marriage rates, 1990–2024",
+    "https://www.cdc.gov/nchs/data/dvs/marriage-divorce/state-marriage-rates-90-95-00-24.pdf"
+   ],
+   [
+    "Census: Hispanic population by age, Memphis metro (ACS 2020–24)",
+    "https://data.census.gov/table/ACSDT5Y2024.B01001I?g=310XX00US32820"
+   ],
+   [
+    "The Historic Cadre Building (venue pricing, 2026)",
+    "https://www.herecomestheguide.com/wedding-venues/tennessee/the-historic-cadre-building"
+   ],
+   [
+    "Memphis Botanic Garden rental rates (2026)",
+    "https://membg.org/wp-content/uploads/2025/07/MBG-Rentals-Pricing-2026.pdf"
+   ],
+   [
+    "The Kent (venue pricing)",
+    "https://www.herecomestheguide.com/wedding-venues/tennessee/the-kent-memphis"
+   ],
+   [
+    "Esplanade Memphis (venue pricing)",
+    "https://www.herecomestheguide.com/wedding-venues/tennessee/esplanade-memphis"
    ],
    [
     "The Columns at One Commerce Square (venue pricing)",
@@ -1942,7 +3417,7 @@
    ],
    [
     "National Restaurant Association: occupancy costs 2024",
-    "https://restaurant.org/research-and-media/research/restaurant-economic-insights/analysis-commentary/restaurant-occupancy-costs-were-more-than-5-of-sales-in-2024/"
+    "https://restaurant.org/research-and-media/research/economists-notebook/analysis-commentary/restaurant-occupancy-costs-were-more-than-5-of-sales-in-2024/"
    ],
    [
     "BizBuySell catering valuation benchmarks",
@@ -1981,6 +3456,26 @@
     "https://www.ecfr.gov/current/title-44/chapter-I/subchapter-B/part-65/section-65.5"
    ],
    [
+    "RSMeans city cost index, Q4 2025 (Memphis 89.4)",
+    "https://www.rsmeans.com/media/wysiwyg/quarterly_updates/Q4-2025-Change-Notice.pdf"
+   ],
+   [
+    "RSMeans model costs: contractor fees (25%)",
+    "https://www.rsmeans.com/model-pages/church"
+   ],
+   [
+    "General conditions 6–12% (Construction Executive)",
+    "https://constructionexec.com/?p=10418"
+   ],
+   [
+    "Silicone roof coating vs. tear-off (Construction Specifier, 2026)",
+    "https://www.constructionspecifier.com/?p=213597"
+   ],
+   [
+    "Rooftop unit cost per ton (PickHVAC, 2026)",
+    "https://www.pickhvac.com/?p=46314"
+   ],
+   [
     "Column removal precedent: Tulsa WeStreet Ice Center (Modern Steel Construction, June 2024)",
     "https://lsc-pagepro.mydigitalpublication.com/article/Retail+to+Rinks/4769988/821470/article.html"
    ],
@@ -2006,40 +3501,45 @@
   "plans": {
    "full": {
     "remove_columns": {
-     "work_cost": 18435000.0,
-     "profit": 1510000.0,
-     "payback_years": 12.2
+     "work_cost": 17988000.0,
+     "profit": 1672000.0,
+     "payback_years": 10.8
     },
     "keep_columns": {
-     "work_cost": 17093000.0,
-     "profit": 1510000.0,
-     "payback_years": 11.3
+     "work_cost": 17155000.0,
+     "profit": 1672000.0,
+     "payback_years": 10.3
     }
    },
    "efficient": {
     "remove_columns": {
-     "work_cost": 14264000.0,
-     "profit": 1501000.0,
-     "payback_years": 9.5
+     "work_cost": 14714000.0,
+     "profit": 1671000.0,
+     "payback_years": 8.8
     },
     "keep_columns": {
-     "work_cost": 12955000.0,
-     "profit": 1501000.0,
-     "payback_years": 8.6
+     "work_cost": 13895000.0,
+     "profit": 1671000.0,
+     "payback_years": 8.3
     }
    },
    "hybrid": {
     "remove_columns": {
-     "work_cost": 12856000.0,
-     "profit": 1333000.0,
-     "payback_years": 9.6
+     "work_cost": 13546000.0,
+     "profit": 1503000.0,
+     "payback_years": 9.0
     },
     "keep_columns": {
-     "work_cost": 12202000.0,
-     "profit": 1333000.0,
-     "payback_years": 9.2
+     "work_cost": 13137000.0,
+     "profit": 1503000.0,
+     "payback_years": 8.7
     }
    }
   }
+ },
+ "purchase_assumption": {
+  "price": 3000000.0,
+  "cases": "same in worst, realistic and best",
+  "note": "Assumed price for planning. Fees, closing costs, surveys and inspections are added on top."
  }
 }

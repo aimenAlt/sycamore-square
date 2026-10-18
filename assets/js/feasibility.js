@@ -1,6 +1,7 @@
 /* Feasibility page. Every number and every sentence built from numbers comes from assets/feasibility.json (schema 2),
-   so a regenerated JSON updates the page without code changes. Public page: what is paid for the property is never shown.
-   Written for business owners: plain words, money in and out, and years to earn the build money back. */
+   so a regenerated JSON updates the page without code changes. Since v2.4 every total includes buying the property at an
+   assumed $3.0M plus fees and closing (owner's decision). Written for business owners: plain words, money in and out,
+   and years to earn the money put in back. */
 (function () {
   'use strict';
 
@@ -9,6 +10,7 @@
   var SCENARIOS = ['worst', 'realistic', 'best'];
   var IDX = { worst: 0, realistic: 1, best: 2 };
   var LABELS = { worst: 'worst', realistic: 'realistic', best: 'best' };
+  var PURCHASE_INCLUDED = false; // set from the data: v2.4 includes buying the property in every total
   var CAP = { worst: 'Worst', realistic: 'Realistic', best: 'Best' };
   var YEAR_CAP = 40;   // the years chart stops here; anything longer reads "40+"
   // Fixed series colours for the events chart, by plan key (blue, orange, aqua: validated colour-blind safe as a set).
@@ -229,6 +231,7 @@
       var dd = el('dd', null, f[1]);
       row.appendChild(dd);
       if (f[3]) row.appendChild(el('p', { class: 'fact-sub' }, f[3]));
+      if (f[4]) row.appendChild(el('p', { class: 'plan-drivers plan-drivers-fact' }, f[4]));
       dl.appendChild(row);
     });
     return dl;
@@ -245,9 +248,9 @@
     var bestPb = extremes(data, function (p, sc) { var y = payback(p, sc); return isNum(y) ? y : null; }, 'best');
     var lossWorst = data.plans.filter(function (p) { return grade(data, p, 'worst').cls === 'loss'; }).length;
     var s = '';
-    if (bm) s += 'In the realistic case the ' + numberWord(n) + ' plans need ' + money(bm.lo.v) + ' to ' + money(bm.hi.v) + ' to build, not counting what is paid for the property. ';
+    if (bm) s += 'In the realistic case the ' + numberWord(n) + ' plans need ' + money(bm.lo.v) + ' to ' + money(bm.hi.v) + ', including buying the property at an assumed $3.0M plus fees and closing. ';
     if (pr) s += 'Once open they make ' + money(pr.lo.v) + ' to ' + money(pr.hi.v) + ' profit a year' +
-      (pb ? ', so they earn the build money back in ' + pb.lo.v.toFixed(1) + ' to ' + pb.hi.v.toFixed(1) + ' years. ' : '. ');
+      (pb ? ', so they earn it back in ' + pb.lo.v.toFixed(1) + ' to ' + pb.hi.v.toFixed(1) + ' years. ' : '. ');
     s += lineSentence(data, 'realistic') + ' ';
     if (bestPb) s += 'In the best case they earn it back in ' + bestPb.lo.v.toFixed(1) + ' to ' + bestPb.hi.v.toFixed(1) + ' years';
     if (lossWorst) s += '; in the worst case ' + (lossWorst === n ? 'all ' + numberWord(n) : numberWord(lossWorst) + ' of the ' + numberWord(n)) + ' lose money.';
@@ -310,6 +313,17 @@
     return wrap;
   }
 
+  // The cost group for buying the property (v2.4: the first group, "Buying the property ... and closing").
+  function isBuyingGroup(name) { return /^buying\b/i.test(name || ''); }
+  // The k largest one-time building items for a case, leaving out the purchase.
+  function biggestOneTime(p, sc, k) {
+    if (!Array.isArray(p.cost_items)) return [];
+    return p.cost_items.filter(function (it) { return !isBuyingGroup(it[0]); })
+      .map(function (it) { return { name: it[1], v: at(it[2], sc) }; })
+      .filter(function (o) { return isNum(o.v) && o.v >= 500; })
+      .sort(function (a, b) { return b.v - a.v; }).slice(0, k);
+  }
+
   function biggest(lines, sc, k) {
     return (lines || []).map(function (ln) { return { name: plain(ln[0]), v: Math.abs(at(ln[1], sc) || 0) }; })
       .filter(function (o) { return o.v >= 500; }).sort(function (a, b) { return b.v - a.v; }).slice(0, k);
@@ -319,7 +333,7 @@
     var R = refs(data);
     var pr = extremes(data, function (p, s) { var y = payback(p, s); return isNum(y) ? y : null; }, sc);
     setText('plans-summary', CAP[sc] + ' case: ' +
-      (pr ? 'the build money comes back in ' + pr.lo.v.toFixed(1) + ' years (' + planName(pr.lo.p) + ') to ' + pr.hi.v.toFixed(1) + ' years (' + planName(pr.hi.p) + '). ' : '') +
+      (pr ? 'the money put in comes back in ' + pr.lo.v.toFixed(1) + ' years (' + planName(pr.lo.p) + ') to ' + pr.hi.v.toFixed(1) + ' years (' + planName(pr.hi.p) + '). ' : '') +
       lineSentence(data, sc));
 
     var wrap = byId('plan-cards');
@@ -340,12 +354,14 @@
       head.appendChild(badge);
       card.appendChild(head);
 
+      var bigOne = biggestOneTime(p, sc, 3);
       card.appendChild(factList('plan-facts', [
-        ['Money to build it (one-time)', money(buildMoney(p, sc)), '', 'Not counting what is paid for the property'],
+        ['Money in (buying + building, one-time)', money(buildMoney(p, sc)), '', 'Includes buying at an assumed $3.0M plus fees and closing',
+          bigOne.length ? 'Biggest one-time costs: ' + bigOne.map(function (b) { return b.name + ' (' + money(b.v) + ')'; }).join('; ') + '.' : null],
         isNum(inc) ? ['Money coming in each year', money(inc), ''] : null,
         isNum(out) ? ['Money going out each year', money(out), ''] : null,
         ['Profit each year', money(c), (isNum(c) && c < 0 ? 'is-neg ' : '') + 'is-key', 'Before any loan payments'],
-        ['Years to earn back the build money', yearsLong(y), 'is-key'],
+        ['Years to earn back the money put in', yearsLong(y), 'is-key'],
         ['Profit each year for every $100 spent', isNum(r) ? (r < 0 ? 'Loses ' + dollars2(-r * 100) : dollars2(r * 100)) : 'n/a', '']
       ]));
 
@@ -402,26 +418,44 @@
         card.appendChild(det1);
       }
 
-      // What the one-time build money pays for.
+      // What the one-time money pays for: every item under its group, with a subtotal per group (v2.4 cost_items);
+      // older data without items falls back to one line per group.
       var det = el('details', { class: 'detail detail-compact', 'data-key': p.key, 'data-print-open': '' });
       if (openState[p.key]) det.open = true;
       var sum = el('summary');
-      sum.appendChild(el('span', { class: 'detail-title' }, 'What the build money pays for'));
-      sum.appendChild(el('span', { class: 'detail-hint' }, 'One-time, ' + LABELS[sc] + ' case'));
+      sum.appendChild(el('span', { class: 'detail-title' }, 'What the money pays for'));
+      sum.appendChild(el('span', { class: 'detail-hint' }, 'Buying and building, line by line, ' + LABELS[sc] + ' case'));
       det.appendChild(sum);
       var body = el('div', { class: 'detail-body' });
       var rows = [], groupSum = 0;
-      (p.cost_groups || []).forEach(function (gr) {
-        var v = at(gr[1], sc);
-        if (!isNum(v) || Math.abs(v) < 500) return;
-        groupSum += v;
-        rows.push({ cells: [plain(gr[0]), money(v)] });
-      });
-      rows.push({ cells: ['Money to build it (one-time)', money(buildMoney(p, sc))], cls: 'is-total' });
-      if (isNum(buildMoney(p, sc)) && Math.abs(groupSum - buildMoney(p, sc)) > 20000 && window.console) {
-        console.warn('Build cost items for ' + p.key + ' (' + sc + ') do not add up to the total.');
+      if (Array.isArray(p.cost_items) && p.cost_items.length) {
+        (p.cost_groups || []).forEach(function (gr) {
+          var items = p.cost_items.filter(function (it) { return it[0] === gr[0]; });
+          rows.push({ cells: [plain(gr[0]), ''], cls: 'is-group' });
+          var sub = 0;
+          if (!items.length) rows.push({ cells: ['Nothing under this heading in this plan', money(0)], cls: 'is-item is-none' });
+          items.forEach(function (it) {
+            var v = at(it[2], sc);
+            if (!isNum(v)) return;
+            sub += v;
+            rows.push({ cells: [it[1], money(v)], cls: 'is-item' });
+          });
+          rows.push({ cells: ['Subtotal', money(sub)], cls: 'is-subtotal' });
+          groupSum += sub;
+        });
+      } else {
+        (p.cost_groups || []).forEach(function (gr) {
+          var v = at(gr[1], sc);
+          if (!isNum(v) || Math.abs(v) < 500) return;
+          groupSum += v;
+          rows.push({ cells: [plain(gr[0]), money(v)] });
+        });
       }
-      body.appendChild(fillTable(el('table', { class: 'money-table' }), ['Item', 'One-time'], rows, { numCols: [1], caption: p.name + ': what the build money pays for, ' + LABELS[sc] + ' case' }));
+      rows.push({ cells: ['Money in (buying + building, one-time)', money(buildMoney(p, sc))], cls: 'is-total' });
+      if (isNum(buildMoney(p, sc)) && Math.abs(groupSum - buildMoney(p, sc)) > 20000 && window.console) {
+        console.warn('Cost items for ' + p.key + ' (' + sc + ') do not add up to the total.');
+      }
+      body.appendChild(fillTable(el('table', { class: 'money-table cost-items-table' }), ['Item', 'One-time'], rows, { numCols: [1], caption: p.name + ': what the money pays for, ' + LABELS[sc] + ' case' }));
       body.appendChild(el('p', { class: 'plan-colnote' }, columnsNote(data, p, sc)));
       det.appendChild(body);
       card.appendChild(det);
@@ -500,7 +534,7 @@
     });
     var scroll = el('div', { class: 'table-scroll' });
     scroll.appendChild(fillTable(el('table', { class: 'money-table stack-table path-table' }),
-      ['Plan', 'Earns back now', 'Build money with the changes', 'Profit each year with the changes', 'Earns back with the changes', 'If the columns are kept (optional)'],
+      ['Plan', 'Earns back now', 'Money put in with the changes', 'Profit each year with the changes', 'Earns back with the changes', 'If the columns are kept (optional)'],
       rows, { numCols: [1, 2, 3, 4, 5], caption: 'Path to profit, realistic case' }));
     box.appendChild(scroll);
     var meets = data.plans.filter(function (p) { var pp = path.plans[p.key]; return pp && pp.remove_columns && isNum(pp.remove_columns.payback_years) && R.goalYears && pp.remove_columns.payback_years <= R.goalYears; }).map(planName);
@@ -534,15 +568,15 @@
           if (!list.length) return;
           body.appendChild(el('h4', { class: 'lines-title' }, gp[1]));
           body.appendChild(fillTable(el('table', { class: 'money-table stack-table lever-table' }),
-            ['Change', 'Profit each year', 'Build money (one-time)', 'Earns back in', 'Note'], leverRows(data, p, list),
+            ['Change', 'Profit each year', 'Money in (one-time)', 'Earns back in', 'Note'], leverRows(data, p, list),
             { caption: gp[1] + ': ' + p.name + ', realistic case' }));
         });
         var other = items.filter(function (it) { return it.kind !== 'income' && it.kind !== 'saving'; });
         if (other.length) body.appendChild(fillTable(el('table', { class: 'money-table stack-table lever-table' }),
-          ['Change', 'Profit each year', 'Build money (one-time)', 'Earns back in', 'Note'], leverRows(data, p, other), { caption: 'Other changes: ' + p.name }));
+          ['Change', 'Profit each year', 'Money in (one-time)', 'Earns back in', 'Note'], leverRows(data, p, other), { caption: 'Other changes: ' + p.name }));
       } else {
         body.appendChild(fillTable(el('table', { class: 'money-table stack-table lever-table' }),
-          ['Change', 'Profit each year', 'Build money (one-time)', 'Earns back in', 'Note'], leverRows(data, p, items), { caption: 'Ways to improve ' + p.name + ', realistic case' }));
+          ['Change', 'Profit each year', 'Money in (one-time)', 'Earns back in', 'Note'], leverRows(data, p, items), { caption: 'Ways to improve ' + p.name + ', realistic case' }));
       }
       det.appendChild(body);
       block.appendChild(det);
@@ -625,7 +659,7 @@
     return (m <= 1 ? 1 : m <= 2 ? 2 : m <= 2.5 ? 2.5 : m <= 5 ? 5 : 10) * pow;
   }
 
-  /* ---------- Range chart: years to earn back the build money ---------- */
+  /* ---------- Range chart: years to earn back the money put in ---------- */
 
   function renderRange(data) {
     var box = byId('range-chart');
@@ -638,14 +672,14 @@
     var cls = function (sc) { return data.plans.map(function (p) { return grade(data, p, sc).cls; }); };
     var fast = function (sc) { return cls(sc).filter(function (c) { return c === 'good' || c === 'ok'; }).length; };
     var realNames = data.plans.filter(function (p) { var c = grade(data, p, 'realistic').cls; return c === 'good' || c === 'ok'; }).map(planName);
-    var t1 = realNames.length === 0 ? 'In the realistic case no plan earns its build money back faster than ' + R.typicalLabel
-      : realNames.length === n ? 'In the realistic case every plan earns its build money back faster than ' + R.typicalLabel
-      : 'In the realistic case ' + (realNames.length === 1 ? 'only ' + realNames[0] + ' earns' : listJoin(realNames) + ' earn') + ' its build money back faster than ' + R.typicalLabel;
+    var t1 = realNames.length === 0 ? 'In the realistic case no plan earns back the money put in faster than ' + R.typicalLabel
+      : realNames.length === n ? 'In the realistic case every plan earns back the money put in faster than ' + R.typicalLabel
+      : 'In the realistic case ' + (realNames.length === 1 ? 'only ' + realNames[0] + ' earns' : listJoin(realNames) + ' earn') + ' back the money put in faster than ' + R.typicalLabel;
     var fb = fast('best'), fw = fast('worst');
     var title = t1 + '; ' + (fb === n ? 'all ' + numberWord(n) + ' do in the best case' : numberWord(fb) + ' of ' + numberWord(n) + ' do in the best case') +
       ', ' + (fw === 0 ? 'none in the worst' : numberWord(fw) + ' in the worst');
     setText('range-title', title.charAt(0).toUpperCase() + title.slice(1));
-    setCaption('range-caption', 'Years to earn back the one-time build money, not counting what is paid for the property. Fewer years is better. Each grey bar runs from the best case (left) to the worst case (right); the blue dot is the realistic case. “Never” means the plan loses money in that case, and the chart stops at ' +
+    setCaption('range-caption', 'Years to earn back the one-time money put in, including buying the property at an assumed $3.0M plus fees and closing. Fewer years is better. Each grey bar runs from the best case (left) to the worst case (right); the blue dot is the realistic case. “Never” means the plan loses money in that case, and the chart stops at ' +
       YEAR_CAP + ' years. Dashed lines: ' + R.goalLabel + ' and ' + R.typicalLabel + '.', 'Hover over or select a row to read its numbers.');
 
     var W = Math.max(300, box.clientWidth);
@@ -668,7 +702,7 @@
       g.appendChild(svg('line', { x1: x(tv), x2: x(tv), y1: m.t - 6, y2: H - m.b, class: tv === 0 ? 'zero' : 'grid' }));
       addText(g, x(tv), H - m.b + 18, [tv === YEAR_CAP ? YEAR_CAP + '+' : String(tv)], { class: 'axis', 'text-anchor': 'middle' });
     }
-    addText(g, m.l, H - 2, [wide ? 'Years to earn back the build money (fewer is better)' : 'Years to earn back (fewer is better)'], { class: 'cat', 'text-anchor': 'start' });
+    addText(g, m.l, H - 2, [wide ? 'Years to earn back the money put in (fewer is better)' : 'Years to earn back (fewer is better)'], { class: 'cat', 'text-anchor': 'start' });
     // The goal line (10 years) sits left of the typical-property line (about 12 years): label each on its outer side.
     if (R.goalYears) {
       g.appendChild(svg('line', { x1: x(R.goalYears), x2: x(R.goalYears), y1: m.t - 26, y2: H - m.b, class: 'ref' }));
@@ -737,8 +771,8 @@
           cls: sc === 'realistic' ? 'is-current' : (sc === 'best' ? 'is-group-end' : '') });
       });
     });
-    fillTable(byId('range-table'), ['Plan', 'Case', 'Money to build it', 'Profit each year', 'Years to earn back', 'Profit per $100 spent'], rows,
-      { numCols: [2, 3, 4, 5], caption: 'Build money, yearly profit and years to earn it back, for every plan and case' });
+    fillTable(byId('range-table'), ['Plan', 'Case', 'Money in (buying + building)', 'Profit each year', 'Years to earn back', 'Profit per $100 spent'], rows,
+      { numCols: [2, 3, 4, 5], caption: 'Money put in, yearly profit and years to earn it back, for every plan and case' });
   }
 
   /* ---------- Events chart: how many events a year the halls need ---------- */
@@ -767,7 +801,7 @@
       ? withGoal[0].s.name + ' meets ' + R.goalLabel + ' at about ' + int(withGoal[0].goal) + ' events a year' + (isNum(realEv) ? '; the realistic case has ' + int(realEv) : '')
       : 'No hall plan meets ' + R.goalLabel + ' between ' + span + ' events a year';
     setText('events-title', title);
-    setCaption('events-caption', 'Profit each year for every $100 of build money, not counting what is paid for the property, for the ' + numberWord(S.length) + ' plans where the owners run the halls. Everything except bookings stays at the realistic case. Dashed lines: ' +
+    setCaption('events-caption', 'Profit each year for every $100 put in, including buying the property at an assumed $3.0M plus fees and closing, for the ' + numberWord(S.length) + ' plans where the owners run the halls. Everything except bookings stays at the realistic case. Dashed lines: ' +
       R.goalLabel + ' ($' + (R.goalRate * 100).toFixed(2) + ' a year per $100) and ' + R.typicalLabel + ' ($' + (R.typicalRate * 100).toFixed(2) + ' per $100).' +
       (isNum(realEv) ? ' The solid line marks the realistic ' + int(realEv) + ' events.' : ''), 'Hover over, tap or select the chart and use the arrow keys to read each level of bookings.');
 
@@ -797,7 +831,7 @@
     var cell = function (v) { return isNum(v) ? (v < 0 ? 'Loses ' + dollars2(-v * 100) : dollars2(v * 100)) + ' (' + yearsShort(v > 0 ? 1 / v : null) + ')' : 'n/a'; };
     fillTable(byId('events-table'), ['Events a year'].concat(S.map(function (s) { return s.name; })),
       xs.map(function (xv, j) { return { cells: [int(xv)].concat(S.map(function (s) { return cell(s.ys[j]); })), cls: xv === realEv ? 'is-current' : '' }; }),
-      { numCols: S.map(function (_, i) { return i + 1; }), caption: 'Profit each year per $100 of build money, and years to earn it back, at each level of bookings' });
+      { numCols: S.map(function (_, i) { return i + 1; }), caption: 'Profit each year per $100 put in, and years to earn it back, at each level of bookings' });
 
     var W = Math.max(300, box.clientWidth);
     var wide = W >= 640;
@@ -1008,7 +1042,7 @@
     var s = isNum(cost) ? 'Taking them out is expected to cost ' + money(cost) + ' per column in the ' + LABELS[sc] + ' case' +
       (isNum(total) ? ', ' + money(cost * total) + ' for all ' + numberWord(total) : '') + '. ' : '';
     if (withCols.length) {
-      s += 'That is already counted in the build money of ' + listJoin(withCols.map(planName)) + '.';
+      s += 'That is already counted in the money put in for ' + listJoin(withCols.map(planName)) + '.';
       withCols.filter(function (p) { return p.phase1 && isNum(cost) && cost > 0 && Math.round(at(p.column_removal, sc) / cost) < total; }).forEach(function (p) {
         var p2 = phaseTwoCost(p, sc);
         s += ' ' + planName(p) + (isNum(p2) && p2 > 1000 ? ' takes out Hall A’s columns first and Hall B’s when Hall B is added.'
@@ -1244,8 +1278,8 @@
       thead.appendChild(hr); table.appendChild(thead);
       var tbody = el('tbody');
       out.rows = {};
-      var rows = [['events', L.events !== null ? 'Hall bookings a year' : null], ['build', 'Money to build it (one-time)'], ['moneyIn', 'Money coming in each year'],
-        ['moneyOut', 'Money going out each year'], ['profit', 'Profit each year', 'is-key'], ['years', 'Years to earn back the build money', 'is-key'],
+      var rows = [['events', L.events !== null ? 'Hall bookings a year' : null], ['build', 'Money in (buying + building, one-time)'], ['moneyIn', 'Money coming in each year'],
+        ['moneyOut', 'Money going out each year'], ['profit', 'Profit each year', 'is-key'], ['years', 'Years to earn back the money put in', 'is-key'],
         ['rate', 'Profit each year for every $100 spent'], ['price', 'Price you typed for the property', 'is-price'],
         ['yearsWithPrice', 'Years to earn back the build money and the price', 'is-key is-price']];
       rows.forEach(function (r) {
@@ -1313,12 +1347,15 @@
       L.otherIn.forEach(function (f) { field(gi, f); });
       var go = group(L.events !== null ? 'Other money going out each year' : 'Money going out each year', null);
       L.otherCost.forEach(function (f) { field(go, f); });
-      var gb = group('Money to build it (one-time)', 'Not counting what is paid for the property.');
+      var gb = group('Money in (buying + building, one-time)', PURCHASE_INCLUDED ? 'Includes buying the property at an assumed $3.0M plus fees and closing.' : 'Not counting what is paid for the property.');
       L.build.forEach(function (f) { field(gb, f); });
-      var gp = group('Optional: a price for the property', null);
-      field(gp, { id: 'price', base: null, shown: null, kind: 'price' }, {
-        label: 'Price paid for the property (your test)',
-        hint: 'Optional, and empty to start: the study leaves the price out. Type an amount to see how it stretches the years to earn back. It stays on your screen and is not saved.' });
+      // The extra price box only applies to data that leaves the purchase out; since v2.4 buying is a line in "Money in".
+      if (!PURCHASE_INCLUDED) {
+        var gp = group('Optional: a price for the property', null);
+        field(gp, { id: 'price', base: null, shown: null, kind: 'price' }, {
+          label: 'Price paid for the property (your test)',
+          hint: 'Optional, and empty to start: the study leaves the price out. Type an amount to see how it stretches the years to earn back. It stays on your screen and is not saved.' });
+      }
       out.mini = el('div', { class: 'wi-mini', 'aria-hidden': 'true' });
       inputsBox.appendChild(out.mini);
       updateTags();
@@ -1456,7 +1493,7 @@
       // Tell screen readers the result once typing pauses, not on every key.
       clearTimeout(liveTimer);
       liveTimer = setTimeout(function () {
-        live.textContent = (any ? 'Your test: ' : 'The study’s numbers: ') + 'profit ' + money(any ? t.profit : profit(p, sc)) + ' a year, earns back the build money in ' +
+        live.textContent = (any ? 'Your test: ' : 'The study’s numbers: ') + 'profit ' + money(any ? t.profit : profit(p, sc)) + ' a year, earns back the money put in within ' +
           yearsMid(ty).replace(/^Never$/, 'never').replace(/^Over/, 'over') + (hasPrice ? ', or ' + yearsMid(t.profit > 0 ? t.yearsWithPrice : null).replace(/^Never$/, 'never').replace(/^Over/, 'over') + ' with the price.' : '.');
       }, 800);
     }
@@ -1495,6 +1532,7 @@
   /* ---------- Scenario switch ---------- */
 
   function init(data) {
+    PURCHASE_INCLUDED = !!data.purchase_assumption;
     if (!data || data.schema !== 2 || !Array.isArray(data.plans)) throw new Error('Unexpected feasibility.json schema');
     var buttons = Array.prototype.slice.call(document.querySelectorAll('.seg-btn'));
     var status = byId('scenario-status');
@@ -1517,7 +1555,7 @@
       renderColumns(data, sc);
       if (whatIf) whatIf.setCase(sc);
       setText('print-note', 'Printed view: the plan cards, the businesses and the column costs show the ' + LABELS[sc] +
-        ' case; the range chart and its table show all three cases. Nothing here counts what is paid for the property.');
+        ' case; the range chart and its table show all three cases. Every number includes buying the property at an assumed $3.0M plus fees and closing.');
       status.textContent = 'Showing the ' + LABELS[sc] + ' case';
       if (opts.updateHash && history.replaceState) history.replaceState(null, '', '#' + sc);
     }

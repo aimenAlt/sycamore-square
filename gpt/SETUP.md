@@ -50,6 +50,7 @@ This key can only start the site-edit workflow, read and write files in this one
 ## How you keep control
 
 - Every change is a commit by "Sycamore site editor" on `main`, with a "Site edit:" or "Site undo:" message, and a result entry in issue #2.
-- The editor can only change text in the three pages, the numbers file and the README. It can't add scripts, styles, embeds or outside images. The checks block prices, fees, names, gendered hall wording, finance jargon and broken links.
+- The editor can only change text in the five pages, the numbers file and the README. It can't add scripts, styles, embeds or outside images. The checks block offer, bid and other deal amounts, fees, names, gendered hall wording, finance jargon and broken links.
 - `main` cannot be force-pushed or deleted, so no version is ever lost. To restore anything by hand, open the commit on GitHub and revert it, or ask Claude.
 - Each year, renew the token and paste the new one into the second action's authentication.
+- When the site gains pages (as in R4.4, which added `overview.html` and `auction.html`), paste the updated `gpt/instructions.md` and both schemas into the GPT again, so it can read and edit the new pages.

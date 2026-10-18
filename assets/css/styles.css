@@ -278,8 +278,8 @@ main:focus { outline: none; }
   letter-spacing: -0.01em;
   white-space: nowrap;
 }
-/* Phones show only the round mark; the name stays for screen readers. */
-@media (max-width: 559px) {
+/* Below 900px only the round mark shows; the name stays for screen readers. */
+@media (max-width: 899px) {
   .wordmark-text {
     position: absolute;
     width: 1px; height: 1px;
@@ -302,7 +302,7 @@ main:focus { outline: none; }
 .page-nav .page-list a {
   display: flex;
   align-items: center;
-  min-height: 40px;
+  min-height: 44px;
   padding: 0 clamp(10px, 2.4vw, 18px);
   border-radius: 999px;
   font-weight: 700;
@@ -320,14 +320,36 @@ main:focus { outline: none; }
   box-shadow: 0 4px 14px rgba(226, 62, 115, 0.3);
 }
 .page-long { display: none; }
-@media (min-width: 900px) {
+.page-full { display: none; }
+.page-home { gap: 7px; }
+.page-home-icon { flex: 0 0 auto; }
+@media (min-width: 1100px) {
   /* The link is a flex box, which drops the leading space, so a margin stands in for it. */
   .page-long { display: inline; margin-left: 0.28em; }
+  .page-short { display: none; }
+  .page-full { display: inline; }
   .page-nav .page-list a { font-size: 15px; }
 }
+/* Phones: the five page links fill the bar; Home shows as a house (its name stays for screen readers)
+   and the round mark steps aside so nothing is hidden behind a menu. */
+@media (max-width: 699px) {
+  .wordmark { display: none; }
+  .page-nav { flex: 1 1 auto; }
+  .page-nav .page-list { justify-content: space-between; gap: 0; padding: 3px; }
+  .page-nav .page-list a { padding: 0 clamp(7px, 2.2vw, 12px); font-size: 14px; }
+  .page-home { padding: 0 11px; }
+  .page-home-label {
+    position: absolute;
+    width: 1px; height: 1px;
+    margin: -1px; padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    border: 0;
+  }
+}
 @media (max-width: 380px) {
-  .page-nav .page-list a { padding: 0 9px; font-size: 14px; }
-  .wordmark-mark { width: 34px; height: 34px; font-size: 19px; }
+  .page-nav .page-list a { padding: 0 6px; font-size: 13.5px; }
+  .page-home { padding: 0 9px; }
 }
 
 .header-cta {
@@ -2405,4 +2427,246 @@ model-viewer:focus-visible { outline: 3px solid var(--rose); outline-offset: 2px
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; animation: none !important; }
+}
+
+/* ---------- R4.4: front page, password panel ---------- */
+
+:root {
+  --on-dark: #FFF7EF;
+  --on-dark-2: #F7E4EE;
+  --gold-on-dark: #FFD27A;
+  /* Dark plum veil over photos so white text keeps at least 4.5:1 contrast. */
+  --veil: linear-gradient(180deg, rgba(42, 22, 54, 0.80) 0%, rgba(42, 22, 54, 0.62) 38%, rgba(42, 22, 54, 0.68) 68%, rgba(42, 22, 54, 0.90) 100%);
+}
+
+/* Password panel. gate-head.js adds .gate-locked before the page is drawn; nothing but the panel shows. */
+html.gate-locked body > :not(.gate) { display: none !important; }
+html.gate-locked, html.gate-locked body { overflow: hidden; }
+.gate {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: var(--gutter);
+  overflow-y: auto;
+}
+.gate-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: var(--veil), url("../img/hero-aerial-1200.jpg") center 60% / cover no-repeat;
+}
+.gate-card {
+  width: 100%;
+  max-width: 440px;
+  display: grid;
+  gap: 10px;
+  padding: clamp(26px, 6vw, 40px);
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  text-align: left;
+}
+.gate-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--grad-sunset);
+  color: var(--white);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 26px;
+  box-shadow: 0 4px 14px rgba(226, 62, 115, 0.35);
+}
+.gate-eyebrow { margin-top: 6px; font-weight: 700; font-size: 12.5px; letter-spacing: 0.12em; color: var(--rose-deep); }
+.gate-title { font-family: var(--font-display); font-weight: 600; font-size: clamp(32px, 8vw, 40px); line-height: 1.05; color: var(--ink); margin: 0; }
+.gate-text { color: var(--text-2); font-size: 16px; line-height: 1.55; }
+.gate-label { margin-top: 8px; font-weight: 700; font-size: 15px; color: var(--ink); }
+.gate-input {
+  width: 100%;
+  min-height: 50px;
+  padding: 0 16px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--ground);
+  font: inherit;
+  font-size: 17px;
+  color: var(--ink);
+}
+.gate-input:focus-visible { outline: 3px solid var(--rose); outline-offset: 1px; border-color: var(--rose); }
+.gate-error { min-height: 1.4em; font-size: 15px; font-weight: 600; color: var(--bad); }
+.gate-error:empty { min-height: 0; }
+.gate-button { justify-content: center; width: 100%; min-height: 50px; }
+
+/* Front page: the concept image fills the hero behind the title, then four choices. */
+.landing-hero {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: flex-end;
+  min-height: clamp(460px, 74vh, 720px);
+  padding: clamp(72px, 14vw, 140px) 0 clamp(56px, 9vw, 96px);
+  color: var(--on-dark);
+  overflow: hidden;
+}
+.landing-figure { position: absolute; inset: 0; z-index: -1; margin: 0; }
+.landing-bg { width: 100%; height: 100%; object-fit: cover; object-position: 50% 62%; }
+.landing-figure::after { content: ""; position: absolute; inset: 0; background: var(--veil); }
+.landing-caption {
+  position: absolute;
+  right: var(--gutter);
+  bottom: 12px;
+  z-index: 1;
+  max-width: min(70%, 420px);
+  font-size: 12.5px;
+  line-height: 1.4;
+  text-align: right;
+  color: var(--on-dark-2);
+}
+.landing-inner { position: relative; width: 100%; }
+.landing-eyebrow { color: var(--gold-on-dark); }
+.landing-eyebrow::before { background: var(--gold-on-dark); }
+.landing-hero h1 {
+  margin: 14px 0 0;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(54px, 13vw, 112px);
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+  color: var(--on-dark);
+  text-shadow: 0 2px 24px rgba(42, 22, 54, 0.45);
+}
+.landing-lead {
+  max-width: 760px;
+  margin-top: 20px;
+  font-size: clamp(18px, 4.4vw, 22px);
+  line-height: 1.5;
+  color: var(--on-dark);
+  text-shadow: 0 1px 12px rgba(42, 22, 54, 0.5);
+}
+.landing-address {
+  display: inline-block;
+  margin-top: 20px;
+  margin-bottom: 18px;
+  padding: 10px 16px;
+  border: 1px solid rgba(255, 247, 239, 0.32);
+  border-radius: 999px;
+  background: rgba(42, 22, 54, 0.45);
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--on-dark);
+}
+
+.landing-choices { padding: clamp(36px, 7vw, 72px) 0 var(--section-y); }
+.choice-grid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--gap-sm);
+}
+@media (min-width: 720px) {
+  .choice-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gap); }
+}
+.choice-grid > li { display: flex; min-width: 0; }
+.choice-card {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  min-height: 44px;
+  padding: clamp(22px, 4.5vw, 34px);
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  color: var(--ink);
+  text-decoration: none;
+  transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease), border-color 0.25s var(--ease);
+}
+.choice-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); border-color: var(--rose-soft); color: var(--ink); }
+.choice-card:focus-visible { outline: 3px solid var(--rose); outline-offset: 3px; }
+.choice-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 16px;
+  background: var(--grad-sunset-soft);
+  color: var(--rose-deep);
+}
+.choice-title { margin-top: 6px; font-family: var(--font-display); font-weight: 600; font-size: clamp(26px, 6vw, 32px); line-height: 1.1; letter-spacing: -0.01em; }
+.choice-desc { font-size: 17px; line-height: 1.55; color: var(--text-2); }
+.choice-go {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: auto;
+  padding-top: 8px;
+  font-weight: 700;
+  color: var(--rose-deep);
+}
+.choice-go svg { transition: transform 0.25s var(--ease); }
+.choice-card:hover .choice-go svg { transform: translateX(4px); }
+@media (prefers-reduced-motion: reduce) {
+  .choice-card, .choice-go svg { transition: none; }
+  .choice-card:hover { transform: none; }
+}
+.landing-links { margin-top: var(--gap); text-align: center; color: var(--muted); }
+.landing-links a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 700; }
+@media print {
+  .landing-hero { color: #000; min-height: 0; }
+  .landing-figure, .landing-caption { display: none; }
+  .landing-hero h1, .landing-lead, .landing-address { color: #000; text-shadow: none; }
+}
+
+/* ---------- R4.4: Before and during the auction ---------- */
+.auction-questions .standout { flex: 1 1 420px; }
+.auction-question h3 { font-size: clamp(21px, 5vw, 24px); }
+.auction-check {
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  background: var(--ground);
+  color: var(--ink);
+  font-size: 16px;
+}
+.auction-check strong { color: var(--rose-deep); }
+.table-card {
+  padding: clamp(6px, 2vw, 18px) clamp(14px, 3vw, 26px);
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+.auction-table { width: 100%; border-collapse: collapse; font-size: 16px; line-height: 1.5; }
+.auction-table tbody th { width: 28%; padding-right: 18px; }
+.auction-table td:last-child { width: 20%; color: var(--text-2); }
+@media (max-width: 720px) {
+  .table-card { padding: 0; background: none; border: 0; box-shadow: none; }
+  .auction-table tbody th, .auction-table td:last-child { width: auto; }
+}
+.auction-list { max-width: 880px; }
+.auction-flags { max-width: 880px; }
+.auction-timeline li { align-items: baseline; }
+.auction-when {
+  flex: 0 0 auto;
+  min-width: 7.5em;
+  font-weight: 800;
+  color: var(--rose-deep);
+}
+.button-quiet { background: var(--white); color: var(--ink); border: 1.5px solid var(--border); box-shadow: none; }
+.button-quiet:hover { background: var(--rose-soft); color: var(--rose-deep); box-shadow: none; }
+.auction-links { display: flex; flex-wrap: wrap; gap: 12px; }
+@media (max-width: 480px) {
+  .auction-timeline li { flex-direction: column; gap: 4px; }
+}
+@media (max-width: 520px) {
+  .landing-links { display: flex; flex-direction: column; align-items: center; gap: 0; }
+  .landing-links span[aria-hidden="true"] { display: none; }
 }
