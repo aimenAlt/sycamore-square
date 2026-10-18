@@ -1,0 +1,37 @@
+openapi: 3.1.0
+info:
+  title: Sycamore Square site pages (read only)
+  description: Read the current text of the Sycamore Square website pages and the feasibility numbers before making a change.
+  version: 1.0.0
+servers:
+  - url: https://raw.githubusercontent.com
+paths:
+  /aimenAlt/sycamore-square/main/{page}:
+    get:
+      operationId: readPage
+      summary: Read the current source of one page. Overview is index.html, Legal findings is legal.html, Feasibility is feasibility.html. AGENTS.md holds the site rules.
+      parameters:
+        - name: page
+          in: path
+          required: true
+          schema:
+            type: string
+            enum: [index.html, legal.html, feasibility.html, README.md, AGENTS.md]
+      responses:
+        "200":
+          description: The current file.
+          content:
+            text/plain:
+              schema:
+                type: string
+  /aimenAlt/sycamore-square/main/assets/feasibility.json:
+    get:
+      operationId: readFeasibilityData
+      summary: Read the feasibility numbers that the Feasibility page displays.
+      responses:
+        "200":
+          description: The current numbers file.
+          content:
+            text/plain:
+              schema:
+                type: string

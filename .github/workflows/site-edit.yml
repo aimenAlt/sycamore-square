@@ -1,0 +1,105 @@
+# Applies a change or an undo sent by the ChatGPT site editor (a repository_dispatch event),
+# runs every site check, and publishes to main only if all of them pass.
+# Every run reports its result as a comment on the "Site update log" issue.
+name: Site edit
+run-name: "${{ github.event.action }} ${{ github.event.client_payload.request_id }}"
+
+on:
+  repository_dispatch:
+    types: [site-edit, site-undo]
+
+permissions:
+  contents: write
+  issues: write
+  pages: write
+
+concurrency:
+  group: site-edit
+  cancel-in-progress: false
+
+jobs:
+  edit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      LOG_ISSUE: "2"
+      GH_TOKEN: ${{ github.token }}
+      EVENT_ACTION: ${{ github.event.action }}
+      REQUEST_ID: ${{ github.event.client_payload.request_id }}
+      DRY_RUN: ${{ github.event.client_payload.dry_run }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 300
+
+      - name: Set the commit author
+        run: |
+          git config user.name "Sycamore site editor"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Apply the change
+        id: apply
+        if: github.event.action == 'site-edit'
+        run: |
+          set -o pipefail
+          export COMMIT_MSG_FILE="$RUNNER_TEMP/commit-msg.txt"
+          python3 scripts/apply_edits.py "$GITHUB_EVENT_PATH" 2>&1 | tee "$RUNNER_TEMP/apply.log"
+          git add index.html legal.html feasibility.html assets/feasibility.json README.md
+          git commit -q -F "$COMMIT_MSG_FILE"
+
+      - name: Undo a change
+        id: undo
+        if: github.event.action == 'site-undo'
+        run: |
+          set -o pipefail
+          python3 scripts/undo_edit.py "$GITHUB_EVENT_PATH" 2>&1 | tee "$RUNNER_TEMP/apply.log"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install the check tools
+        run: |
+          npm install --no-save --no-audit --no-fund --legacy-peer-deps html-validate@11.4.0 playwright@1.64.1 > /dev/null
+          npx playwright install --with-deps chromium > /dev/null
+
+      - name: Check the HTML
+        id: html
+        run: |
+          set -o pipefail
+          ./node_modules/.bin/html-validate *.html 2>&1 | tee "$RUNNER_TEMP/htmlvalidate.log"
+
+      - name: Check content, links and privacy
+        id: content
+        run: |
+          set -o pipefail
+          SITE_EDIT=1 python3 scripts/check_site.py 2>&1 | tee "$RUNNER_TEMP/check.log"
+
+      - name: Check in a browser (phone and desktop)
+        id: browser
+        run: |
+          set -o pipefail
+          node scripts/browser_check.mjs 2>&1 | tee "$RUNNER_TEMP/browser.log"
+
+      - name: Publish
+        id: publish
+        if: success() && github.event.client_payload.dry_run != true
+        run: |
+          set -o pipefail
+          git push origin HEAD:main 2>&1 | tee "$RUNNER_TEMP/publish.log"
+          gh api -X POST "repos/$GITHUB_REPOSITORY/pages/builds" > /dev/null || echo "Could not request a Pages build; GitHub will build on its own."
+
+      - name: Report the result
+        if: always()
+        env:
+          APPLY_OUTCOME: ${{ steps.apply.outcome }}
+          UNDO_OUTCOME: ${{ steps.undo.outcome }}
+          HTML_OUTCOME: ${{ steps.html.outcome }}
+          CONTENT_OUTCOME: ${{ steps.content.outcome }}
+          BROWSER_OUTCOME: ${{ steps.browser.outcome }}
+          PUBLISH_OUTCOME: ${{ steps.publish.outcome }}
+        run: |
+          python3 scripts/report_edit.py > "$RUNNER_TEMP/comment.md"
+          cat "$RUNNER_TEMP/comment.md" >> "$GITHUB_STEP_SUMMARY"
+          gh issue comment "$LOG_ISSUE" --repo "$GITHUB_REPOSITORY" --body-file "$RUNNER_TEMP/comment.md"
