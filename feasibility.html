@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Sycamore Square — Feasibility</title>
-  <meta name="description" content="Landlord and operator feasibility for the Sycamore Square redevelopment study: what it costs, what it earns, and what it would take to reach a target return.">
+  <meta name="description" content="Five ways to use the Sycamore Square building: what each costs to build, what it makes each year and how long it takes to earn the money back. Not counting what is paid for the property.">
   <meta name="robots" content="noindex,nofollow">
   <meta name="theme-color" content="#1E3442">
   <meta property="og:type" content="article">
   <meta property="og:title" content="Sycamore Square — Feasibility">
-  <meta property="og:description" content="What the numbers say: landlord and operator views, by scenario.">
+  <meta property="og:description" content="What each plan costs to build, what it makes each year and how long it takes to earn the money back.">
   <meta property="og:image" content="https://aimenalt.github.io/sycamore-square/assets/img/site-plan.jpg">
   <meta property="og:url" content="https://aimenalt.github.io/sycamore-square/feasibility.html">
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
@@ -20,6 +20,7 @@
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans+Condensed:wght@500;600;700&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap"></noscript>
   <link rel="preload" href="assets/feasibility.json" as="fetch" type="application/json" crossorigin>
   <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="assets/css/feasibility.css">
   <script>document.documentElement.className = 'js';</script>
   <script src="assets/js/main.js" defer></script>
   <script src="assets/js/feasibility.js" defer></script>
@@ -50,13 +51,17 @@
         <nav class="site-nav" aria-label="On this page">
           <p class="menu-label" aria-hidden="true">On this page</p>
           <ul class="nav-list">
-            <li><a href="#landlord">Landlord view</a></li>
-            <li><a href="#levers">What it takes</a></li>
-            <li><a href="#operators">Operator view</a></li>
-            <li><a href="#risks">Risks</a></li>
-            <li><a href="#downloads">Downloads</a></li>
+            <li><a href="#plans">Five plans</a></li>
+            <li data-nav="levers" hidden><a href="#levers">Ways to improve</a></li>
+            <li><a href="#range">Range</a></li>
+            <li><a href="#events">Events needed</a></li>
+            <li><a href="#operators">Businesses</a></li>
+            <li><a href="#columns">Columns</a></li>
+            <li><a href="#risks">Better or worse</a></li>
+            <li><a href="#unknowns">Not known yet</a></li>
             <li><a href="#sources">Sources</a></li>
-            <li><a href="#terms">Terms</a></li>
+            <li><a href="#downloads">Downloads</a></li>
+            <li><a href="#terms">Words</a></li>
           </ul>
         </nav>
       </div>
@@ -69,10 +74,14 @@
     <section id="top" class="band band-navy hero feas-hero" aria-labelledby="feas-title">
       <div class="wrap">
         <p class="eyebrow">FEASIBILITY</p>
-        <h1 id="feas-title">What the numbers say</h1>
+        <h1 id="feas-title">Feasibility: five ways to use the building</h1>
         <p class="lead hero-lead" id="feas-lead" data-loading>Loading the numbers…</p>
+        <div class="basis-note" id="basis-note">
+          <p class="basis-title">Not counting what is paid for the property</p>
+          <p id="basis-text">Every number on this page leaves out the purchase price and the costs of buying. Whatever is paid for the property comes on top and stretches the time it takes to earn the money back.</p>
+        </div>
         <ul class="feas-notes" id="feas-notes"></ul>
-        <noscript><p class="hero-note">This page needs JavaScript to show the numbers. The landlord and operator studies are available as PDFs under Downloads.</p></noscript>
+        <noscript><p class="hero-note">This page needs JavaScript to show the numbers. A printable summary is available under Downloads.</p></noscript>
       </div>
     </section>
 
@@ -89,98 +98,133 @@
       </div>
     </div>
 
-    <!-- LANDLORD VIEW -->
-    <section id="landlord" class="band band-ground" aria-labelledby="landlord-title">
+    <p class="print-note" id="print-note"></p>
+
+    <!-- 01 PLANS -->
+    <section id="plans" class="band band-ground" aria-labelledby="plans-title">
       <div class="wrap">
         <header class="section-head">
-          <p class="eyebrow">01 · LANDLORD VIEW</p>
-          <h2 id="landlord-title">If the owner fixes the building and leases it out</h2>
-          <p class="lead">The landlord collects rent from shops and from the operators of the halls, kids' center and fuel pad. These are the headline results for the <strong class="scenario-name">realistic</strong> case.</p>
+          <p class="eyebrow">01 · FIVE PLANS</p>
+          <h2 id="plans-title">What each plan costs and what it makes</h2>
+          <p class="lead">Each card shows the <strong class="scenario-name">realistic</strong> case. “Profit each year” is before any loan payments. None of these numbers count what is paid for the property.</p>
         </header>
-
-        <ul class="kpis" id="kpis"></ul>
-
-        <div class="detail-tables">
-          <details class="detail" data-open-desktop>
-            <summary><span class="detail-title">Development budget</span><span class="detail-hint">What the work costs, line by line</span></summary>
-            <div class="detail-body"><table class="money-table" id="budget-table"></table></div>
-          </details>
-          <details class="detail" data-open-desktop>
-            <summary><span class="detail-title">Rent roll</span><span class="detail-hint">Who pays rent, and how much a year</span></summary>
-            <div class="detail-body"><table class="money-table stack-table" id="rent-table"></table></div>
-          </details>
-          <details class="detail" data-open-desktop>
-            <summary><span class="detail-title">Income and debt</span><span class="detail-hint">From rent to cash left after the loan</span></summary>
-            <div class="detail-body"><table class="money-table" id="income-table"></table></div>
-          </details>
-        </div>
-
-        <p class="note owner-note" id="owner-note"></p>
+        <p class="plans-summary" id="plans-summary"></p>
+        <div class="plan-cards" id="plan-cards"></div>
       </div>
     </section>
 
-    <!-- WHAT IT TAKES -->
-    <section id="levers" class="band band-white" aria-labelledby="levers-title">
+    <!-- 02 WAYS TO IMPROVE (shown when the data has it) -->
+    <section id="levers" class="band band-white" aria-labelledby="levers-title" hidden>
       <div class="wrap">
         <header class="section-head">
-          <p class="eyebrow">02 · WHAT IT TAKES</p>
-          <h2 id="levers-title">What would lift the return</h2>
-          <p class="lead">Each green step is one change to the plan, added on top of the ones before it.</p>
+          <p class="eyebrow">02 · WAYS TO IMPROVE</p>
+          <h2 id="levers-title">What would make it more profitable</h2>
+          <p class="lead">Ways to spend less on the build or bring in more each year. Each change is shown on its own, against the realistic case.</p>
         </header>
-        <figure class="chart-figure">
-          <h3 class="chart-title" id="waterfall-title">Yield on cost, lever by lever</h3>
-          <div class="chart" id="waterfall"></div>
-          <figcaption id="waterfall-caption"></figcaption>
-        </figure>
+        <div class="path-box" id="path-box" hidden></div>
+        <h3 class="lever-head">Every change, one plan at a time</h3>
+        <p class="lever-intro">Each line shows one change on its own, against the realistic case, and how many years the build money would then take to come back.</p>
+        <div class="lever-blocks" id="lever-blocks"></div>
       </div>
     </section>
 
-    <!-- OPERATOR VIEW -->
-    <section id="operators" class="band band-ground" aria-labelledby="operators-title">
+    <!-- 03 RANGE -->
+    <section id="range" class="band band-white" aria-labelledby="range-head">
       <div class="wrap">
         <header class="section-head">
-          <p class="eyebrow">03 · OPERATOR VIEW</p>
-          <h2 id="operators-title">How each business does after paying rent</h2>
-          <p class="lead">Each business pays the landlord's rent. "Profit after rent" is what its operator keeps each year, shown for the <strong class="scenario-name">realistic</strong> case.</p>
+          <p class="eyebrow" id="range-eyebrow">03 · THE RANGE</p>
+          <h2 id="range-head">How long each plan takes to earn back its build money</h2>
+          <p class="lead">All three cases at once. Fewer years is better.</p>
         </header>
-
-        <div class="op-cards" id="op-cards"></div>
-        <p class="note" id="rent-capacity"></p>
-
         <figure class="chart-figure">
-          <h3 class="chart-title" id="range-title">Operator cash return by business</h3>
-          <div class="chart" id="range-chart"></div>
+          <h3 class="chart-title" id="range-title">Years to earn back the build money</h3>
+          <div class="chart chart-hover" id="range-chart"></div>
           <figcaption id="range-caption"></figcaption>
         </figure>
+        <details class="detail detail-compact table-twin" data-print-open>
+          <summary><span class="detail-title">The numbers as a table</span><span class="detail-hint">All three cases for every plan</span></summary>
+          <div class="detail-body"><table class="money-table range-table" id="range-table"></table></div>
+        </details>
       </div>
     </section>
 
-    <!-- RISKS -->
+    <!-- 04 EVENTS -->
+    <section id="events" class="band band-ground" aria-labelledby="events-head">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="eyebrow" id="events-eyebrow">04 · WHAT HAS TO BE TRUE</p>
+          <h2 id="events-head">How many events a year the halls need</h2>
+          <p class="lead">Everything else stays at the realistic case. Only the number of events a year across Hall A and Hall B changes.</p>
+        </header>
+        <figure class="chart-figure">
+          <h3 class="chart-title" id="events-title">Profit a year for every $100 spent, by events a year</h3>
+          <ul class="chart-legend" id="events-legend" aria-label="Plans in the chart"></ul>
+          <div class="chart chart-hover" id="events-chart"></div>
+          <figcaption id="events-caption"></figcaption>
+        </figure>
+        <ul class="needed-list" id="events-needed"></ul>
+        <details class="detail detail-compact table-twin" data-print-open>
+          <summary><span class="detail-title">The numbers as a table</span><span class="detail-hint">Each plan at each level of bookings</span></summary>
+          <div class="detail-body"><table class="money-table events-table" id="events-table"></table></div>
+        </details>
+      </div>
+    </section>
+
+    <!-- 05 BUSINESSES -->
+    <section id="operators" class="band band-white" aria-labelledby="operators-title">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="eyebrow" id="operators-eyebrow">05 · THE BUSINESSES</p>
+          <h2 id="operators-title">How each business does on its own</h2>
+          <p class="lead">The businesses behind the rents, shown for the <strong class="scenario-name">realistic</strong> case. A tenant’s profit is what it keeps after paying rent and its share of property costs.</p>
+        </header>
+        <div class="op-cards" id="op-cards"></div>
+      </div>
+    </section>
+
+    <!-- 06 COLUMNS -->
+    <section id="columns" class="band band-ground" aria-labelledby="columns-title">
+      <div class="wrap">
+        <div class="callout columns-callout">
+          <p class="eyebrow" id="columns-eyebrow">06 · ROOF COLUMNS IN THE HALLS</p>
+          <h2 class="callout-big" id="columns-title">Both main rooms are planned with no columns</h2>
+          <p id="columns-count"></p>
+          <p id="columns-note"></p>
+          <p id="columns-cost"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07 BETTER OR WORSE -->
     <section id="risks" class="band band-white" aria-labelledby="risks-title">
       <div class="wrap">
         <header class="section-head">
-          <p class="eyebrow">04 · RISKS</p>
-          <h2 id="risks-title">What could change the answer</h2>
+          <p class="eyebrow" id="risks-eyebrow">07 · BETTER OR WORSE</p>
+          <h2 id="risks-title">Why the realistic case could be wrong</h2>
+          <p class="lead">The realistic case is a middle estimate from public information, not from contractor bids, surveys or signed tenants.</p>
         </header>
-        <table class="risk-table stack-table" id="risk-table"></table>
+        <div class="risk-columns">
+          <section class="risk-col risk-better" aria-labelledby="better-title">
+            <h3 id="better-title">Why it could turn out better</h3>
+            <ul class="reason-list" id="better-list"></ul>
+          </section>
+          <section class="risk-col risk-worse" aria-labelledby="worse-title">
+            <h3 id="worse-title">Why it could turn out worse</h3>
+            <ul class="reason-list" id="worse-list"></ul>
+          </section>
+        </div>
       </div>
     </section>
 
-    <!-- DOWNLOADS -->
-    <section id="downloads" class="band band-ground" aria-labelledby="downloads-title">
+    <!-- 08 UNKNOWNS -->
+    <section id="unknowns" class="band band-ground" aria-labelledby="unknowns-title">
       <div class="wrap">
         <header class="section-head">
-          <p class="eyebrow">05 · DOWNLOADS</p>
-          <h2 id="downloads-title">The full studies</h2>
+          <p class="eyebrow" id="unknowns-eyebrow">08 · NOT KNOWN YET</p>
+          <h2 id="unknowns-title">What is not known yet</h2>
+          <p class="lead">Each of these is settled before any binding commitment.</p>
         </header>
-        <ul class="download-list">
-          <li><a class="button download" href="docs/Sycamore_Square_Feasibility_Landlord_View.pdf">Landlord study (PDF)<span class="button-meta">308 KB</span></a></li>
-          <li><a class="button download" href="docs/Sycamore_Square_Feasibility_Operator_View.pdf">Operator study (PDF)<span class="button-meta">279 KB</span></a></li>
-          <li><a class="button download" href="docs/Sycamore_Square_Engineering_and_City_PreApplication_Package.pdf">Engineering and City pre-application package (PDF)<span class="button-meta">196 KB</span></a></li>
-          <li><a class="button download" href="docs/Sycamore_Square_Legal_and_Regulatory_Findings.pdf">Legal findings (PDF)<span class="button-meta">118 KB</span></a></li>
-          <li><a class="button download" href="docs/Sycamore_Square_Master_Plan_R4.pdf">Master plan set (PDF)<span class="button-meta">1.5 MB</span></a></li>
-          <li><a class="button download" href="docs/Sycamore_Square_Georeferenced_R4.dxf" download>CAD base (DXF)<span class="button-meta">175 KB</span></a></li>
-        </ul>
+        <dl class="unknown-list" id="unknown-list"></dl>
       </div>
     </section>
 
@@ -191,30 +235,48 @@
         <ul class="sources" id="source-list"></ul>
       </div>
     </section>
-    <!-- TERMS -->
-    <section id="terms" class="band band-ground" aria-labelledby="terms-title">
+
+    <!-- DOWNLOADS -->
+    <section id="downloads" class="band band-ground" aria-labelledby="downloads-title">
       <div class="wrap">
         <header class="section-head">
-          <p class="eyebrow">TERMS EXPLAINED</p>
-          <h2 id="terms-title">What the technical words mean</h2>
+          <p class="eyebrow">DOWNLOADS</p>
+          <h2 id="downloads-title">Take it with you</h2>
+        </header>
+        <ul class="download-list">
+          <li><a class="button download" href="docs/Sycamore_Square_Feasibility_Summary.pdf">This page as a PDF<span class="button-meta">Printable</span></a></li>
+          <li><a class="button download" href="docs/Sycamore_Square_Options_Compared.pdf">Development options compared (PDF)<span class="button-meta">PDF</span></a></li>
+          <li><a class="button download" href="docs/Sycamore_Square_Feasibility_Landlord_View.pdf">Landlord view: lease everything (PDF)<span class="button-meta">PDF</span></a></li>
+          <li><a class="button download" href="docs/Sycamore_Square_Feasibility_Operator_View.pdf">Operator view: each business on its own (PDF)<span class="button-meta">PDF</span></a></li>
+          <li><a class="button download" href="docs/Sycamore_Square_Column_Removal_Research.pdf">Removing the hall columns: cost and examples (PDF)<span class="button-meta">PDF</span></a></li>
+          <li><a class="button download" href="docs/Sycamore_Square_All_PDFs_R4.3.zip" download>Every PDF at once<span class="button-meta">ZIP</span></a></li>
+          <li><a class="button download" href="index.html#documents">All plans and studies<span class="button-meta">Overview</span></a></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- TERMS -->
+    <section id="terms" class="band band-white" aria-labelledby="terms-title">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="eyebrow">WORDS USED ON THIS PAGE</p>
+          <h2 id="terms-title">What the words mean</h2>
         </header>
         <dl class="terms">
-          <div class="term"><dt>SF, ac</dt><dd>Square feet and acres. One acre is 43,560 SF.</dd></div>
-          <div class="term"><dt>Zoning, CMU-3</dt><dd>Zoning decides which uses are allowed on a lot. CMU-3 is the Memphis commercial mixed-use district these parcels are in.</dd></div>
-          <div class="term"><dt>100-year floodplain, FEMA Zone AE</dt><dd>Land with a 1% chance of flooding in any year, as mapped by FEMA. Federally backed loans there require flood insurance.</dd></div>
-          <div class="term"><dt>50% rule (substantial improvement)</dt><dd>If the work costs 50% or more of the building’s value, the whole building must meet current flood rules.</dd></div>
-          <div class="term"><dt>Elevation certificate, LOMA</dt><dd>A surveyor’s measurement of the building’s height against the flood level. If it sits above it, FEMA can issue a Letter of Map Amendment (LOMA) taking it out of the flood zone.</dd></div>
-          <div class="term"><dt>Due diligence</dt><dd>The checks a buyer makes before closing, such as survey, title, environmental and zoning.</dd></div>
-          <div class="term"><dt>ALTA survey</dt><dd>A detailed boundary survey of the kind title companies and lenders rely on.</dd></div>
-          <div class="term"><dt>Phase I</dt><dd>An environmental review of records and the site, looking for past contamination.</dd></div>
-          <div class="term"><dt>NNN (triple net) lease</dt><dd>The tenant pays rent plus its share of property tax, insurance and common-area costs.</dd></div>
-          <div class="term"><dt>Net operating income (NOI)</dt><dd>Yearly rent after the property’s running costs, before loan payments.</dd></div>
-          <div class="term"><dt>Yield on cost</dt><dd>Net operating income divided by the total project cost. Higher is better.</dd></div>
-          <div class="term"><dt>Cap rate</dt><dd>The rate buyers use to turn yearly income into a price: value = income ÷ cap rate.</dd></div>
-          <div class="term"><dt>IRR (levered)</dt><dd>The yearly return on the owner’s own cash over the holding period, counting the loan.</dd></div>
-          <div class="term"><dt>Hard cost, soft cost</dt><dd>Building work, versus design, permits, fees and financing.</dd></div>
-          <div class="term"><dt>C-store, QSR</dt><dd>A convenience store, and a quick-service (fast-food) restaurant.</dd></div>
-          <div class="term"><dt>DXF, GLB, BLEND</dt><dd>Technical file types: a CAD drawing, a 3D model and a Blender scene. They need special software to open.</dd></div>
+          <div class="term"><dt>Worst, realistic and best case</dt><dd>Three sets of assumptions for costs, rents and bookings. The realistic case is the middle estimate; the other two show how far it could swing.</dd></div>
+          <div class="term"><dt>Money to build it (one-time)</dt><dd>Repairs, building work, finishing the inside, design and permits, a cushion for surprises, the cost of signing tenants, and holding the building while work goes on. It does not count what is paid for the property.</dd></div>
+          <div class="term"><dt>Money coming in each year</dt><dd>Rent from tenants plus sales from the halls where the owners run them, once the building is open.</dd></div>
+          <div class="term"><dt>Money going out each year</dt><dd>The yearly running costs: property tax, insurance, upkeep, management, a repairs reserve, empty space and unpaid rent, and the halls’ staff, food and other costs.</dd></div>
+          <div class="term"><dt>Profit each year</dt><dd>Money coming in minus money going out, before any loan payments.</dd></div>
+          <div class="term"><dt>Years to earn back the build money</dt><dd>The one-time build money divided by the profit each year. Fewer years is better.</dd></div>
+          <div class="term"><dt>Profit each year for every $100 spent</dt><dd>The same idea the other way round: $10 a year for every $100 spent earns the money back in 10 years.</dd></div>
+          <div class="term"><dt>Typical investment property</dt><dd>A finished, rented property like this one usually sells for about 12 years of its profit. A plan that earns back faster creates value; one that takes longer is worth less than it cost to build.</dd></div>
+          <div class="term"><dt>The 10-year goal</dt><dd>This study’s goal: earn back the build money in 10 years or less, which is $10 a year for every $100 spent.</dd></div>
+          <div class="term"><dt>Owner-run</dt><dd>Run by the owners’ own operating company instead of being rented to another business.</dd></div>
+          <div class="term"><dt>Tenant’s share of property costs</dt><dd>On top of rent, tenants pay their share of property tax, insurance and upkeep of shared areas.</dd></div>
+          <div class="term"><dt>Land lease</dt><dd>A business rents only the land, builds its own building on it and pays rent for the land.</dd></div>
+          <div class="term"><dt>Transfer girder</dt><dd>A deep steel beam that holds up the roof where a column used to stand, so the column can come out.</dd></div>
+          <div class="term"><dt>SF</dt><dd>Square feet.</dd></div>
         </dl>
       </div>
     </section>
@@ -223,7 +285,7 @@
   <footer class="site-footer">
     <div class="wrap">
       <p class="footer-mark">SYCAMORE SQUARE</p>
-      <p>Planning estimates from public data and market research, 18 Oct 2026. Not an offer, appraisal or financial advice; numbers change with survey, flood, zoning and bids.</p>
+      <p>Planning estimates from public data and market research, <span id="as-of">18 Oct 2026</span>. Not an offer, appraisal or financial advice; numbers change with survey, flood, zoning and bids.</p>
       <p><a class="footer-back" href="index.html">← Back to the overview</a></p>
     </div>
   </footer>

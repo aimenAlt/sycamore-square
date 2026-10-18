@@ -1623,3 +1623,26 @@ model-viewer:focus-visible { outline: 2px solid var(--brass); outline-offset: 2p
 .term { padding: 12px 0; border-bottom: 1px solid var(--rule); }
 .term dt { font-family: var(--font-cond); font-weight: 700; font-size: 18px; color: var(--ink); }
 .term dd { margin: 2px 0 0; color: var(--text-2); }
+
+/* R4.3 hero image */
+.hero-media { margin: clamp(24px, 4vw, 36px) 0 0; }
+.hero-media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border: 1px solid var(--navy-border);
+  border-radius: 6px;
+  background: var(--navy-panel);
+}
+.hero-media figcaption {
+  margin-top: 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--on-navy-4);
+}
+@media print { .hero-media { break-inside: avoid; } }
+/* R4.3 download-all button spacing */
+.docs-group-note + .button-row { margin: 14px 0 22px; }
