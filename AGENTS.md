@@ -46,11 +46,14 @@ These are checked automatically, and an edit that breaks them is refused.
 
 - Every PDF in `docs/` has exactly one card in the Documents section of `index.html`, and is inside `docs/Sycamore_Square_All_PDFs_R4.3.zip`. After adding or replacing a PDF, rebuild the ZIP with `python3 scripts/check_site.py --rebuild-zip`.
 - Published PDFs must be public versions: no prices, fees, transaction terms or personal names.
+- Each PDF card shows the PDF's first page as its cover, saved as `assets/img/docs/<same name as the PDF>.jpg` at about 640 px (on a Mac: `qlmanage -t -s 900 -o . file.pdf`, then `sips -s format jpeg -Z 640`). The card also states the page count and file size, and gets a category (`data-cat`: plans, money, legal or research) so the filter buttons find it. Replace the cover whenever the PDF changes.
 
 ## Design
 
-- Use the tokens in `assets/css/styles.css` (colors, fonts, spacing). Fonts are IBM Plex Sans Condensed for headings, IBM Plex Sans for text and IBM Plex Mono for numbers.
-- Plan-set look: flat panels, 1 px rules, square corners. No shadows, gradients, rounded corners or emoji.
+- Use the tokens in `assets/css/styles.css` (colors, gradients, fonts, spacing, corner radii, shadows). Never type a raw color into a page. Fonts are Fraunces for headings and big numbers, and Plus Jakarta Sans for everything else.
+- "Golden hour" look, made for a wedding and event venue: warm champagne and white backgrounds, deep plum text, and the sunset gradient (gold, coral, rose, violet) for accents. Cards are white, with rounded corners and soft shadows. No dark navy page backgrounds, no monospace text and no emoji.
+- Use the gradient as an accent only: buttons, the selected page or tab, small bars and badges, and at most one gradient feature card per section. Never put body text on it. All text keeps at least 4.5:1 contrast with its background.
+- Navigation: the three page links always show in the header. "On this page" lists every section: chips on wide screens, and on phones a menu that names the section you are in. A new section needs its own entry in that page's `nav-list`.
 - Mobile first: nothing may scroll sideways at 360 px, tap targets are at least 44 px, and body text is at least 16 px on phones.
 - Keep `<meta name="robots" content="noindex,nofollow">` on every page, and keep `robots.txt` as it is.
 

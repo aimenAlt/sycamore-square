@@ -6,7 +6,7 @@
   <title>Sycamore Square — Redevelopment Study</title>
   <meta name="description" content="A 127,634 SF building on 11.72 acres in northeast Memphis, planned as a wedding and event destination with family entertainment and retail.">
   <meta name="robots" content="noindex,nofollow">
-  <meta name="theme-color" content="#1E3442">
+  <meta name="theme-color" content="#FFF7EF">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Sycamore Square — Redevelopment Study">
   <meta property="og:description" content="A 127,634 SF building on 11.72 acres in northeast Memphis, planned as a wedding and event destination with family entertainment and retail.">
@@ -18,9 +18,9 @@
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans+Condensed:wght@500;600;700&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans+Condensed:wght@500;600;700&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap" media="print" onload="this.media='all'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans+Condensed:wght@500;600;700&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap"></noscript>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500..700&amp;family=Plus+Jakarta+Sans:wght@400..800&amp;display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500..700&amp;family=Plus+Jakarta+Sans:wght@400..800&amp;display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500..700&amp;family=Plus+Jakarta+Sans:wght@400..800&amp;display=swap"></noscript>
   <link rel="stylesheet" href="assets/css/styles.css">
   <script>document.documentElement.className = 'js';</script>
   <script src="assets/js/main.js" defer></script>
@@ -31,26 +31,20 @@
 
   <header class="site-header">
     <div class="header-inner">
-      <a class="wordmark" href="#top">SYCAMORE SQUARE</a>
-      <nav class="page-nav page-nav-bar" aria-label="Pages">
+      <a class="wordmark" href="#top"><span class="wordmark-mark" aria-hidden="true">S</span><span class="wordmark-text">Sycamore Square</span><span class="visually-hidden"> (overview)</span></a>
+      <nav class="page-nav" aria-label="Pages">
         <ul class="page-list">
           <li><a href="index.html" aria-current="page">Overview</a></li>
-          <li><a href="legal.html">Legal findings</a></li>
+          <li><a href="legal.html">Legal<span class="page-long"> findings</span></a></li>
           <li><a href="feasibility.html">Feasibility</a></li>
         </ul>
       </nav>
-      <button type="button" class="menu-toggle" aria-expanded="false" aria-controls="site-menu"><span class="menu-icon" aria-hidden="true"></span>Menu</button>
-      <div class="site-menu" id="site-menu">
-        <nav class="page-nav page-nav-menu" aria-label="Pages (menu)">
-          <p class="menu-label" aria-hidden="true">Pages</p>
-          <ul class="page-list">
-            <li><a href="index.html" aria-current="page">Overview</a></li>
-            <li><a href="legal.html">Legal findings</a></li>
-            <li><a href="feasibility.html">Feasibility</a></li>
-          </ul>
-        </nav>
-        <nav class="site-nav" aria-label="On this page">
-          <p class="menu-label" aria-hidden="true">On this page</p>
+      <a class="header-cta" href="#documents"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M6 2h8l6 6v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Zm7 1.5V9h5.5L13 3.5ZM8 13v2h8v-2H8Zm0 4v2h5v-2H8Z" fill="currentColor"/></svg>Documents</a>
+    </div>
+    <nav class="site-nav" aria-label="On this page">
+      <div class="site-nav-inner">
+        <button type="button" class="section-toggle" aria-expanded="false" aria-controls="section-menu"><span class="section-toggle-label">On this page</span><span class="section-current">Start</span><span class="section-all">All sections<span class="section-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" focusable="false"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span></button>
+        <div class="section-menu" id="section-menu">
           <ul class="nav-list">
             <li><a href="#site">Site</a></li>
             <li><a href="#plan">The plan</a></li>
@@ -63,9 +57,10 @@
             <li><a href="#documents">Documents</a></li>
             <li><a href="#terms">Terms</a></li>
           </ul>
-        </nav>
+        </div>
       </div>
-    </div>
+      <div class="read-progress" aria-hidden="true"><span class="read-progress-bar"></span></div>
+    </nav>
   </header>
 
   <main id="main" tabindex="-1">
@@ -692,132 +687,248 @@
         <header class="section-head">
           <p class="eyebrow">09 · DOCUMENTS</p>
           <h2 id="documents-title">The working set</h2>
+          <p class="lead">Every plan, study and report behind this page. Open one to read it here, or download it to keep.</p>
         </header>
 
-        <h3 class="docs-group">To read</h3>
-        <p class="docs-group-note">These open in your browser, where you can also save them. On a phone, pinch to zoom.</p>
-        <p class="button-row"><a class="button" href="docs/Sycamore_Square_All_PDFs_R4.3.zip" download>Download every PDF at once (ZIP)</a></p>
-        <ul class="docs">
-          <li>
-            <a class="doc-card" href="docs/Sycamore_Square_Master_Plan_R4.2.pdf">
-              <span class="doc-tag">PDF · 8 SHEETS · 36 × 24 IN</span>
-              <span class="doc-title">Master plan set, R4.2</span>
-              <span class="doc-desc">Existing conditions, site plan, building division, operations, parking, fuel test, architecture, and cost and profit ranges</span>
-              <span class="doc-meta">Open PDF</span>
-            </a>
+        <div class="docs-toolbar">
+          <div class="doc-filters" role="group" aria-label="Show documents">
+            <button type="button" class="doc-filter" data-filter="all" aria-pressed="true">All <span class="doc-count"></span></button>
+            <button type="button" class="doc-filter" data-filter="plans" aria-pressed="false">Plans <span class="doc-count"></span></button>
+            <button type="button" class="doc-filter" data-filter="money" aria-pressed="false">Feasibility <span class="doc-count"></span></button>
+            <button type="button" class="doc-filter" data-filter="legal" aria-pressed="false">Legal &amp; City <span class="doc-count"></span></button>
+            <button type="button" class="doc-filter" data-filter="research" aria-pressed="false">Research <span class="doc-count"></span></button>
+          </div>
+          <a class="button" href="docs/Sycamore_Square_All_PDFs_R4.3.zip" download><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M12 3v11m0 0-4.5-4.5M12 14l4.5-4.5M5 17v2a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Download every PDF <span class="button-meta">ZIP · 4 MB</span></a>
+        </div>
+        <p class="visually-hidden" id="doc-filter-status" aria-live="polite"></p>
+
+        <ul class="docs" id="doc-library">
+          <li class="doc" data-cat="plans">
+            <article class="doc-card">
+              <div class="doc-cover">
+                <img src="assets/img/docs/Sycamore_Square_Master_Plan_R4.2.jpg" width="640" height="426" loading="lazy" decoding="async" alt="" aria-hidden="true">
+                <span class="doc-cover-hint" aria-hidden="true">Open the document</span>
+              </div>
+              <div class="doc-body">
+                <p class="doc-tag"><span class="doc-kind">Plans</span>PDF · 8 sheets · 36 × 24 in</p>
+                <h3 class="doc-title"><a href="docs/Sycamore_Square_Master_Plan_R4.2.pdf">Master plan set, R4.2</a></h3>
+                <p class="doc-desc">Existing conditions, site plan, building division, operations, parking, fuel test, architecture, and cost and profit ranges</p>
+                <p class="doc-actions">
+                <a class="doc-action doc-action-primary" href="docs/Sycamore_Square_Master_Plan_R4.2.pdf"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg>Read<span class="visually-hidden">: Master plan set, R4.2</span></a>
+                <a class="doc-action" href="docs/Sycamore_Square_Master_Plan_R4.2.pdf" download><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M12 3v11m0 0-4.5-4.5M12 14l4.5-4.5M5 17v2a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Download<span class="visually-hidden"> Master plan set, R4.2</span> <span class="doc-size">1.5 MB</span></a>
+                </p>
+              </div>
+            </article>
           </li>
-          <li>
-            <a class="doc-card" href="docs/Sycamore_Square_Alternative_Layout_Halls_North.pdf">
-              <span class="doc-tag">PDF · 3 SHEETS · 36 × 24 IN</span>
-              <span class="doc-title">Alternative layout: halls north, stores south</span>
-              <span class="doc-desc">Building division, site plan and a side-by-side comparison with the current R4.2 layout</span>
-              <span class="doc-meta">Open PDF</span>
-            </a>
+          <li class="doc" data-cat="plans">
+            <article class="doc-card">
+              <div class="doc-cover">
+                <img src="assets/img/docs/Sycamore_Square_Alternative_Layout_Halls_North.jpg" width="640" height="426" loading="lazy" decoding="async" alt="" aria-hidden="true">
+                <span class="doc-cover-hint" aria-hidden="true">Open the document</span>
+              </div>
+              <div class="doc-body">
+                <p class="doc-tag"><span class="doc-kind">Plans</span>PDF · 3 sheets · 36 × 24 in</p>
+                <h3 class="doc-title"><a href="docs/Sycamore_Square_Alternative_Layout_Halls_North.pdf">Alternative layout: halls north, stores south</a></h3>
+                <p class="doc-desc">Building division, site plan and a side-by-side comparison with the current R4.2 layout</p>
+                <p class="doc-actions">
+                <a class="doc-action doc-action-primary" href="docs/Sycamore_Square_Alternative_Layout_Halls_North.pdf"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg>Read<span class="visually-hidden">: Alternative layout: halls north, stores south</span></a>
+                <a class="doc-action" href="docs/Sycamore_Square_Alternative_Layout_Halls_North.pdf" download><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M12 3v11m0 0-4.5-4.5M12 14l4.5-4.5M5 17v2a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Download<span class="visually-hidden"> Alternative layout: halls north, stores south</span> <span class="doc-size">160 KB</span></a>
+                </p>
+              </div>
+            </article>
           </li>
-          <li>
-            <div class="doc-card doc-card-split">
-              <span class="doc-tag">WEB PAGE · PDF</span>
-              <a class="doc-title doc-title-link" href="feasibility.html">Feasibility: five plans compared</a>
-              <span class="doc-desc">Money to build it, profit each year and years to earn the money back, for five ways to develop the building, with the property price left out</span>
-              <span class="doc-meta"><a class="doc-sub" href="feasibility.html">Read the web page</a> <a class="doc-sub" href="docs/Sycamore_Square_Feasibility_Summary.pdf">Open PDF</a></span>
-            </div>
+          <li class="doc" data-cat="money">
+            <article class="doc-card">
+              <div class="doc-cover doc-cover-portrait">
+                <img src="assets/img/docs/Sycamore_Square_Feasibility_Summary.jpg" width="494" height="640" loading="lazy" decoding="async" alt="" aria-hidden="true">
+                <span class="doc-cover-hint" aria-hidden="true">Read on the site</span>
+              </div>
+              <div class="doc-body">
+                <p class="doc-tag"><span class="doc-kind">Feasibility</span>Web page and PDF · 19 pages</p>
+                <h3 class="doc-title"><a href="feasibility.html">Feasibility: five plans compared</a></h3>
+                <p class="doc-desc">Money to build it, profit each year and years to earn the money back, for five ways to develop the building, with the property price left out</p>
+                <p class="doc-actions">
+                <a class="doc-action doc-action-primary" href="feasibility.html"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M4 5h16v14H4zM4 9h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>Read on the site<span class="visually-hidden">: Feasibility: five plans compared</span></a>
+                <a class="doc-action" href="docs/Sycamore_Square_Feasibility_Summary.pdf" data-doc-title="Feasibility: five plans compared (PDF)"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg>Read the PDF<span class="visually-hidden">: Feasibility: five plans compared</span></a>
+                <a class="doc-action" href="docs/Sycamore_Square_Feasibility_Summary.pdf" download><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M12 3v11m0 0-4.5-4.5M12 14l4.5-4.5M5 17v2a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Download<span class="visually-hidden"> Feasibility: five plans compared (PDF)</span> <span class="doc-size">233 KB</span></a>
+                </p>
+              </div>
+            </article>
           </li>
-          <li>
-            <a class="doc-card" href="docs/Sycamore_Square_Engineering_and_City_PreApplication_Package.pdf">
-              <span class="doc-tag">PDF · ENGINEERING</span>
-              <span class="doc-title">Engineering and City pre-application package</span>
-              <span class="doc-desc">Asks an engineering firm to confirm the concept plans, and the City which approvals each use and parcel needs</span>
-              <span class="doc-meta">Open PDF</span>
-            </a>
+          <li class="doc" data-cat="money">
+            <article class="doc-card">
+              <div class="doc-cover doc-cover-portrait">
+                <img src="assets/img/docs/Sycamore_Square_Options_Compared.jpg" width="494" height="640" loading="lazy" decoding="async" alt="" aria-hidden="true">
+                <span class="doc-cover-hint" aria-hidden="true">Open the document</span>
+              </div>
+              <div class="doc-body">
+                <p class="doc-tag"><span class="doc-kind">Feasibility</span>PDF · 14 pages</p>
+                <h3 class="doc-title"><a href="docs/Sycamore_Square_Options_Compared.pdf">Development options compared</a></h3>
+                <p class="doc-desc">The full plan, the full plan built efficiently, a phased hybrid and a lean hold, with where the money comes from and goes, what drags profit down and ways to save; property price left out</p>
+                <p class="doc-actions">
+                <a class="doc-action doc-action-primary" href="docs/Sycamore_Square_Options_Compared.pdf"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg>Read<span class="visually-hidden">: Development options compared</span></a>
+                <a class="doc-action" href="docs/Sycamore_Square_Options_Compared.pdf" download><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M12 3v11m0 0-4.5-4.5M12 14l4.5-4.5M5 17v2a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Download<span class="visually-hidden"> Development options compared</span> <span class="doc-size">1.2 MB</span></a>
+                </p>
+              </div>
+            </article>
           </li>
-          <li>
-            <div class="doc-card doc-card-split">
-              <span class="doc-tag">WEB PAGE · PDF</span>
-              <a class="doc-title doc-title-link" href="legal.html">Legal and regulatory findings</a>
-              <span class="doc-desc">Confirmed findings, unverified items, open questions and the checks to finish before any binding commitment</span>
-              <span class="doc-meta"><a class="doc-sub" href="legal.html">Read the web page</a> <a class="doc-sub" href="docs/Sycamore_Square_Legal_and_Regulatory_Findings.pdf">Open PDF</a></span>
-            </div>
+          <li class="doc" data-cat="money">
+            <article class="doc-card">
+              <div class="doc-cover doc-cover-portrait">
+                <img src="assets/img/docs/Sycamore_Square_Feasibility_Landlord_View.jpg" width="494" height="640" loading="lazy" decoding="async" alt="" aria-hidden="true">
+                <span class="doc-cover-hint" aria-hidden="true">Open the document</span>
+              </div>
+              <div class="doc-body">
+                <p class="doc-tag"><span class="doc-kind">Feasibility</span>PDF · 6 pages</p>
+                <h3 class="doc-title"><a href="docs/Sycamore_Square_Feasibility_Landlord_View.pdf">Landlord view: lease everything</a></h3>
+                <p class="doc-desc">What the building earns if every space, including the halls, is rented to outside tenants; property price left out</p>
+                <p class="doc-actions">
+                <a class="doc-action doc-action-primary" href="docs/Sycamore_Square_Feasibility_Landlord_View.pdf"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg>Read<span class="visually-hidden">: Landlord view: lease everything</span></a>
+                <a class="doc-action" href="docs/Sycamore_Square_Feasibility_Landlord_View.pdf" download><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M12 3v11m0 0-4.5-4.5M12 14l4.5-4.5M5 17v2a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Download<span class="visually-hidden"> Landlord view: lease everything</span> <span class="doc-size">290 KB</span></a>
+                </p>
+              </div>
+            </article>
           </li>
-          <li>
-            <a class="doc-card" href="docs/Sycamore_Square_Options_Compared.pdf">
-              <span class="doc-tag">PDF · FEASIBILITY</span>
-              <span class="doc-title">Development options compared</span>
-              <span class="doc-desc">The full plan, the full plan built efficiently, a phased hybrid and a lean hold, with where the money comes from and goes, what drags profit down and ways to save; property price left out</span>
-              <span class="doc-meta">Open PDF</span>
-            </a>
+          <li class="doc" data-cat="money">
+            <article class="doc-card">
+              <div class="doc-cover doc-cover-portrait">
+                <img src="assets/img/docs/Sycamore_Square_Feasibility_Operator_View.jpg" width="494" height="640" loading="lazy" decoding="async" alt="" aria-hidden="true">
+                <span class="doc-cover-hint" aria-hidden="true">Open the document</span>
+              </div>
+              <div class="doc-body">
+                <p class="doc-tag"><span class="doc-kind">Feasibility</span>PDF · 7 pages</p>
+                <h3 class="doc-title"><a href="docs/Sycamore_Square_Feasibility_Operator_View.pdf">Operator view: each business on its own</a></h3>
+                <p class="doc-desc">Sales, costs, profit and payback for the two halls, the kids’ indoor playground, a fuel station and a typical shop tenant</p>
+                <p class="doc-actions">
+                <a class="doc-action doc-action-primary" href="docs/Sycamore_Square_Feasibility_Operator_View.pdf"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg>Read<span class="visually-hidden">: Operator view: each business on its own</span></a>
+                <a class="doc-action" href="docs/Sycamore_Square_Feasibility_Operator_View.pdf" download><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M12 3v11m0 0-4.5-4.5M12 14l4.5-4.5M5 17v2a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Download<span class="visually-hidden"> Operator view: each business on its own</span> <span class="doc-size">297 KB</span></a>
+                </p>
+              </div>
+            </article>
           </li>
-          <li>
-            <a class="doc-card" href="docs/Sycamore_Square_Feasibility_Landlord_View.pdf">
-              <span class="doc-tag">PDF · FEASIBILITY</span>
-              <span class="doc-title">Landlord view: lease everything</span>
-              <span class="doc-desc">What the building earns if every space, including the halls, is rented to outside tenants; property price left out</span>
-              <span class="doc-meta">Open PDF</span>
-            </a>
+          <li class="doc" data-cat="legal">
+            <article class="doc-card">
+              <div class="doc-cover doc-cover-portrait">
+                <img src="assets/img/docs/Sycamore_Square_Legal_and_Regulatory_Findings.jpg" width="494" height="640" loading="lazy" decoding="async" alt="" aria-hidden="true">
+                <span class="doc-cover-hint" aria-hidden="true">Read on the site</span>
+              </div>
+              <div class="doc-body">
+                <p class="doc-tag"><span class="doc-kind">Legal &amp; City</span>Web page and PDF · 5 pages</p>
+                <h3 class="doc-title"><a href="legal.html">Legal and regulatory findings</a></h3>
+                <p class="doc-desc">Confirmed findings, unverified items, open questions and the checks to finish before any binding commitment</p>
+                <p class="doc-actions">
+                <a class="doc-action doc-action-primary" href="legal.html"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M4 5h16v14H4zM4 9h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>Read on the site<span class="visually-hidden">: Legal and regulatory findings</span></a>
+                <a class="doc-action" href="docs/Sycamore_Square_Legal_and_Regulatory_Findings.pdf" data-doc-title="Legal and regulatory findings (PDF)"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg>Read the PDF<span class="visually-hidden">: Legal and regulatory findings</span></a>
+                <a class="doc-action" href="docs/Sycamore_Square_Legal_and_Regulatory_Findings.pdf" download><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M12 3v11m0 0-4.5-4.5M12 14l4.5-4.5M5 17v2a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Download<span class="visually-hidden"> Legal and regulatory findings (PDF)</span> <span class="doc-size">263 KB</span></a>
+                </p>
+              </div>
+            </article>
           </li>
-          <li>
-            <a class="doc-card" href="docs/Sycamore_Square_Feasibility_Operator_View.pdf">
-              <span class="doc-tag">PDF · FEASIBILITY</span>
-              <span class="doc-title">Operator view: each business on its own</span>
-              <span class="doc-desc">Sales, costs, profit and payback for the two halls, the kids’ indoor playground, a fuel station and a typical shop tenant</span>
-              <span class="doc-meta">Open PDF</span>
-            </a>
+          <li class="doc" data-cat="legal">
+            <article class="doc-card">
+              <div class="doc-cover doc-cover-portrait">
+                <img src="assets/img/docs/Sycamore_Square_Engineering_and_City_PreApplication_Package.jpg" width="494" height="640" loading="lazy" decoding="async" alt="" aria-hidden="true">
+                <span class="doc-cover-hint" aria-hidden="true">Open the document</span>
+              </div>
+              <div class="doc-body">
+                <p class="doc-tag"><span class="doc-kind">Legal &amp; City</span>PDF · 8 pages</p>
+                <h3 class="doc-title"><a href="docs/Sycamore_Square_Engineering_and_City_PreApplication_Package.pdf">Engineering and City pre-application package</a></h3>
+                <p class="doc-desc">Asks an engineering firm to confirm the concept plans, and the City which approvals each use and parcel needs</p>
+                <p class="doc-actions">
+                <a class="doc-action doc-action-primary" href="docs/Sycamore_Square_Engineering_and_City_PreApplication_Package.pdf"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg>Read<span class="visually-hidden">: Engineering and City pre-application package</span></a>
+                <a class="doc-action" href="docs/Sycamore_Square_Engineering_and_City_PreApplication_Package.pdf" download><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M12 3v11m0 0-4.5-4.5M12 14l4.5-4.5M5 17v2a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Download<span class="visually-hidden"> Engineering and City pre-application package</span> <span class="doc-size">320 KB</span></a>
+                </p>
+              </div>
+            </article>
           </li>
-          <li>
-            <a class="doc-card" href="docs/Sycamore_Square_Column_Removal_Research.pdf">
-              <span class="doc-tag">PDF · RESEARCH</span>
-              <span class="doc-title">Removing the hall columns: cost and precedents</span>
-              <span class="doc-desc">How other big-box conversions removed roof columns, what it costs per column, the schedule and what a structural engineer must check</span>
-              <span class="doc-meta">Open PDF</span>
-            </a>
+          <li class="doc" data-cat="research">
+            <article class="doc-card">
+              <div class="doc-cover doc-cover-portrait">
+                <img src="assets/img/docs/Sycamore_Square_Column_Removal_Research.jpg" width="494" height="640" loading="lazy" decoding="async" alt="" aria-hidden="true">
+                <span class="doc-cover-hint" aria-hidden="true">Open the document</span>
+              </div>
+              <div class="doc-body">
+                <p class="doc-tag"><span class="doc-kind">Research</span>PDF · 16 pages</p>
+                <h3 class="doc-title"><a href="docs/Sycamore_Square_Column_Removal_Research.pdf">Removing the hall columns: cost and precedents</a></h3>
+                <p class="doc-desc">How other big-box conversions removed roof columns, what it costs per column, the schedule and what a structural engineer must check</p>
+                <p class="doc-actions">
+                <a class="doc-action doc-action-primary" href="docs/Sycamore_Square_Column_Removal_Research.pdf"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg>Read<span class="visually-hidden">: Removing the hall columns: cost and precedents</span></a>
+                <a class="doc-action" href="docs/Sycamore_Square_Column_Removal_Research.pdf" download><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M12 3v11m0 0-4.5-4.5M12 14l4.5-4.5M5 17v2a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Download<span class="visually-hidden"> Removing the hall columns: cost and precedents</span> <span class="doc-size">553 KB</span></a>
+                </p>
+              </div>
+            </article>
           </li>
-          <li>
-            <a class="doc-card" href="docs/Sycamore_Square_Halls_With_Columns_Research.pdf">
-              <span class="doc-tag">PDF · RESEARCH</span>
-              <span class="doc-title">Event halls and columns: examples and layouts</span>
-              <span class="doc-desc">Venues that book weddings with columns, how planners lay out rooms around them, and typical ballroom ceiling heights</span>
-              <span class="doc-meta">Open PDF</span>
-            </a>
+          <li class="doc" data-cat="research">
+            <article class="doc-card">
+              <div class="doc-cover doc-cover-portrait">
+                <img src="assets/img/docs/Sycamore_Square_Halls_With_Columns_Research.jpg" width="494" height="640" loading="lazy" decoding="async" alt="" aria-hidden="true">
+                <span class="doc-cover-hint" aria-hidden="true">Open the document</span>
+              </div>
+              <div class="doc-body">
+                <p class="doc-tag"><span class="doc-kind">Research</span>PDF · 15 pages</p>
+                <h3 class="doc-title"><a href="docs/Sycamore_Square_Halls_With_Columns_Research.pdf">Event halls and columns: examples and layouts</a></h3>
+                <p class="doc-desc">Venues that book weddings with columns, how planners lay out rooms around them, and typical ballroom ceiling heights</p>
+                <p class="doc-actions">
+                <a class="doc-action doc-action-primary" href="docs/Sycamore_Square_Halls_With_Columns_Research.pdf"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg>Read<span class="visually-hidden">: Event halls and columns: examples and layouts</span></a>
+                <a class="doc-action" href="docs/Sycamore_Square_Halls_With_Columns_Research.pdf" download><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M12 3v11m0 0-4.5-4.5M12 14l4.5-4.5M5 17v2a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Download<span class="visually-hidden"> Event halls and columns: examples and layouts</span> <span class="doc-size">584 KB</span></a>
+                </p>
+              </div>
+            </article>
           </li>
         </ul>
 
-        <p class="note docs-plan-note">The plan set is a large-format drawing; on a phone, open it and zoom, or view it on a computer.</p>
+        <p class="note docs-plan-note">The plan sets are large-format drawings; on a phone, open one and pinch to zoom, or view it on a computer.</p>
 
-        <h3 class="docs-group">Technical files, for engineers and designers</h3>
-        <p class="docs-group-note">These download to your device and need CAD, 3D or Blender software to open.</p>
-        <ul class="docs">
-          <li>
-            <a class="doc-card" href="docs/Sycamore_Square_Georeferenced_R4.2.dxf" download>
-              <span class="doc-tag">CAD DRAWING · DXF</span>
-              <span class="doc-title">Georeferenced CAD base, R4.2</span>
-              <span class="doc-desc">For civil engineers and architects; layers keep existing conditions separate from proposals</span>
-              <span class="doc-meta">Download</span>
-            </a>
+        <div class="docs-tech">
+          <h3 class="docs-group">Technical files, for engineers and designers</h3>
+          <p class="docs-group-note">These download to your device and need CAD, 3D or Blender software to open.</p>
+          <ul class="docs">
+          <li class="doc" data-cat="tech">
+            <article class="doc-card">
+              <div class="doc-cover doc-cover-file" aria-hidden="true"><span class="doc-file-type">DXF</span></div>
+              <div class="doc-body">
+                <p class="doc-tag"><span class="doc-kind">CAD drawing</span>175 KB</p>
+                <h4 class="doc-title"><a href="docs/Sycamore_Square_Georeferenced_R4.2.dxf" download>Georeferenced CAD base, R4.2</a></h4>
+                <p class="doc-desc">For civil engineers and architects; layers keep existing conditions separate from proposals</p>
+                <p class="doc-actions"><span class="doc-action" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M12 3v11m0 0-4.5-4.5M12 14l4.5-4.5M5 17v2a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Download <span class="doc-size">175 KB</span></span></p>
+              </div>
+            </article>
           </li>
-          <li>
-            <a class="doc-card" href="assets/models/sycamore_square_site.glb" download>
-              <span class="doc-tag">3D FILE · GLB</span>
-              <span class="doc-title">Site 3D model</span>
-              <span class="doc-desc">Whole site in 3D; opens in any glTF viewer, including Windows 3D Viewer and macOS Preview</span>
-              <span class="doc-meta">3.1 MB · Download</span>
-            </a>
+          <li class="doc" data-cat="tech">
+            <article class="doc-card">
+              <div class="doc-cover doc-cover-file" aria-hidden="true"><span class="doc-file-type">GLB</span></div>
+              <div class="doc-body">
+                <p class="doc-tag"><span class="doc-kind">3D file</span>3.1 MB</p>
+                <h4 class="doc-title"><a href="assets/models/sycamore_square_site.glb" download>Site 3D model</a></h4>
+                <p class="doc-desc">Whole site in 3D; opens in any glTF viewer, including Windows 3D Viewer and macOS Preview</p>
+                <p class="doc-actions"><span class="doc-action" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M12 3v11m0 0-4.5-4.5M12 14l4.5-4.5M5 17v2a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Download <span class="doc-size">3.1 MB</span></span></p>
+              </div>
+            </article>
           </li>
-          <li>
-            <a class="doc-card" href="assets/models/sycamore_square_event_cutaway.glb" download>
-              <span class="doc-tag">3D FILE · GLB</span>
-              <span class="doc-title">Event complex cutaway model</span>
-              <span class="doc-desc">The event complex with the roof removed, rooms and seating from sheet A-1</span>
-              <span class="doc-meta">4.0 MB · Download</span>
-            </a>
+          <li class="doc" data-cat="tech">
+            <article class="doc-card">
+              <div class="doc-cover doc-cover-file" aria-hidden="true"><span class="doc-file-type">GLB</span></div>
+              <div class="doc-body">
+                <p class="doc-tag"><span class="doc-kind">3D file</span>4.0 MB</p>
+                <h4 class="doc-title"><a href="assets/models/sycamore_square_event_cutaway.glb" download>Event complex cutaway model</a></h4>
+                <p class="doc-desc">The event complex with the roof removed, rooms and seating from sheet A-1</p>
+                <p class="doc-actions"><span class="doc-action" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M12 3v11m0 0-4.5-4.5M12 14l4.5-4.5M5 17v2a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Download <span class="doc-size">4.0 MB</span></span></p>
+              </div>
+            </article>
           </li>
-          <li>
-            <a class="doc-card" href="docs/Sycamore_Square_Massing_R4.2.blend" download>
-              <span class="doc-tag">BLENDER SCENE · BLEND</span>
-              <span class="doc-title">Blender source scene (R4.2)</span>
-              <span class="doc-desc">Full scene with materials and saved camera views, for designers and renderers</span>
-              <span class="doc-meta">1.1 MB · Download</span>
-            </a>
+          <li class="doc" data-cat="tech">
+            <article class="doc-card">
+              <div class="doc-cover doc-cover-file" aria-hidden="true"><span class="doc-file-type">BLEND</span></div>
+              <div class="doc-body">
+                <p class="doc-tag"><span class="doc-kind">Blender scene</span>1.1 MB</p>
+                <h4 class="doc-title"><a href="docs/Sycamore_Square_Massing_R4.2.blend" download>Blender source scene (R4.2)</a></h4>
+                <p class="doc-desc">Full scene with materials and saved camera views, for designers and renderers</p>
+                <p class="doc-actions"><span class="doc-action" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M12 3v11m0 0-4.5-4.5M12 14l4.5-4.5M5 17v2a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Download <span class="doc-size">1.1 MB</span></span></p>
+              </div>
+            </article>
           </li>
-        </ul>
+          </ul>
+        </div>
       </div>
     </section>
     <!-- TERMS -->
