@@ -1,0 +1,97 @@
+openapi: 3.1.0
+info:
+  title: Sycamore Square site changes
+  description: Send an approved text change or an undo to the Sycamore Square website, and read the update log that says whether it was published.
+  version: 1.0.0
+servers:
+  - url: https://api.github.com
+paths:
+  /repos/aimenAlt/sycamore-square/dispatches:
+    post:
+      operationId: sendSiteChange
+      summary: Send an approved change (site-edit) or an undo (site-undo). The site runs its checks and publishes only if every check passes. Read the update log a few minutes later for the result.
+      x-openai-isConsequential: false
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [event_type, client_payload]
+              properties:
+                event_type:
+                  type: string
+                  enum: [site-edit, site-undo]
+                client_payload:
+                  type: object
+                  required: [request_id, summary]
+                  properties:
+                    request_id:
+                      type: string
+                      description: A new id for this request, e.g. edit-20261018-1530.
+                    summary:
+                      type: string
+                      description: A short plain description of the change, under 120 characters.
+                    dry_run:
+                      type: boolean
+                      description: true to test the change without publishing it.
+                    target:
+                      type: string
+                      description: For site-undo only. "last", or a version id from the update log.
+                    edits:
+                      type: array
+                      description: For site-edit only. Each find must match the current file exactly, once.
+                      items:
+                        type: object
+                        required: [file, find, replace]
+                        properties:
+                          file:
+                            type: string
+                            enum: [index.html, legal.html, feasibility.html, assets/feasibility.json, README.md]
+                          find:
+                            type: string
+                          replace:
+                            type: string
+      responses:
+        "204":
+          description: Received. The result appears in the update log in about 5 minutes.
+  /repos/aimenAlt/sycamore-square/issues/comments:
+    get:
+      operationId: readUpdateLog
+      summary: Read the newest entries of the site update log, newest first. Each entry has the request id, the result (PUBLISHED, NOT PUBLISHED or TEST RUN PASSED), what changed and its version id.
+      parameters:
+        - name: sort
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [created]
+        - name: direction
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [desc]
+        - name: per_page
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 10
+            maximum: 20
+      responses:
+        "200":
+          description: The newest log entries.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    body:
+                      type: string
+                    created_at:
+                      type: string
+                    html_url:
+                      type: string
