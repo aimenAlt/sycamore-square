@@ -24,7 +24,7 @@
    "work_cost": [
     23219000.0,
     15089000.0,
-    10454000.0
+    10476000.0
    ],
    "cash_flow": [
     299000.0,
@@ -34,7 +34,7 @@
    "return_on_work": [
     0.0129,
     0.0423,
-    0.1216
+    0.1213
    ],
    "hall_events": [
     null,
@@ -87,7 +87,7 @@
      [
       453000.0,
       641000.0,
-      632000.0
+      653000.0
      ]
     ]
    ],
@@ -100,10 +100,10 @@
     "work_cost": [
      25196000.0,
      16845000.0,
-     11632000.0
+     11654000.0
     ],
     "payback_years": [
-     84.3,
+     84.4,
      26.4,
      9.2
     ]
@@ -228,7 +228,7 @@
    ],
    "payback_years": [
     77.7,
-    23.7,
+    23.6,
     8.2
    ],
    "levers": [
@@ -254,7 +254,7 @@
      "kind": "income",
      "profit_change": 62000.0,
      "onetime_change": 68000.0,
-     "payback_years": 21.7
+     "payback_years": 21.6
     },
     {
      "label": "Keep the hall columns and decorate around them",
@@ -512,14 +512,14 @@
      [
       167000.0,
       378000.0,
-      391000.0
+      412000.0
      ]
     ]
    ],
    "build_cost": [
     19869000.0,
     11824000.0,
-    7236000.0
+    7258000.0
    ],
    "purchase": [
     3350000.0,
@@ -537,7 +537,7 @@
    "work_cost": [
     28223000.0,
     18472000.0,
-    12542000.0
+    12564000.0
    ],
    "cash_flow": [
     -200000.0,
@@ -547,7 +547,7 @@
    "return_on_work": [
     -0.0071,
     0.0601,
-    0.1995
+    0.1991
    ],
    "hall_events": [
     120.0,
@@ -600,7 +600,7 @@
      [
       326000.0,
       569000.0,
-      613000.0
+      634000.0
      ]
     ]
    ],
@@ -613,11 +613,11 @@
     "work_cost": [
      30525000.0,
      20754000.0,
-     14310000.0
+     14330000.0
     ],
     "payback_years": [
      null,
-     18.7,
+     18.6,
      5.7
     ]
    },
@@ -1189,14 +1189,14 @@
      [
       41000.0,
       306000.0,
-      372000.0
+      393000.0
      ]
     ]
    ],
    "build_cost": [
     24873000.0,
     15207000.0,
-    9325000.0
+    9346000.0
    ],
    "purchase": [
     3350000.0,
@@ -1214,7 +1214,7 @@
    "work_cost": [
     22977000.0,
     15195000.0,
-    10766000.0
+    10784000.0
    ],
    "cash_flow": [
     -261000.0,
@@ -1224,7 +1224,7 @@
    "return_on_work": [
     -0.0114,
     0.0705,
-    0.2363
+    0.2359
    ],
    "hall_events": [
     120.0,
@@ -1277,7 +1277,7 @@
      [
       264000.0,
       491000.0,
-      462000.0
+      480000.0
      ]
     ]
    ],
@@ -1290,11 +1290,11 @@
     "work_cost": [
      24679000.0,
      16969000.0,
-     12176000.0
+     12194000.0
     ],
     "payback_years": [
      null,
-     15.8,
+     15.7,
      4.8
     ]
    },
@@ -1866,14 +1866,14 @@
      [
       25000.0,
       271000.0,
-      261000.0
+      279000.0
      ]
     ]
    ],
    "build_cost": [
     19627000.0,
     11930000.0,
-    7548000.0
+    7566000.0
    ],
    "purchase": [
     3350000.0,
@@ -1891,7 +1891,7 @@
    "work_cost": [
     17294000.0,
     13862000.0,
-    9878000.0
+    9890000.0
    ],
    "cash_flow": [
     -313000.0,
@@ -1900,8 +1900,8 @@
    ],
    "return_on_work": [
     -0.0181,
-    0.0651,
-    0.2363
+    0.0652,
+    0.236
    ],
    "hall_events": [
     55.0,
@@ -1954,7 +1954,7 @@
      [
       159000.0,
       244000.0,
-      276000.0
+      288000.0
      ]
     ],
     [
@@ -1975,11 +1975,11 @@
     "work_cost": [
      18384000.0,
      15546000.0,
-     11158000.0
+     11168000.0
     ],
     "payback_years": [
      null,
-     17.2,
+     17.1,
      4.8
     ]
    },
@@ -1992,12 +1992,12 @@
     "work_cost": [
      17294000.0,
      11297000.0,
-     8266000.0
+     8278000.0
     ],
     "return_on_work": [
      -0.0181,
      0.0446,
-     0.1754
+     0.1752
     ],
     "payback_years": [
      null,
@@ -2189,7 +2189,7 @@
    ],
    "payback_years": [
     null,
-    15.4,
+    15.3,
     4.2
    ],
    "levers": [
@@ -2556,7 +2556,7 @@
      [
       0.0,
       98000.0,
-      142000.0
+      154000.0
      ]
     ],
     [
@@ -2572,7 +2572,7 @@
    "build_cost": [
     13944000.0,
     10597000.0,
-    6660000.0
+    6672000.0
    ],
    "purchase": [
     3350000.0,
@@ -2590,7 +2590,7 @@
    "work_cost": [
     9466000.0,
     6780000.0,
-    5448000.0
+    5454000.0
    ],
    "cash_flow": [
     -11000.0,
@@ -2599,8 +2599,8 @@
    ],
    "return_on_work": [
     -0.0012,
-    0.0572,
-    0.1536
+    0.0573,
+    0.1534
    ],
    "hall_events": [
     null,
@@ -2653,7 +2653,7 @@
      [
       95000.0,
       164000.0,
-      147000.0
+      154000.0
      ]
     ]
    ],
@@ -2666,7 +2666,7 @@
     "work_cost": [
      9705000.0,
      7152000.0,
-     5768000.0
+     5776000.0
     ],
     "payback_years": [
      null,
@@ -2788,7 +2788,7 @@
      "kind": "income",
      "profit_change": 59000.0,
      "onetime_change": 43000.0,
-     "payback_years": 15.3
+     "payback_years": 15.2
     },
     {
      "label": "Roof needs only repairs and a coating",
@@ -3011,14 +3011,14 @@
      [
       0.0,
       77000.0,
-      66000.0
+      73000.0
      ]
     ]
    ],
    "build_cost": [
     6116000.0,
     3515000.0,
-    2230000.0
+    2237000.0
    ],
    "purchase": [
     3350000.0,
@@ -3297,7 +3297,7 @@
    ],
    [
     "One contractor does the whole job",
-    "The costs assume the ownership group manages the work and hires each trade directly. A general contractor typically adds about 11–22% for its overhead and profit: about $1.8M more for the efficient full plan, which would then take about 12.7 years instead of 11.1 to earn back."
+    "The costs assume the ownership group manages the work and hires each trade directly. A general contractor typically adds about 11–22% for its overhead and profit: about $1.8M more for the efficient full plan, which would then take about 15.7 years instead of 14.2 to earn back, buying the property included."
    ],
    [
     "The earthquake code applies",
@@ -3305,7 +3305,7 @@
    ],
    [
     "The flood answer goes the wrong way",
-    "If the survey finds the floor below 250 ft, or the rear dock area blocks a FEMA map change, flood work and insurance rise toward the worst case."
+    "If the survey finds the floor below 250 ft, flood-proofing and insurance rise toward the worst case: about $0.85M of flood work instead of about $0.2M. The ground levels around the building make this unlikely."
    ],
    [
     "The fuel pad stays empty",
