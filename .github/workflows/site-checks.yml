@@ -25,6 +25,9 @@ jobs:
         run: |
           npm install --no-save --no-audit --no-fund --legacy-peer-deps html-validate@11.4.0 playwright@1.64.1 > /dev/null
           npx playwright install --with-deps chromium > /dev/null
+          # Text inside PDFs and images is checked too: pdftotext/pdfimages and tesseract.
+          sudo apt-get update -qq > /dev/null
+          sudo apt-get install -y -qq --no-install-recommends poppler-utils tesseract-ocr > /dev/null
       - name: Check the HTML
         run: ./node_modules/.bin/html-validate *.html
       - name: Check content, links and privacy

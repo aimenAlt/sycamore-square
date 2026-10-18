@@ -15,12 +15,12 @@ This file is the rulebook for any AI that changes this site: the ChatGPT site ed
 - Every change is a git commit, so every earlier version can be restored. Never rewrite history, force-push or delete `main`.
 - Small text changes from the ChatGPT site editor go through `.github/workflows/site-edit.yml`. It applies the edit, runs every check and publishes only if all of them pass. "Undo" reverts the last edit the same way.
 - Other changes go through a pull request. The `Site checks` workflow must pass before it is merged.
-- Before you finish, run `python3 scripts/check_site.py`. If you can, also run `npm install --no-save --legacy-peer-deps html-validate@11.4.0 playwright@1.64.1 && npx playwright install chromium`, then `./node_modules/.bin/html-validate *.html` and `node scripts/browser_check.mjs`.
+- Before you finish, run `python3 scripts/check_site.py`. It also reads the text inside every PDF, image, CAD and 3D file against the naming and privacy rules, so it needs `pdftotext` (poppler-utils) or PyMuPDF, and `tesseract` (on a Mac, macOS Vision is used when tesseract is missing). Reviewed exceptions live in `scripts/text_exceptions.json`, each pinned to one file's SHA-256; add one only with the owner's agreement. If you can, also run `npm install --no-save --legacy-peer-deps html-validate@11.4.0 playwright@1.64.1 && npx playwright install chromium`, then `./node_modules/.bin/html-validate *.html` and `node scripts/browser_check.mjs`.
 - Make one focused change at a time, and describe it in plain English: which page, which section, what changed.
 
 ## Never put on the site
 
-These are checked automatically, and an edit that breaks them is refused.
+These are checked automatically, in the pages and in the text inside PDFs and images, and an edit that breaks them is refused.
 
 - Any price for the property other than the study's assumed $3.0M (owner's decision): never an offer or bid amount, a maximum or walk-away price, the auction transaction fee or buyer's premium, or other transaction terms. Write the assumption as "an assumed price of $3.0M" or "buying at $3.0M", never "$3.0M purchase" (the check reads that as a deal amount).
 - Names of the buyers, the sellers or their family, and anything saying a family owns, runs or invests in the project.
