@@ -241,28 +241,34 @@ main:focus { outline: none; }
 .nav-list {
   display: flex;
   list-style: none;
-  gap: 0;
+  gap: 6px;
   white-space: nowrap;
-  margin-left: -12px;
+  padding: 2px 0 10px;
 }
 .nav-list > li { min-width: 0; flex: 0 0 auto; }
 
+/* Section links as chips, so they read as tappable; the chip for the section in view is filled. */
 .nav-list a {
   display: flex;
   align-items: center;
-  min-height: 44px;
-  padding: 0 12px 2px;
+  min-height: 36px;
+  padding: 0 12px;
   font-family: var(--font-cond);
   font-weight: 600;
   font-size: 15px;
   letter-spacing: 0.02em;
-  color: var(--on-navy-2);
-  background: var(--ink);
+  color: var(--on-navy-1);
+  background: var(--navy-panel);
+  border: 1px solid var(--navy-border);
   text-decoration: none;
-  border-bottom: 2px solid transparent;
 }
-.nav-list a:hover { color: var(--on-navy-1); border-bottom-color: var(--brass); }
-.nav-list a:focus-visible { outline-offset: -2px; }
+.nav-list a:hover { border-color: var(--on-navy-3); }
+.nav-list a[aria-current="true"] {
+  background: var(--on-navy-1);
+  border-color: var(--on-navy-1);
+  color: var(--ink);
+}
+.nav-list a:focus-visible { outline-offset: 2px; outline-color: var(--highlight); }
 
 @media (min-width: 1024px) {
   .header-inner { flex-wrap: nowrap; column-gap: 0; }
@@ -273,10 +279,11 @@ main:focus { outline: none; }
     margin: 0 0 0 auto;
     padding: 0;
   }
-  .nav-list { margin: 0; }
+  .nav-list { padding: 0; }
 }
 @media (min-width: 1024px) and (max-width: 1199px) {
-  .nav-list a { padding: 0 8px 2px; }
+  .nav-list { gap: 4px; }
+  .nav-list a { padding: 0 8px; }
 }
 @media (min-width: 1024px) {
   .page-link { order: 3; margin-left: 20px; }
@@ -548,56 +555,78 @@ main:focus { outline: none; }
 
 .tabs { margin-top: var(--gap); }
 
+/* Visible caption above the tab row, written from data-label by main.js. */
+.tablist-label {
+  margin-bottom: 8px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brass-text);
+}
+.no-js .tablist-label { display: none; }
+
+/* On phones the tabs wrap into a grid so every option shows at once. */
 .tablist {
-  position: relative;
-  display: flex;
-  flex-wrap: nowrap;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1px;
   background: var(--border);
   border: 1px solid var(--border);
   border-bottom: 0;
-  overflow-x: auto;
-  overflow-y: hidden;
-  scrollbar-width: none;
-  -webkit-overflow-scrolling: touch;
 }
-.tablist::-webkit-scrollbar { display: none; }
-@media (max-width: 719px) {
-  .tablist {
-    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 var(--fade-start, 0px), #000 calc(100% - var(--fade-end, 32px)), transparent 100%);
-    mask-image: linear-gradient(to right, transparent 0, #000 var(--fade-start, 0px), #000 calc(100% - var(--fade-end, 32px)), transparent 100%);
-  }
-  .tablist.scrolled { --fade-start: 32px; }
-  .tablist.at-end { --fade-end: 0px; }
+.tablist > .tab:last-child:nth-child(odd) { grid-column: 1 / -1; }
+@media (min-width: 720px) {
+  .tablist { display: flex; }
 }
 .no-js .tablist { display: none; }
 .tablist, .tabs { scroll-margin-top: var(--header-h); }
 
+/* Each tab carries a radio-style dot: hollow when off, filled when selected. */
 .tab {
-  flex: 0 0 auto;
-  white-space: nowrap;
+  flex: 1 1 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
   min-height: 52px;
   margin: 0;
   padding: 8px 14px;
   border: 0;
   border-radius: 0;
   background: var(--white);
-  color: var(--ink);
+  color: var(--text-2);
   font-family: var(--font-cond);
   font-weight: 600;
   font-size: 16px;
   line-height: 1.2;
-  text-align: center;
+  text-align: left;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
 }
-.tab:hover { background: var(--ground); }
-.tab[aria-selected="true"] { background: var(--ink); color: var(--on-navy-1); }
+.tab::before {
+  content: "";
+  flex: 0 0 auto;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--muted);
+  border-radius: 50%;
+}
+.tab:hover { background: var(--ground); color: var(--ink); }
+.tab:hover::before { border-color: var(--ink); }
+.tab[aria-selected="true"] { background: var(--ink); color: var(--on-navy-1); cursor: default; }
+.tab[aria-selected="true"]::before {
+  border-color: var(--brass-on-navy);
+  background: var(--brass-on-navy);
+  box-shadow: inset 0 0 0 2px var(--ink);
+}
 .tab:focus-visible { outline-offset: -4px; }
 .tab[aria-selected="true"]:focus-visible { outline-color: var(--highlight); }
 @media (min-width: 720px) {
-  .tab { flex: 1 1 0; white-space: normal; }
+  .tab { justify-content: center; text-align: center; }
 }
+
+/* A navy rule ties the selected tab to the panel it shows. */
+.js .tabs > .panel { border-top: 3px solid var(--ink); }
 
 .panel {
   background: var(--white);
@@ -887,7 +916,7 @@ main:focus { outline: none; }
   }
   * { color: #000 !important; }
   .site-header { position: static; border-bottom: 2px solid #000; }
-  .site-nav, .page-link, .tablist, .to-top, .skip-link, .full-link { display: none !important; }
+  .site-nav, .page-link, .tablist, .tablist-label, .to-top, .skip-link, .full-link { display: none !important; }
   .panel[hidden] { display: block !important; }
   .panel-tag { display: block !important; }
   .panel + .panel { margin-top: 12px; }
