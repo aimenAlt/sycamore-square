@@ -14,7 +14,7 @@ This file is the rulebook for any AI that changes this site: the ChatGPT site ed
 - Every change is a git commit, so every earlier version can be restored. Never rewrite history, force-push or delete `main`.
 - Small text changes from the ChatGPT site editor go through `.github/workflows/site-edit.yml`. It applies the edit, runs every check and publishes only if all of them pass. "Undo" reverts the last edit the same way.
 - Other changes go through a pull request. The `Site checks` workflow must pass before it is merged.
-- Before you finish, run `python3 scripts/check_site.py`. If you can, also run `npx --yes html-validate@11.4.0 index.html legal.html feasibility.html` and `node scripts/browser_check.mjs` (needs `npm install --no-save playwright@1.64.1` and a local server, see the script).
+- Before you finish, run `python3 scripts/check_site.py`. If you can, also run `npm install --no-save --legacy-peer-deps html-validate@11.4.0 playwright@1.64.1 && npx playwright install chromium`, then `./node_modules/.bin/html-validate *.html` and `node scripts/browser_check.mjs`.
 - Make one focused change at a time, and describe it in plain English: which page, which section, what changed.
 
 ## Never put on the site

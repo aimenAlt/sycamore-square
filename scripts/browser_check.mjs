@@ -1,7 +1,7 @@
 // Browser check for the Sycamore Square site: loads every page at phone and desktop widths in Chromium,
 // clicks every tab and scenario, and fails on console errors, broken requests, missing images or sideways scroll.
 //
-// Setup once:  npm install --no-save playwright@1.64.1 && npx playwright install chromium
+// Setup once:  npm install --no-save --legacy-peer-deps playwright@1.64.1 && npx playwright install chromium
 // Run:         node scripts/browser_check.mjs
 // Optional:    CHROMIUM_PATH=/path/to/chrome to use an existing browser.
 import { chromium } from 'playwright';
