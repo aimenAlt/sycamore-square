@@ -242,6 +242,7 @@
   line-height: 1.25;
   color: var(--ink);
 }
+.wi-sub-intro { margin-top: 4px; font-size: 15px; color: var(--muted); }
 .wi-field { padding: 12px 0; border-bottom: 1px solid var(--rule); }
 .wi-field:last-child { border-bottom: 0; }
 .wi-field.is-changed { margin: 0 -10px; padding: 12px 10px 12px 10px; border-left: 4px solid var(--brass); background: #FBF6EC; }
@@ -265,6 +266,7 @@
   text-align: right;
 }
 .wi-box.has-unit input { padding-left: 26px; }
+.wi-box input[readonly] { background: var(--ground); border-color: var(--border); color: var(--ink); }
 .wi-box input:focus-visible { outline: 2px solid var(--brass); outline-offset: 1px; }
 .wi-field.is-error .wi-box input { border: 2px solid #8C3B32; }
 .wi-unit {
@@ -338,7 +340,7 @@
 }
 
 @media (max-width: 720px) {
-  .wi-hint, .wi-note, .wi-group-intro, .wi-how-list li, .wi-notice, .wi-warn, .wi-echo, .wi-mini { font-size: 16px; }
+  .wi-hint, .wi-note, .wi-group-intro, .wi-sub-intro, .wi-how-list li, .wi-notice, .wi-warn, .wi-echo, .wi-mini { font-size: 16px; }
 }
 
 /* ---------- Path to profit and ways to improve ---------- */
