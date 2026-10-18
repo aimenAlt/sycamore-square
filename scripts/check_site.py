@@ -332,6 +332,10 @@ def check_binary_text():
             for img in images:
                 to_ocr[img] = (label + ' (picture inside)', pdf)
         for dirpath, _, files in os.walk(os.path.join(ROOT, 'assets', 'img')):
+            # assets/img/docs holds small covers of the PDFs above, whose real text is already checked;
+            # OCR of their tiny print only produces misreads.
+            if os.path.normpath(dirpath) == os.path.join(ROOT, 'assets', 'img', 'docs'):
+                continue
             for f in sorted(files):
                 full = os.path.join(dirpath, f)
                 if f.lower().endswith(IMAGE_EXT):
