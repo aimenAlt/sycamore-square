@@ -793,6 +793,7 @@ main:focus { outline: none; }
 @media (min-width: 721px) {
   .docs { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
+.band-white .doc-card { background: var(--ground); }
 .docs li { display: flex; min-width: 0; }
 
 .doc-card {
@@ -908,6 +909,46 @@ main:focus { outline: none; }
 .seg-dining { flex-grow: 4484; }
 .seg-service { flex-grow: 1779; }
 .seg-hallb { flex-grow: 17009; }
+
+/* ---------- 3D ---------- */
+
+model-viewer {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  background: var(--white);
+  border: 1px solid var(--border);
+  --poster-color: var(--white);
+  --progress-bar-color: var(--brass);
+}
+@media (max-width: 720px) {
+  model-viewer { aspect-ratio: 4 / 3; }
+}
+model-viewer:focus-visible { outline: 2px solid var(--brass); outline-offset: 2px; }
+.model-tabs .panel { padding: clamp(10px, 2vw, 16px); }
+
+.viewer-note {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 16px;
+  margin-top: 8px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.render-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--gap);
+  margin-top: var(--gap);
+}
+.render-grid > .render-lead { grid-column: 1 / -1; }
+@media (max-width: 720px) {
+  .render-grid { grid-template-columns: minmax(0, 1fr); }
+  .viewer-note { font-size: 16px; }
+}
 
 /* ---------- Document card with two links ---------- */
 

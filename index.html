@@ -24,6 +24,7 @@
   <link rel="stylesheet" href="assets/css/styles.css">
   <script>document.documentElement.className = 'js';</script>
   <script src="assets/js/main.js" defer></script>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@google/model-viewer@3.5.0/dist/model-viewer.min.js"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -36,6 +37,7 @@
         <ul class="nav-list">
           <li><a href="#site">Site</a></li>
           <li><a href="#plan">The plan</a></li>
+          <li><a href="#model">3D</a></li>
           <li><a href="#events">Events</a></li>
           <li><a href="#frontage">Fuel options</a></li>
           <li><a href="#legal">Legal &amp; risk</a></li>
@@ -209,11 +211,88 @@
       </div>
     </section>
 
-    <!-- 5 · EVENTS -->
-    <section id="events" class="band band-ground" aria-labelledby="events-title">
+    <!-- 3D -->
+    <section id="model" class="band band-ground" aria-labelledby="model-title">
       <div class="wrap">
         <header class="section-head">
-          <p class="eyebrow">03 · THE EVENT COMPLEX</p>
+          <p class="eyebrow">03 · IN 3D</p>
+          <h2 id="model-title">The plan, built in three dimensions</h2>
+          <p class="lead">A to-scale massing model built from the R4 plan set's own geometry and the 1997 tenant plans, styled after the listing video. Spin it, zoom in, or open the event complex with the roof off.</p>
+        </header>
+
+        <div class="tabs model-tabs" data-tabs>
+          <div class="tablist" data-label="3D models">
+            <button type="button" class="tab" id="model-tab-1" aria-controls="model-site">Whole site</button>
+            <button type="button" class="tab" id="model-tab-2" aria-controls="model-cutaway">Event complex, roof off</button>
+          </div>
+
+          <div class="panel" id="model-site">
+            <p class="panel-tag">Whole site</p>
+            <model-viewer src="assets/models/sycamore_square_site.glb" poster="assets/img/3d/poster-site.jpg" camera-orbit="40deg 58deg 420m" camera-target="0m 0m 0m" min-camera-orbit="auto 5deg 60m" max-camera-orbit="auto 85deg 700m" alt="Interactive 3D massing model of Sycamore Square and its surroundings" camera-controls touch-action="pan-y" interaction-prompt="auto" shadow-intensity="0.7" exposure="1.05" environment-image="neutral" loading="lazy" reveal="auto"></model-viewer>
+            <p class="viewer-note">Drag to orbit · scroll or pinch to zoom · about 3 MB <a class="full-link" href="assets/models/sycamore_square_site.glb" download>Download the model (GLB)</a></p>
+          </div>
+
+          <div class="panel" id="model-cutaway">
+            <p class="panel-tag">Event complex, roof off</p>
+            <model-viewer src="assets/models/sycamore_square_event_cutaway.glb" poster="assets/img/3d/poster-cutaway.jpg" camera-orbit="35deg 52deg 170m" camera-target="-78m 2m 38m" min-camera-orbit="auto 5deg 30m" max-camera-orbit="auto 85deg 500m" alt="Interactive 3D model of the event complex with the roof removed, showing both halls, kitchens, suites and dining" camera-controls touch-action="pan-y" interaction-prompt="auto" shadow-intensity="0.7" exposure="1.05" environment-image="neutral" loading="lazy" reveal="auto"></model-viewer>
+            <p class="viewer-note">Drag to orbit · scroll or pinch to zoom · about 4 MB <a class="full-link" href="assets/models/sycamore_square_event_cutaway.glb" download>Download the model (GLB)</a></p>
+          </div>
+        </div>
+
+        <div class="render-grid">
+          <figure class="plan-figure render-lead">
+            <div class="plan-frame">
+              <img src="assets/img/3d/render-aerial-1600.jpg" srcset="assets/img/3d/render-aerial-800.jpg 800w, assets/img/3d/render-aerial-1600.jpg 1600w, assets/img/3d/render-aerial-1920.jpg 1920w" sizes="(min-width: 1248px) 1200px, 100vw" width="1920" height="1080" loading="lazy" decoding="async" alt="Aerial 3D render of Sycamore Square: the main building with its blue storefront canopy behind a large striped parking field, the new C-store and fuel canopy on the Sycamore View frontage, and wooded land around the site">
+            </div>
+            <figcaption>Proposed redevelopment, seen from above Summer Ave and Sycamore View Rd. <a class="full-link" href="assets/img/3d/render-aerial-1920.jpg" target="_blank" rel="noopener">Open full size<span class="visually-hidden"> (aerial render, opens in a new tab)</span></a></figcaption>
+          </figure>
+          <figure class="plan-figure">
+            <div class="plan-frame">
+              <img src="assets/img/3d/render-division-1600.jpg" srcset="assets/img/3d/render-division-800.jpg 800w, assets/img/3d/render-division-1600.jpg 1600w, assets/img/3d/render-division-1920.jpg 1920w" sizes="(min-width: 1248px) 590px, (min-width: 721px) 48vw, 100vw" width="1920" height="1080" loading="lazy" decoding="async" alt="3D aerial with the roof colored by use and labeled with areas: retail 35,000 SF, future flex 26,904 SF, play 18,000 SF, Hall A suite 20,563 SF, Hall B suite 17,009 SF, kitchens 3,895 SF, service 1,779 SF, dining and gallery 4,484 SF; the planning outline is traced in blue">
+            </div>
+            <figcaption>How the existing building divides: retail, flex, play, the two event halls, kitchens, service and dining. <a class="full-link" href="assets/img/3d/render-division-1920.jpg" target="_blank" rel="noopener">Open full size<span class="visually-hidden"> (division render, opens in a new tab)</span></a></figcaption>
+          </figure>
+          <figure class="plan-figure">
+            <div class="plan-frame">
+              <img src="assets/img/3d/render-division-plan-1600.jpg" srcset="assets/img/3d/render-division-plan-800.jpg 800w, assets/img/3d/render-division-plan-1600.jpg 1600w, assets/img/3d/render-division-plan-1920.jpg 1920w" sizes="(min-width: 1248px) 590px, (min-width: 721px) 48vw, 100vw" width="1920" height="1080" loading="lazy" decoding="async" alt="Top-down 3D view with labeled use zones, the excluded Family Dollar and detached retail buildings, the new C-store and fuel canopy, and the dashed F2 fallback pad in the south parking">
+            </div>
+            <figcaption>Plan view, north up, with the planning outline, F2 fallback pad and rear service route. <a class="full-link" href="assets/img/3d/render-division-plan-1920.jpg" target="_blank" rel="noopener">Open full size<span class="visually-hidden"> (division plan render, opens in a new tab)</span></a></figcaption>
+          </figure>
+          <figure class="plan-figure">
+            <div class="plan-frame">
+              <img src="assets/img/3d/render-cutaway-1600.jpg" srcset="assets/img/3d/render-cutaway-800.jpg 800w, assets/img/3d/render-cutaway-1600.jpg 1600w, assets/img/3d/render-cutaway-1920.jpg 1920w" sizes="(min-width: 1248px) 590px, (min-width: 721px) 48vw, 100vw" width="1920" height="1080" loading="lazy" decoding="async" alt="Cutaway 3D render of the event complex showing Hall A and Hall B set with banquet tables and dance floors, bride and groom suites along the rear wall, two kitchens between the halls, the service room, reservable dining, guest gallery and private foyers">
+            </div>
+            <figcaption>The event complex with the roof off: two 11,000 SF main rooms, twin kitchens, four family suites and the reservable dining room. <a class="full-link" href="assets/img/3d/render-cutaway-1920.jpg" target="_blank" rel="noopener">Open full size<span class="visually-hidden"> (cutaway render, opens in a new tab)</span></a></figcaption>
+          </figure>
+          <figure class="plan-figure">
+            <div class="plan-frame">
+              <img src="assets/img/3d/render-cutaway-plan-1600.jpg" srcset="assets/img/3d/render-cutaway-plan-800.jpg 800w, assets/img/3d/render-cutaway-plan-1600.jpg 1600w, assets/img/3d/render-cutaway-plan-1920.jpg 1920w" sizes="(min-width: 1248px) 590px, (min-width: 721px) 48vw, 100vw" width="1920" height="1080" loading="lazy" decoding="async" alt="Top-down cutaway of the event complex with labeled rooms and banquet seating in both halls">
+            </div>
+            <figcaption>Room layout from sheet A-1, registered to the GIS footprint. <a class="full-link" href="assets/img/3d/render-cutaway-plan-1920.jpg" target="_blank" rel="noopener">Open full size<span class="visually-hidden"> (cutaway plan render, opens in a new tab)</span></a></figcaption>
+          </figure>
+          <figure class="plan-figure">
+            <div class="plan-frame">
+              <img src="assets/img/3d/render-entries-1600.jpg" srcset="assets/img/3d/render-entries-800.jpg 800w, assets/img/3d/render-entries-1600.jpg 1600w, assets/img/3d/render-entries-1920.jpg 1920w" sizes="(min-width: 1248px) 590px, (min-width: 721px) 48vw, 100vw" width="1920" height="1080" loading="lazy" decoding="async" alt="3D render of the storefront with three new entry canopies in gold, green and blue, labeled EA, EB and EC, between the existing entry towers">
+            </div>
+            <figcaption>Separate entrances: EA for Hall A, EB for Hall B and EC for public play, each under its own canopy. <a class="full-link" href="assets/img/3d/render-entries-1920.jpg" target="_blank" rel="noopener">Open full size<span class="visually-hidden"> (entries render, opens in a new tab)</span></a></figcaption>
+          </figure>
+          <figure class="plan-figure">
+            <div class="plan-frame">
+              <img src="assets/img/3d/render-fuel-1600.jpg" srcset="assets/img/3d/render-fuel-800.jpg 800w, assets/img/3d/render-fuel-1600.jpg 1600w, assets/img/3d/render-fuel-1920.jpg 1920w" sizes="(min-width: 1248px) 590px, (min-width: 721px) 48vw, 100vw" width="1920" height="1080" loading="lazy" decoding="async" alt="3D render of the Sycamore View frontage showing the fuel canopy and new C-store between Family Dollar and the detached brick retail building, with the main building beyond">
+            </div>
+            <figcaption>Frontage option F1: fuel canopy on the existing throat drive, with the 4,000 SF C-store beside it. <a class="full-link" href="assets/img/3d/render-fuel-1920.jpg" target="_blank" rel="noopener">Open full size<span class="visually-hidden"> (fuel render, opens in a new tab)</span></a></figcaption>
+          </figure>
+        </div>
+
+        <p class="note">Concept massing for discussion. Geometry comes from the R4 plan set (sheets C-2 and A-1); heights, finishes, furniture, cars and landscaping are illustrative. Not a survey and not for construction.</p>
+      </div>
+    </section>
+
+    <!-- 5 · EVENTS -->
+    <section id="events" class="band band-white" aria-labelledby="events-title">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="eyebrow">04 · THE EVENT COMPLEX</p>
           <h2 id="events-title">Two halls that work apart or together</h2>
           <p class="lead">Built for weddings where men and women celebrate separately, while staying fully marketable for any event.</p>
         </header>
@@ -270,10 +349,10 @@
     </section>
 
     <!-- 6 · FUEL OPTIONS -->
-    <section id="frontage" class="band band-white" aria-labelledby="frontage-title">
+    <section id="frontage" class="band band-ground" aria-labelledby="frontage-title">
       <div class="wrap">
         <header class="section-head">
-          <p class="eyebrow">04 · FUEL AND CONVENIENCE OPTIONS</p>
+          <p class="eyebrow">05 · FUEL AND CONVENIENCE OPTIONS</p>
           <h2 id="frontage-title">Three ways to handle fuel</h2>
           <p class="lead">The frontage on Sycamore View is the preferred spot. The Summer Avenue pad fits a station more easily, and dropping fuel removes the most risk. All three were tested with the same module sizes.</p>
         </header>
@@ -390,10 +469,10 @@
     </section>
 
     <!-- 7 · LEGAL -->
-    <section id="legal" class="band band-ground" aria-labelledby="legal-title">
+    <section id="legal" class="band band-white" aria-labelledby="legal-title">
       <div class="wrap">
         <header class="section-head">
-          <p class="eyebrow">05 · LEGAL &amp; REGULATORY</p>
+          <p class="eyebrow">06 · LEGAL &amp; REGULATORY</p>
           <h2 id="legal-title">Two issues decide the plan</h2>
           <p class="lead">They are flood exposure, and whether CMU-3 zoning allows event halls, fuel sales and supervised childcare. Both can be answered early and cheaply.</p>
         </header>
@@ -442,10 +521,10 @@
     </section>
 
     <!-- 8 · DILIGENCE -->
-    <section id="diligence" class="band band-white" aria-labelledby="diligence-title">
+    <section id="diligence" class="band band-ground" aria-labelledby="diligence-title">
       <div class="wrap">
         <header class="section-head">
-          <p class="eyebrow">06 · DUE DILIGENCE</p>
+          <p class="eyebrow">07 · DUE DILIGENCE</p>
           <h2 id="diligence-title">What closes the gaps</h2>
           <p class="lead">The purchase contract should carry a due-diligence period covering each item, with the right to exit. Flood and zoning come first because they decide whether the plan works.</p>
         </header>
@@ -464,10 +543,10 @@
     </section>
 
     <!-- 9 · DOCUMENTS -->
-    <section id="documents" class="band band-ground" aria-labelledby="documents-title">
+    <section id="documents" class="band band-white" aria-labelledby="documents-title">
       <div class="wrap">
         <header class="section-head">
-          <p class="eyebrow">07 · DOCUMENTS</p>
+          <p class="eyebrow">08 · DOCUMENTS</p>
           <h2 id="documents-title">The working set</h2>
         </header>
 
@@ -494,6 +573,30 @@
               <span class="doc-title">Georeferenced CAD base</span>
               <span class="doc-desc">For civil engineers and architects; layers keep existing conditions separate from proposals</span>
               <span class="doc-meta">175 KB · Download</span>
+            </a>
+          </li>
+          <li>
+            <a class="doc-card" href="assets/models/sycamore_square_site.glb" download>
+              <span class="doc-tag">GLB · 3D MODEL</span>
+              <span class="doc-title">Site massing model</span>
+              <span class="doc-desc">Whole site in 3D; opens in any glTF viewer, including Windows 3D Viewer and macOS Preview</span>
+              <span class="doc-meta">3.0 MB · Download</span>
+            </a>
+          </li>
+          <li>
+            <a class="doc-card" href="assets/models/sycamore_square_event_cutaway.glb" download>
+              <span class="doc-tag">GLB · 3D MODEL</span>
+              <span class="doc-title">Event complex cutaway model</span>
+              <span class="doc-desc">The event complex with the roof removed, rooms and seating from sheet A-1</span>
+              <span class="doc-meta">3.7 MB · Download</span>
+            </a>
+          </li>
+          <li>
+            <a class="doc-card" href="docs/Sycamore_Square_Massing_R4.blend" download>
+              <span class="doc-tag">BLEND · BLENDER 5.2</span>
+              <span class="doc-title">Blender source scene</span>
+              <span class="doc-desc">Full scene with materials and saved camera views, for designers and renderers</span>
+              <span class="doc-meta">1.1 MB · Download</span>
             </a>
           </li>
         </ul>
