@@ -45,7 +45,7 @@ These are checked automatically, and an edit that breaks them is refused.
 
 ## Documents
 
-- Every PDF in `docs/` has exactly one card in the Documents section of `index.html`, and is inside `docs/Sycamore_Square_All_PDFs_R4.3.zip`. After adding or replacing a PDF, rebuild the ZIP with `python3 scripts/check_site.py --rebuild-zip`.
+- Every PDF in `docs/` has exactly one card in the Documents section of `overview.html`, and is inside `docs/Sycamore_Square_All_PDFs_R4.3.zip`. After adding or replacing a PDF, rebuild the ZIP with `python3 scripts/check_site.py --rebuild-zip`.
 - Published PDFs must be public versions: no prices, fees, transaction terms or personal names.
 - Each PDF card shows the PDF's first page as its cover, saved as `assets/img/docs/<same name as the PDF>.jpg` at about 640 px (on a Mac: `qlmanage -t -s 900 -o . file.pdf`, then `sips -s format jpeg -Z 640`). The card also states the page count and file size, and gets a category (`data-cat`: plans, money, legal or research) so the filter buttons find it. Replace the cover whenever the PDF changes.
 
