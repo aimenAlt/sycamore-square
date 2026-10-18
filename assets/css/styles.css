@@ -2672,3 +2672,16 @@ html.gate-locked, html.gate-locked body { overflow: hidden; }
   .landing-links { display: flex; flex-direction: column; align-items: center; gap: 0; }
   .landing-links span[aria-hidden="true"] { display: none; }
 }
+
+/* ---------- What to send to whom (top of the documents library) ---------- */
+.send-block { margin-bottom: var(--gap); }
+.send-title { font-size: clamp(22px, 5vw, 26px); color: var(--ink); }
+.send-intro { margin-top: 6px; max-width: 760px; color: var(--text-2); }
+.send-sets { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--gap-sm); margin-top: 16px; }
+@media (min-width: 760px) { .send-sets { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.send-sets .status-card { --status: var(--rose); }
+.send-sets .status-card p { margin-top: 6px; }
+.send-own { color: var(--muted); }
+.send-leave { padding-top: 12px; border-top: 1px solid var(--rule); }
+.send-leave strong { color: var(--ink); }
+@media (max-width: 720px) { .send-sets .status-card { font-size: 16px; } }
