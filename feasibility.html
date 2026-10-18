@@ -91,10 +91,11 @@
         <p class="scenario-label" id="scenario-label">Show the</p>
         <div class="segmented" role="group" aria-labelledby="scenario-label">
           <button type="button" class="seg-btn" data-scenario="worst" aria-pressed="false">Worst<span class="seg-sub"> case</span></button>
-          <button type="button" class="seg-btn" data-scenario="realistic" aria-pressed="true">Realistic<span class="seg-sub"> case</span></button>
+          <button type="button" class="seg-btn" data-scenario="realistic" aria-pressed="true">Average<span class="seg-sub"> case</span></button>
           <button type="button" class="seg-btn" data-scenario="best" aria-pressed="false">Best<span class="seg-sub"> case</span></button>
         </div>
         <p class="scenario-status" id="scenario-status" aria-live="polite"></p>
+        <p class="scenario-def" id="scenario-def"></p>
       </div>
     </div>
 
@@ -106,7 +107,14 @@
         <header class="section-head">
           <p class="eyebrow">01 · FIVE PLANS</p>
           <h2 id="plans-title">What each plan costs and what it makes</h2>
-          <p class="lead">Each card shows the <strong class="scenario-name">realistic</strong> case. “Profit each year” is before any loan payments. Every number includes buying the property at an assumed $3.0M plus fees and closing.</p>
+          <p class="lead">Each card shows the <strong class="scenario-name">average</strong> case. “Profit each year” is before any loan payments. Every number includes buying the property at an assumed $3.0M plus fees and closing.</p>
+          <details class="detail detail-compact cases-how" id="cases-how" data-print-open hidden>
+            <summary><span class="detail-title">How the three cases work</span><span class="detail-hint">Likely outcomes, not extremes</span></summary>
+            <div class="detail-body">
+              <p id="cases-method"></p>
+              <p id="cases-stress"></p>
+            </div>
+          </details>
         </header>
         <p class="plans-summary" id="plans-summary"></p>
         <div class="plan-cards" id="plan-cards"></div>
@@ -154,11 +162,11 @@
         <header class="section-head">
           <p class="eyebrow">02 · WAYS TO IMPROVE</p>
           <h2 id="levers-title">What would make it more profitable</h2>
-          <p class="lead">Ways to spend less on the build or bring in more each year. Each change is shown on its own, against the realistic case.</p>
+          <p class="lead">Ways to spend less on the build or bring in more each year. Each change is shown on its own, against the average case.</p>
         </header>
         <div class="path-box" id="path-box" hidden></div>
         <h3 class="lever-head">Every change, one plan at a time</h3>
-        <p class="lever-intro">Each line shows one change on its own, against the realistic case, and how many years the money put in would then take to come back.</p>
+        <p class="lever-intro">Each line shows one change on its own, against the average case, and how many years the money put in would then take to come back.</p>
         <div class="lever-blocks" id="lever-blocks"></div>
       </div>
     </section>
@@ -189,7 +197,7 @@
         <header class="section-head">
           <p class="eyebrow" id="events-eyebrow">04 · WHAT HAS TO BE TRUE</p>
           <h2 id="events-head">How many events a year the halls need</h2>
-          <p class="lead">Everything else stays at the realistic case. Only the number of events a year across Hall A and Hall B changes.</p>
+          <p class="lead">Everything else stays at the average case. Only the number of events a year across Hall A and Hall B changes.</p>
         </header>
         <figure class="chart-figure">
           <h3 class="chart-title" id="events-title">Profit a year for every $100 spent, by events a year</h3>
@@ -211,7 +219,7 @@
         <header class="section-head">
           <p class="eyebrow" id="operators-eyebrow">05 · THE BUSINESSES</p>
           <h2 id="operators-title">How each business does on its own</h2>
-          <p class="lead">The businesses behind the rents, shown for the <strong class="scenario-name">realistic</strong> case. A tenant’s profit is what it keeps after paying rent and its share of property costs.</p>
+          <p class="lead">The businesses behind the rents, shown for the <strong class="scenario-name">average</strong> case. A tenant’s profit is what it keeps after paying rent and its share of property costs.</p>
         </header>
         <div class="op-cards" id="op-cards"></div>
       </div>
@@ -235,8 +243,8 @@
       <div class="wrap">
         <header class="section-head">
           <p class="eyebrow" id="risks-eyebrow">07 · BETTER OR WORSE</p>
-          <h2 id="risks-title">Why the realistic case could be wrong</h2>
-          <p class="lead">The realistic case is a middle estimate from public information, not from contractor bids, surveys or signed tenants.</p>
+          <h2 id="risks-title">Why the average case could be wrong</h2>
+          <p class="lead">The average case is the typical outcome of 10,000 simulated futures built from public information, not from contractor bids, surveys or signed tenants.</p>
         </header>
         <div class="risk-columns">
           <section class="risk-col risk-better" aria-labelledby="better-title">
@@ -298,7 +306,7 @@
           <h2 id="terms-title">What the words mean</h2>
         </header>
         <dl class="terms">
-          <div class="term"><dt>Worst, realistic and best case</dt><dd>Three sets of assumptions for costs, rents and bookings. The realistic case is the middle estimate; the other two show how far it could swing.</dd></div>
+          <div class="term"><dt>Worst, average and best case</dt><dd>Likely outcomes, not extremes. Every input (costs, rents, bookings, prices) has a researched range, and thousands of simulated futures let each land anywhere in it. Worst: only 1 in 10 futures do worse. Average: the typical future. Best: only 1 in 10 do better.</dd></div>
           <div class="term"><dt>Money in (buying + building, one-time)</dt><dd>Buying the property at an assumed $3.0M plus fees, closing costs, surveys and inspections, then repairs, building work, finishing the inside, design and permits, a cushion for surprises, the cost of signing tenants, and holding the building while work goes on.</dd></div>
           <div class="term"><dt>Money coming in each year</dt><dd>Rent from tenants plus sales from the halls where the owners run them, once the building is open.</dd></div>
           <div class="term"><dt>Money going out each year</dt><dd>The yearly running costs: property tax, insurance, upkeep, management, a repairs reserve, empty space and unpaid rent, and the halls’ staff, food and other costs.</dd></div>

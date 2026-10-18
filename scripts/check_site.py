@@ -26,7 +26,7 @@ from urllib.parse import unquote, urlsplit
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PDF_ZIP = 'docs/Sycamore_Square_All_PDFs_R4.3.zip'
 ZIP_FOLDER = 'Sycamore_Square_PDFs_R4.3'
-SCENARIO_HASHES = {'worst', 'realistic', 'best'}
+SCENARIO_HASHES = {'worst', 'realistic', 'average', 'best'}
 MAX_FILE_MB = 25
 
 # Each rule: (pattern, flags, what is wrong and what to do instead).

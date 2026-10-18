@@ -9,9 +9,11 @@
   var SVGNS = 'http://www.w3.org/2000/svg';
   var SCENARIOS = ['worst', 'realistic', 'best'];
   var IDX = { worst: 0, realistic: 1, best: 2 };
-  var LABELS = { worst: 'worst', realistic: 'realistic', best: 'best' };
+  // Data keys stay worst / realistic / best; visitors see the middle case as "average" (v2.5), and #average is its link.
+  var LABELS = { worst: 'worst', realistic: 'average', best: 'best' };
+  var HASHES = { worst: 'worst', realistic: 'average', best: 'best' };
   var PURCHASE_INCLUDED = false; // set from the data: v2.4 includes buying the property in every total
-  var CAP = { worst: 'Worst', realistic: 'Realistic', best: 'Best' };
+  var CAP = { worst: 'Worst', realistic: 'Average', best: 'Best' };
   var YEAR_CAP = 40;   // the years chart stops here; anything longer reads "40+"
   // Fixed series colours for the events chart, by plan key (blue, orange, aqua: validated colour-blind safe as a set).
   var SERIES_COLORS = { full: '#2a78d6', efficient: '#eb6834', hybrid: '#1baf7a' };
@@ -29,7 +31,7 @@
     'Rents from as-is space': 'Rents from space leased as it is',
     'Fuel pad ground rent': 'Land rent from the gas station',
     'Food pad ground rent (Summer Ave)': 'Land rent from a restaurant pad on Summer Ave',
-    'As-is space 85% leased instead of the base case': 'Space leased as it is: 85% leased instead of the realistic case',
+    'As-is space 85% leased instead of the base case': 'Space leased as it is: 85% leased instead of the average case',
     'Add a food pad on Summer Ave (ground lease, about $70,000 a year)': 'Add a restaurant pad on Summer Ave (it rents the land, about $70,000 a year)'
   };
   function plain(label) { return Object.prototype.hasOwnProperty.call(PLAIN, label) ? PLAIN[label] : label; }
@@ -248,7 +250,7 @@
     var bestPb = extremes(data, function (p, sc) { var y = payback(p, sc); return isNum(y) ? y : null; }, 'best');
     var lossWorst = data.plans.filter(function (p) { return grade(data, p, 'worst').cls === 'loss'; }).length;
     var s = '';
-    if (bm) s += 'In the realistic case the ' + numberWord(n) + ' plans need ' + money(bm.lo.v) + ' to ' + money(bm.hi.v) + ', including buying the property at an assumed $3.0M plus fees and closing. ';
+    if (bm) s += 'In the average case the ' + numberWord(n) + ' plans need ' + money(bm.lo.v) + ' to ' + money(bm.hi.v) + ', including buying the property at an assumed $3.0M plus fees and closing. ';
     if (pr) s += 'Once open they make ' + money(pr.lo.v) + ' to ' + money(pr.hi.v) + ' profit a year' +
       (pb ? ', so they earn it back in ' + pb.lo.v.toFixed(1) + ' to ' + pb.hi.v.toFixed(1) + ' years. ' : '. ');
     s += lineSentence(data, 'realistic') + ' ';
@@ -263,7 +265,7 @@
     notes.textContent = '';
     var hallPlans = data.plans.filter(function (p) { return (p.hall_events || []).some(isNum); });
     if (data.events && isNum(data.events.realistic_events) && hallPlans.length) {
-      notes.appendChild(el('li', null, 'Hall bookings matter most in the ' + numberWord(hallPlans.length) + ' plans where the owners run the halls: the realistic case assumes ' +
+      notes.appendChild(el('li', null, 'Hall bookings matter most in the ' + numberWord(hallPlans.length) + ' plans where the owners run the halls: the average case assumes ' +
         int(data.events.realistic_events) + ' events a year across both halls.'));
     }
     notes.appendChild(el('li', null, 'The plan cards follow the case you pick below; the range chart shows all three at once.'));
@@ -396,6 +398,9 @@
         ['Profit each year for every $100 spent', isNum(r) ? (r < 0 ? 'Loses ' + dollars2(-r * 100) : dollars2(r * 100)) : 'n/a', '']
       ]));
 
+      var odds = neverOdds(data, p.key);
+      if (odds) card.appendChild(el('p', { class: 'plan-odds' }, 'Chance it never earns back: ' + odds + '.'));
+
       if (p.phase1) {
         var p2 = phaseTwoCost(p, sc), ph = el('p', { class: 'plan-phase' });
         if (isNum(p2) && p2 > 1000) {
@@ -512,7 +517,7 @@
   /* ---------- Ways to improve (optional data) ---------- */
 
   // Accepts plan.levers or data.levers[key]; each item an object {label, note, kind, profit_change, onetime_change, payback_years}
-  // or an array [label, profit change, one-time change, note]. Changes are for the realistic case.
+  // or an array [label, profit change, one-time change, note]. Changes are for the average (realistic) case.
   function leversFor(data, p) {
     var L = data.levers, items = null;
     if (Array.isArray(p.levers)) items = p.levers;
@@ -581,7 +586,7 @@
     var scroll = el('div', { class: 'table-scroll' });
     scroll.appendChild(fillTable(el('table', { class: 'money-table stack-table path-table' }),
       ['Plan', 'Earns back now', 'Money put in with the changes', 'Profit each year with the changes', 'Earns back with the changes', 'If the columns are kept (optional)'],
-      rows, { numCols: [1, 2, 3, 4, 5], caption: 'Path to profit, realistic case' }));
+      rows, { numCols: [1, 2, 3, 4, 5], caption: 'Path to profit, average case' }));
     box.appendChild(scroll);
     var meets = data.plans.filter(function (p) { var pp = path.plans[p.key]; return pp && pp.remove_columns && isNum(pp.remove_columns.payback_years) && R.goalYears && pp.remove_columns.payback_years <= R.goalYears; }).map(planName);
     box.appendChild(el('p', { class: 'path-note' }, (meets.length ? 'With these changes ' + listJoin(meets) + (meets.length === 1 ? ' meets ' : ' meet ') + R.goalLabel + ', with the columns taken out. ' : 'Even with these changes no plan meets ' + R.goalLabel + '. ') +
@@ -615,14 +620,14 @@
           body.appendChild(el('h4', { class: 'lines-title' }, gp[1]));
           body.appendChild(fillTable(el('table', { class: 'money-table stack-table lever-table' }),
             ['Change', 'Profit each year', 'Money in (one-time)', 'Earns back in', 'Note'], leverRows(data, p, list),
-            { caption: gp[1] + ': ' + p.name + ', realistic case' }));
+            { caption: gp[1] + ': ' + p.name + ', average case' }));
         });
         var other = items.filter(function (it) { return it.kind !== 'income' && it.kind !== 'saving'; });
         if (other.length) body.appendChild(fillTable(el('table', { class: 'money-table stack-table lever-table' }),
           ['Change', 'Profit each year', 'Money in (one-time)', 'Earns back in', 'Note'], leverRows(data, p, other), { caption: 'Other changes: ' + p.name }));
       } else {
         body.appendChild(fillTable(el('table', { class: 'money-table stack-table lever-table' }),
-          ['Change', 'Profit each year', 'Money in (one-time)', 'Earns back in', 'Note'], leverRows(data, p, items), { caption: 'Ways to improve ' + p.name + ', realistic case' }));
+          ['Change', 'Profit each year', 'Money in (one-time)', 'Earns back in', 'Note'], leverRows(data, p, items), { caption: 'Ways to improve ' + p.name + ', average case' }));
       }
       det.appendChild(body);
       block.appendChild(det);
@@ -718,14 +723,14 @@
     var cls = function (sc) { return data.plans.map(function (p) { return grade(data, p, sc).cls; }); };
     var fast = function (sc) { return cls(sc).filter(function (c) { return c === 'good' || c === 'ok'; }).length; };
     var realNames = data.plans.filter(function (p) { var c = grade(data, p, 'realistic').cls; return c === 'good' || c === 'ok'; }).map(planName);
-    var t1 = realNames.length === 0 ? 'In the realistic case no plan earns back the money put in faster than ' + R.typicalLabel
-      : realNames.length === n ? 'In the realistic case every plan earns back the money put in faster than ' + R.typicalLabel
-      : 'In the realistic case ' + (realNames.length === 1 ? 'only ' + realNames[0] + ' earns' : listJoin(realNames) + ' earn') + ' back the money put in faster than ' + R.typicalLabel;
+    var t1 = realNames.length === 0 ? 'In the average case no plan earns back the money put in faster than ' + R.typicalLabel
+      : realNames.length === n ? 'In the average case every plan earns back the money put in faster than ' + R.typicalLabel
+      : 'In the average case ' + (realNames.length === 1 ? 'only ' + realNames[0] + ' earns' : listJoin(realNames) + ' earn') + ' back the money put in faster than ' + R.typicalLabel;
     var fb = fast('best'), fw = fast('worst');
     var title = t1 + '; ' + (fb === n ? 'all ' + numberWord(n) + ' do in the best case' : numberWord(fb) + ' of ' + numberWord(n) + ' do in the best case') +
       ', ' + (fw === 0 ? 'none in the worst' : numberWord(fw) + ' in the worst');
     setText('range-title', title.charAt(0).toUpperCase() + title.slice(1));
-    setCaption('range-caption', 'Years to earn back the one-time money put in, including buying the property at an assumed $3.0M plus fees and closing. Fewer years is better. Each grey bar runs from the best case (left) to the worst case (right); the blue dot is the realistic case. “Never” means the plan loses money in that case, and the chart stops at ' +
+    setCaption('range-caption', 'Years to earn back the one-time money put in, including buying the property at an assumed $3.0M plus fees and closing. Fewer years is better. Each grey bar runs from the best case (left) to the worst case (right); the blue dot is the average case. “Never” means the plan loses money in that case, and the chart stops at ' +
       YEAR_CAP + ' years. Dashed lines: ' + R.goalLabel + ' and ' + R.typicalLabel + '.', 'Hover over or select a row to read its numbers.');
 
     var W = Math.max(300, box.clientWidth);
@@ -788,11 +793,11 @@
       addText(g, clampMid(xm, yearsShort(r.m), 0, W), cy - 12, [yearsShort(r.m)], { class: 'value', 'text-anchor': 'middle' });
 
       var hit = svg('rect', { x: 0, y: top, width: W, height: rowH, class: 'hit', tabindex: '0', focusable: 'true', role: 'img',
-        'aria-label': r.name + ': realistic ' + yearsLong(r.m) + ', best ' + yearsLong(r.b) + ', worst ' + yearsLong(r.w) });
+        'aria-label': r.name + ': average ' + yearsLong(r.m) + ', best ' + yearsLong(r.b) + ', worst ' + yearsLong(r.w) });
       var show = function (px) {
         hit.classList.add('is-active');
         tip.show(px, cy, r.name, [
-          { value: yearsLong(r.m), label: 'realistic (' + per100(r.rm) + ')' },
+          { value: yearsLong(r.m), label: 'average (' + per100(r.rm) + ')' },
           { value: yearsLong(r.b), label: 'best (' + per100(r.rb) + ')' },
           { value: yearsLong(r.w), label: 'worst (' + per100(r.rw) + ')' }]);
       };
@@ -844,12 +849,12 @@
     var withGoal = info.filter(function (o) { return isNum(o.goal); }).sort(function (a, b) { return a.goal - b.goal; });
     var span = int(xs[0]) + ' and ' + int(xs[xs.length - 1]);
     var title = withGoal.length
-      ? withGoal[0].s.name + ' meets ' + R.goalLabel + ' at about ' + int(withGoal[0].goal) + ' events a year' + (isNum(realEv) ? '; the realistic case has ' + int(realEv) : '')
+      ? withGoal[0].s.name + ' meets ' + R.goalLabel + ' at about ' + int(withGoal[0].goal) + ' events a year' + (isNum(realEv) ? '; the average case has ' + int(realEv) : '')
       : 'No hall plan meets ' + R.goalLabel + ' between ' + span + ' events a year';
     setText('events-title', title);
-    setCaption('events-caption', 'Profit each year for every $100 put in, including buying the property at an assumed $3.0M plus fees and closing, for the ' + numberWord(S.length) + ' plans where the owners run the halls. Everything except bookings stays at the realistic case. Dashed lines: ' +
+    setCaption('events-caption', 'Profit each year for every $100 put in, including buying the property at an assumed $3.0M plus fees and closing, for the ' + numberWord(S.length) + ' plans where the owners run the halls. Everything except bookings stays at the average case. Dashed lines: ' +
       R.goalLabel + ' ($' + (R.goalRate * 100).toFixed(2) + ' a year per $100) and ' + R.typicalLabel + ' ($' + (R.typicalRate * 100).toFixed(2) + ' per $100).' +
-      (isNum(realEv) ? ' The solid line marks the realistic ' + int(realEv) + ' events.' : ''), 'Hover over, tap or select the chart and use the arrow keys to read each level of bookings.');
+      (isNum(realEv) ? ' The solid line marks the average case, ' + int(realEv) + ' events.' : ''), 'Hover over, tap or select the chart and use the arrow keys to read each level of bookings.');
 
     var legend = byId('events-legend');
     legend.textContent = '';
@@ -864,7 +869,7 @@
 
     var list = byId('events-needed');
     list.textContent = '';
-    if (isNum(realEv)) list.appendChild(el('li', null, 'The realistic case assumes ' + int(realEv) + ' events a year across Hall A and Hall B.'));
+    if (isNum(realEv)) list.appendChild(el('li', null, 'The average case assumes ' + int(realEv) + ' events a year across Hall A and Hall B.'));
     info.forEach(function (o) {
       var li = el('li');
       li.appendChild(el('strong', null, o.s.name + ': '));
@@ -920,7 +925,7 @@
     });
     if (isNum(realEv) && realEv >= x0 && realEv <= x1) {
       g.appendChild(svg('line', { x1: x(realEv), x2: x(realEv), y1: m.t - 6, y2: m.t + ph, class: 'marker-line' }));
-      var ml = 'Realistic: ' + int(realEv) + ' events';
+      var ml = 'Average: ' + int(realEv) + ' events';
       addText(g, clampMid(x(realEv), ml, m.l, m.l + pw), m.t - 10, [ml], { class: 'marker-label', 'text-anchor': 'middle' });
     }
 
@@ -977,7 +982,7 @@
         dots[i].setAttribute('cx', cx); dots[i].setAttribute('cy', y(s.ys[j])); dots[i].setAttribute('visibility', 'visible');
         top = Math.min(top, y(s.ys[j]));
       });
-      tip.show(cx, top, int(xs[j]) + ' events a year' + (xs[j] === realEv ? ' (realistic)' : ''), S.map(function (s) {
+      tip.show(cx, top, int(xs[j]) + ' events a year' + (xs[j] === realEv ? ' (average case)' : ''), S.map(function (s) {
         var v = s.ys[j];
         return { value: isNum(v) ? (v < 0 ? 'Loses ' + dollars2(-v * 100) : dollars2(v * 100)) : 'n/a', label: s.name + ' · ' + yearsShort(isNum(v) && v > 0 ? 1 / v : null), color: s.color };
       }));
@@ -1364,7 +1369,7 @@
       caseNote.textContent = '';
       caseNote.appendChild(document.createTextNode('Starting from the study’s '));
       caseNote.appendChild(el('strong', null, LABELS[sc] + ' case'));
-      caseNote.appendChild(document.createTextNode(' for ' + p.name + '. To start from another case, use Worst, Realistic or Best at the top of the page. Your changes are kept for each plan and case until you reload the page.'));
+      caseNote.appendChild(document.createTextNode(' for ' + p.name + '. To start from another case, use Worst, Average or Best at the top of the page. Your changes are kept for each plan and case until you reload the page.'));
 
       renderResults(p);
       inputsBox.textContent = '';
@@ -1463,7 +1468,7 @@
       if (any) {
         notice.appendChild(el('p', { class: 'wr-notice-title' }, 'Your test — not a published scenario'));
         notice.appendChild(el('p', null, 'These numbers were typed in by the person who made this PDF. They are their own assumptions, not one of the study’s ' +
-          'published worst, realistic or best cases. The study’s own figures are shown beside them, marked “The study”.'));
+          'published worst, average or best cases. The study’s own figures are shown beside them, marked “The study”.'));
       } else {
         notice.appendChild(el('p', { class: 'wr-notice-title' }, 'The study’s numbers — nothing changed'));
         notice.appendChild(el('p', null, 'No numbers were changed. This page shows the study’s published ' + LABELS[sc] + ' case for ' + planName(p) + '.'));
@@ -1764,6 +1769,30 @@
   window.addEventListener('beforeprint', beforePrint);
   window.addEventListener('afterprint', afterPrint);
 
+  /* ---------- What the three cases mean (v2.5 "cases") ---------- */
+
+  function caseDefinition(data, sc) {
+    var c = data.cases;
+    return c && c.definitions && typeof c.definitions[sc] === 'string' ? c.definitions[sc] : '';
+  }
+  function neverOdds(data, key) {
+    var n = data.cases && data.cases.never_earns_back && data.cases.never_earns_back[key];
+    return n && typeof n.odds === 'string' ? n.odds : '';
+  }
+  function renderCases(data) {
+    var c = data.cases, box = byId('cases-how');
+    if (!c || !box) return;
+    setText('cases-method', c.method || '');
+    setText('cases-stress', (c.stress && c.stress.note) || '');
+    box.hidden = !(c.method || (c.stress && c.stress.note));
+  }
+  // The switch bar sticks under the header and grows with the case definition, so scroll offsets follow its height.
+  var scenarioBar = byId('scenario-bar');
+  function scenarioHeight() {
+    if (scenarioBar) document.documentElement.style.setProperty('--scenario-h', scenarioBar.offsetHeight + 'px');
+  }
+  window.addEventListener('resize', scenarioHeight);
+
   /* ---------- Scenario switch ---------- */
 
   function init(data) {
@@ -1774,9 +1803,12 @@
     var current = null;
     var whatIf = makeWhatIf(data);
 
+    // #average opens the middle case; #realistic stays as an alias so older links still work.
     function fromHash() {
       var h = location.hash.slice(1);
-      return SCENARIOS.indexOf(h) >= 0 ? h : null;
+      if (SCENARIOS.indexOf(h) >= 0) return h;
+      for (var k in HASHES) if (HASHES[k] === h) return k;
+      return null;
     }
     function setScenario(sc, opts) {
       opts = opts || {};
@@ -1789,10 +1821,14 @@
       renderOperators(data, sc);
       renderColumns(data, sc);
       if (whatIf) whatIf.setCase(sc);
+      var def = caseDefinition(data, sc);
+      setText('scenario-def', def);
       setText('print-note', 'Printed view: the plan cards, the businesses and the column costs show the ' + LABELS[sc] +
-        ' case; the range chart and its table show all three cases. Every number includes buying the property at an assumed $3.0M plus fees and closing.');
+        ' case' + (def ? ' (' + def.charAt(0).toLowerCase() + def.slice(1).replace(/\.$/, '') + ')' : '') +
+        '; the range chart and its table show all three cases. Every number includes buying the property at an assumed $3.0M plus fees and closing.');
       status.textContent = 'Showing the ' + LABELS[sc] + ' case';
-      if (opts.updateHash && history.replaceState) history.replaceState(null, '', '#' + sc);
+      if (opts.updateHash && history.replaceState) history.replaceState(null, '', '#' + HASHES[sc]);
+      scenarioHeight();
     }
 
     buttons.forEach(function (b, i) {
@@ -1820,6 +1856,7 @@
     });
 
     renderHero(data);
+    renderCases(data);
     renderText(data);
     renderLevers(data);
     renderRangeTable(data);
