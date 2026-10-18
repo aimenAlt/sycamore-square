@@ -588,3 +588,21 @@
 .wi-results { border-radius: var(--radius); border-top-color: var(--rose); }
 .wi-box input { border-radius: 10px; }
 .wi-warn { border-radius: 0 10px 10px 0; }
+
+/* R4.4: the money in, line by line, and the biggest one-time costs under the "Money in" figure. */
+.plan-drivers-fact { margin: 8px 0 2px; }
+.cost-items-table .is-group th {
+  padding-top: 16px;
+  border-bottom: 0;
+  font-weight: 800;
+  color: var(--rose-deep);
+}
+.cost-items-table .is-group td { border-bottom: 0; }
+.cost-items-table .is-item th { padding-left: 14px; font-weight: 400; color: var(--text-2); }
+.cost-items-table .is-none th, .cost-items-table .is-none td { color: var(--muted); font-style: italic; }
+.cost-items-table .is-subtotal th { padding-left: 14px; }
+@media print {
+  .cost-items-table { font-size: 10.5px; }
+  .cost-items-table .is-group th { padding-top: 6px; }
+  .cost-items-table th, .cost-items-table td { padding-top: 2px; padding-bottom: 2px; }
+}

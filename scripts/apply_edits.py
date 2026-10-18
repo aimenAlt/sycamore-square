@@ -5,7 +5,7 @@ Usage: python3 scripts/apply_edits.py <event.json>
 
 The event is a GitHub repository_dispatch payload whose client_payload is:
   {"request_id": "...", "summary": "...", "dry_run": false,
-   "edits": [{"file": "index.html", "find": "exact current text", "replace": "new text"}]}
+   "edits": [{"file": "overview.html", "find": "exact current text", "replace": "new text"}]}
 
 Each "find" must appear exactly once in its file. Edits are applied in order.
 Only text in the allowed files can change; anything that adds scripts, styles,
@@ -17,7 +17,7 @@ import re
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-ALLOWED_FILES = {'index.html', 'legal.html', 'feasibility.html', 'assets/feasibility.json', 'README.md'}
+ALLOWED_FILES = {'index.html', 'overview.html', 'legal.html', 'feasibility.html', 'auction.html', 'assets/feasibility.json', 'README.md'}
 MAX_EDITS = 25
 MAX_CHARS = 8000
 

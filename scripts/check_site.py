@@ -24,7 +24,7 @@ MAX_FILE_MB = 25
 # Each rule: (pattern, flags, what is wrong and what to do instead).
 BANNED = [
     (r'\bAimen\b|\bAltaiyeb\b', re.I, 'A personal name. Leave buyer, seller and family names off the site.'),
-    (r'\bpurchase price\s*(?:of|is|was|at|:|=)\s*\$', re.I, 'A purchase price is stated. The site may only say the price is left out.'),
+    (r'\bpurchase price\s*(?:of|is|was|at|:|=)\s*\$(?!3\.0M\b)', re.I, 'A purchase price other than the study\'s assumed $3.0M. Write "an assumed price of $3.0M".'),
     (r'\$\s?\d[\d,.]*\s?(?:m|mm|million|k)?\s+(?:purchase|acquisition|offer|bid)\b', re.I, 'A purchase, offer or bid amount. Leave it off the site.'),
     (r'\b(?:offer|bid|asking)\s+(?:price|amount)\s*(?:of|is|:)?\s*\$', re.I, 'An offer, bid or asking amount. Leave it off the site.'),
     (r'\b(?:maximum|max|walk[- ]away)\s+(?:bid|price)\b', re.I, 'A maximum or walk-away price. Leave it off the site.'),
@@ -161,15 +161,15 @@ def check_pages():
                 if 'ai-generated' not in caption.lower():
                     fail(path, img['line'], 'AI-generated image without the "AI-generated concept image" label in its caption.')
 
-    # Every PDF in docs/ has a Documents card on the overview.
-    index_text = parsed.get('index.html', (None, '', None))[1]
+    # Every PDF in docs/ has a Documents card in the library on overview.html.
+    index_text = parsed.get('overview.html', (None, '', None))[1]
     docs_start = index_text.find('id="documents"')
     docs_section = index_text[docs_start:index_text.find('</section>', docs_start)] if docs_start >= 0 else ''
     for pdf in sorted(glob.glob(os.path.join(ROOT, 'docs', '*.pdf'))):
         href = 'docs/' + os.path.basename(pdf)
         n = docs_section.count(f'href="{href}"')
         if n == 0:
-            fail('index.html', 1, f'{href} has no card in the Documents section.')
+            fail('overview.html', 1, f'{href} has no card in the Documents section.')
     return parsed
 
 

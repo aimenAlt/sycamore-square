@@ -45,7 +45,7 @@ jobs:
           set -o pipefail
           export COMMIT_MSG_FILE="$RUNNER_TEMP/commit-msg.txt"
           python3 scripts/apply_edits.py "$GITHUB_EVENT_PATH" 2>&1 | tee "$RUNNER_TEMP/apply.log"
-          git add index.html legal.html feasibility.html assets/feasibility.json README.md
+          git add index.html overview.html legal.html feasibility.html auction.html assets/feasibility.json README.md
           git commit -q -F "$COMMIT_MSG_FILE"
 
       - name: Undo a change

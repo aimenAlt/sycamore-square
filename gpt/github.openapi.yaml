@@ -47,7 +47,7 @@ paths:
                         properties:
                           file:
                             type: string
-                            enum: [index.html, legal.html, feasibility.html, assets/feasibility.json, README.md]
+                            enum: [index.html, overview.html, legal.html, feasibility.html, auction.html, assets/feasibility.json, README.md]
                           find:
                             type: string
                           replace:

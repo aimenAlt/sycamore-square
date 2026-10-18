@@ -4,9 +4,10 @@ This file is the rulebook for any AI that changes this site: the ChatGPT site ed
 
 ## What the site is
 
-- A private investor website for the Sycamore Square redevelopment study: three pages, `index.html` (overview), `legal.html` (legal findings) and `feasibility.html` (feasibility).
+- A private investor website for the Sycamore Square redevelopment study, five pages: `index.html` (the front page with four choices), `overview.html` (overview and the documents library), `legal.html` (legal findings), `feasibility.html` (feasibility) and `auction.html` (before and during the auction). Links to overview content use `overview.html#anchor`; "Home" is `index.html`.
+- A one-time password panel covers every page (`assets/js/gate-head.js` and `assets/js/gate.js`). Once a device enters the password it keeps access for good (localStorage plus a long-lived cookie). Only the password's SHA-256 hash is in the code; never commit the password itself. This is a light gate: the repository is public, so its files can still be read on GitHub. Every new page needs both gate scripts in its `<head>`.
 - Plain HTML, CSS and vanilla JavaScript. No framework, no build step. Served by GitHub Pages from `main`; every change to `main` goes live in a few minutes.
-- The feasibility page draws every number from `assets/feasibility.json` at runtime. `feasibility.html` holds wording only.
+- The feasibility page draws every number from `assets/feasibility.json` at runtime. `feasibility.html` holds wording only. Since v2.4 (owner's decision) the numbers include buying the property at an assumed $3.0M plus fees, closing, surveys and inspections; `build_cost` keeps the build-only figure.
 - The repository is **public**. Anything committed here can be read by anyone, forever, even after it is removed.
 
 ## How changes ship
@@ -21,7 +22,7 @@ This file is the rulebook for any AI that changes this site: the ChatGPT site ed
 
 These are checked automatically, and an edit that breaks them is refused.
 
-- The purchase price, an offer or bid amount, a maximum or walk-away price, the auction transaction fee or buyer's premium, or any other price paid for the property. The site may say the purchase price is left out; it must never state one.
+- Any price for the property other than the study's assumed $3.0M (owner's decision): never an offer or bid amount, a maximum or walk-away price, the auction transaction fee or buyer's premium, or other transaction terms. Write the assumption as "an assumed price of $3.0M" or "buying at $3.0M", never "$3.0M purchase" (the check reads that as a deal amount).
 - Names of the buyers, the sellers or their family, and anything saying a family owns, runs or invests in the project.
 - Gendered hall wording. The halls are only "Hall A" and "Hall B". Never "ladies", "men's", "women", "female", "bride", "groom" or "mothers". The suites are "family suites".
 - Finance jargon the owner removed: "IRR", "yield on cost", "cap rate". Use plain words: "years to earn back", "profit each year", "money to build it".
@@ -53,10 +54,10 @@ These are checked automatically, and an edit that breaks them is refused.
 - Use the tokens in `assets/css/styles.css` (colors, gradients, fonts, spacing, corner radii, shadows). Never type a raw color into a page. Fonts are Fraunces for headings and big numbers, and Plus Jakarta Sans for everything else.
 - "Golden hour" look, made for a wedding and event venue: warm champagne and white backgrounds, deep plum text, and the sunset gradient (gold, coral, rose, violet) for accents. Cards are white, with rounded corners and soft shadows. No dark navy page backgrounds, no monospace text and no emoji.
 - Use the gradient as an accent only: buttons, the selected page or tab, small bars and badges, and at most one gradient feature card per section. Never put body text on it. All text keeps at least 4.5:1 contrast with its background.
-- Navigation: the three page links always show in the header. "On this page" lists every section: chips on wide screens, and on phones a menu that names the section you are in. A new section needs its own entry in that page's `nav-list`.
+- Navigation: the five page links (Home, Overview, Legal findings, Feasibility, Before the auction) always show in the header. "On this page" lists every section: chips on wide screens, and on phones a menu that names the section you are in. A new section needs its own entry in that page's `nav-list`.
 - Mobile first: nothing may scroll sideways at 360 px, tap targets are at least 44 px, and body text is at least 16 px on phones.
 - Keep `<meta name="robots" content="noindex,nofollow">` on every page, and keep `robots.txt` as it is.
 
 ## Leave alone unless the site owner asks
 
-`.github/`, `scripts/`, `AGENTS.md`, `CLAUDE.md`, `gpt/`, `robots.txt`, `.nojekyll`, `assets/js/`, `assets/css/`, `assets/models/`, and the page structure (sections, navigation, tabs). The ChatGPT site editor can only change text in `index.html`, `legal.html`, `feasibility.html`, `assets/feasibility.json` and `README.md`.
+`.github/`, `scripts/`, `AGENTS.md`, `CLAUDE.md`, `gpt/`, `robots.txt`, `.nojekyll`, `assets/js/`, `assets/css/`, `assets/models/`, and the page structure (sections, navigation, tabs). The ChatGPT site editor can only change text in `index.html`, `overview.html`, `legal.html`, `feasibility.html`, `auction.html`, `assets/feasibility.json` and `README.md`.

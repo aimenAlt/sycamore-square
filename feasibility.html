@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Sycamore Square — Feasibility</title>
-  <meta name="description" content="Five ways to use the Sycamore Square building: what each costs to build, what it makes each year and how long it takes to earn the money back. Not counting what is paid for the property.">
+  <meta name="description" content="Five ways to use the Sycamore Square building: what each costs to build, what it makes each year and how long it takes to earn the money back, including buying the property at an assumed $3.0M plus fees and closing.">
   <meta name="robots" content="noindex,nofollow">
   <meta name="theme-color" content="#FFF7EF">
   <meta property="og:type" content="article">
@@ -22,7 +22,9 @@
   <link rel="stylesheet" href="assets/css/styles.css">
   <link rel="stylesheet" href="assets/css/feasibility.css">
   <script>document.documentElement.className = 'js';</script>
+  <script src="assets/js/gate-head.js"></script>
   <script src="assets/js/main.js" defer></script>
+  <script src="assets/js/gate.js" defer></script>
   <script src="assets/js/feasibility.js" defer></script>
 </head>
 <body class="feas-page">
@@ -30,15 +32,17 @@
 
   <header class="site-header">
     <div class="header-inner">
-      <a class="wordmark" href="index.html"><span class="wordmark-mark" aria-hidden="true">S</span><span class="wordmark-text">Sycamore Square</span><span class="visually-hidden"> (overview)</span></a>
+      <a class="wordmark" href="index.html"><span class="wordmark-mark" aria-hidden="true">S</span><span class="wordmark-text">Sycamore Square</span><span class="visually-hidden"> (home)</span></a>
       <nav class="page-nav" aria-label="Pages">
         <ul class="page-list">
-          <li><a href="index.html">Overview</a></li>
+          <li><a href="index.html" class="page-home"><svg class="page-home-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M3.5 10.6 12 3.5l8.5 7.1V20a1 1 0 0 1-1 1h-5v-6.2h-5V21h-5a1 1 0 0 1-1-1v-9.4Z" fill="currentColor"/></svg><span class="page-home-label">Home</span></a></li>
+          <li><a href="overview.html">Overview</a></li>
           <li><a href="legal.html">Legal<span class="page-long"> findings</span></a></li>
           <li><a href="feasibility.html" aria-current="page">Feasibility</a></li>
+          <li><a href="auction.html"><span class="page-short">Auction</span><span class="page-full">Before the auction</span></a></li>
         </ul>
       </nav>
-      <a class="header-cta" href="index.html#documents"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M6 2h8l6 6v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Zm7 1.5V9h5.5L13 3.5ZM8 13v2h8v-2H8Zm0 4v2h5v-2H8Z" fill="currentColor"/></svg>Documents</a>
+      <a class="header-cta" href="overview.html#documents"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M6 2h8l6 6v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Zm7 1.5V9h5.5L13 3.5ZM8 13v2h8v-2H8Zm0 4v2h5v-2H8Z" fill="currentColor"/></svg>Documents</a>
     </div>
     <nav class="site-nav" aria-label="On this page">
       <div class="site-nav-inner">
@@ -73,8 +77,8 @@
         <h1 id="feas-title">Feasibility: five ways to use the building</h1>
         <p class="lead hero-lead" id="feas-lead" data-loading>Loading the numbers…</p>
         <div class="basis-note" id="basis-note">
-          <p class="basis-title">Not counting what is paid for the property</p>
-          <p id="basis-text">Every number on this page leaves out the purchase price and the costs of buying. Whatever is paid for the property comes on top and stretches the time it takes to earn the money back.</p>
+          <p class="basis-title">Buying the property is included</p>
+          <p id="basis-text">Every number on this page includes buying the property at an assumed price of $3.0M, plus fees, closing costs, surveys and inspections.</p>
         </div>
         <ul class="feas-notes" id="feas-notes"></ul>
         <noscript><p class="hero-note">This page needs JavaScript to show the numbers. A printable summary is available under Downloads.</p></noscript>
@@ -102,7 +106,7 @@
         <header class="section-head">
           <p class="eyebrow">01 · FIVE PLANS</p>
           <h2 id="plans-title">What each plan costs and what it makes</h2>
-          <p class="lead">Each card shows the <strong class="scenario-name">realistic</strong> case. “Profit each year” is before any loan payments. None of these numbers count what is paid for the property.</p>
+          <p class="lead">Each card shows the <strong class="scenario-name">realistic</strong> case. “Profit each year” is before any loan payments. Every number includes buying the property at an assumed $3.0M plus fees and closing.</p>
         </header>
         <p class="plans-summary" id="plans-summary"></p>
         <div class="plan-cards" id="plan-cards"></div>
@@ -126,12 +130,12 @@
           <summary><span class="detail-title">How the totals are worked out</span><span class="detail-hint">The same arithmetic as the study</span></summary>
           <div class="detail-body">
             <ul class="wi-how-list">
-              <li><strong>Money to build it</strong> is the one-time items added up.</li>
+              <li><strong>Money in (buying + building, one-time)</strong> is the one-time items added up, including buying the property at an assumed $3.0M plus fees and closing.</li>
               <li><strong>Hall bookings</strong> count each hall each time it is rented, the way the study counts its events: both halls on the same day count as two, one side as one.</li>
               <li><strong>Money coming in each year</strong> is hall bookings a year times the money from each booking, plus the rents and other income.</li>
               <li><strong>Money going out each year</strong> is hall bookings a year times the cost of each booking, plus the year-round hall costs and the other yearly costs.</li>
               <li><strong>Profit each year</strong> is money coming in minus money going out, before any loan payments.</li>
-              <li><strong>Years to earn back the build money</strong> is the money to build it divided by the profit each year. If you type a price for the property, it is added to the money to build it.</li>
+              <li><strong>Years to earn back the money put in</strong> is the money in (buying and building) divided by the profit each year.</li>
               <li>Each line stands on its own: changing one does not change the others. In real life some move together, for example cheaper building work also lowers design and permit costs, and higher prices also mean higher card fees.</li>
             </ul>
           </div>
@@ -154,7 +158,7 @@
         </header>
         <div class="path-box" id="path-box" hidden></div>
         <h3 class="lever-head">Every change, one plan at a time</h3>
-        <p class="lever-intro">Each line shows one change on its own, against the realistic case, and how many years the build money would then take to come back.</p>
+        <p class="lever-intro">Each line shows one change on its own, against the realistic case, and how many years the money put in would then take to come back.</p>
         <div class="lever-blocks" id="lever-blocks"></div>
       </div>
     </section>
@@ -164,11 +168,11 @@
       <div class="wrap">
         <header class="section-head">
           <p class="eyebrow" id="range-eyebrow">03 · THE RANGE</p>
-          <h2 id="range-head">How long each plan takes to earn back its build money</h2>
+          <h2 id="range-head">How long each plan takes to earn back the money put in</h2>
           <p class="lead">All three cases at once. Fewer years is better.</p>
         </header>
         <figure class="chart-figure">
-          <h3 class="chart-title" id="range-title">Years to earn back the build money</h3>
+          <h3 class="chart-title" id="range-title">Years to earn back the money put in</h3>
           <div class="chart chart-hover" id="range-chart"></div>
           <figcaption id="range-caption"></figcaption>
         </figure>
@@ -281,7 +285,7 @@
           <li><a class="button download" href="docs/Sycamore_Square_Feasibility_Operator_View.pdf">Operator view: each business on its own (PDF)<span class="button-meta">PDF</span></a></li>
           <li><a class="button download" href="docs/Sycamore_Square_Column_Removal_Research.pdf">Removing the hall columns: cost and examples (PDF)<span class="button-meta">PDF</span></a></li>
           <li><a class="button download" href="docs/Sycamore_Square_All_PDFs_R4.3.zip" download>Every PDF at once<span class="button-meta">ZIP</span></a></li>
-          <li><a class="button download" href="index.html#documents">All plans and studies<span class="button-meta">Overview</span></a></li>
+          <li><a class="button download" href="overview.html#documents">All plans and studies<span class="button-meta">Overview</span></a></li>
         </ul>
       </div>
     </section>
@@ -295,14 +299,14 @@
         </header>
         <dl class="terms">
           <div class="term"><dt>Worst, realistic and best case</dt><dd>Three sets of assumptions for costs, rents and bookings. The realistic case is the middle estimate; the other two show how far it could swing.</dd></div>
-          <div class="term"><dt>Money to build it (one-time)</dt><dd>Repairs, building work, finishing the inside, design and permits, a cushion for surprises, the cost of signing tenants, and holding the building while work goes on. It does not count what is paid for the property.</dd></div>
+          <div class="term"><dt>Money in (buying + building, one-time)</dt><dd>Buying the property at an assumed $3.0M plus fees, closing costs, surveys and inspections, then repairs, building work, finishing the inside, design and permits, a cushion for surprises, the cost of signing tenants, and holding the building while work goes on.</dd></div>
           <div class="term"><dt>Money coming in each year</dt><dd>Rent from tenants plus sales from the halls where the owners run them, once the building is open.</dd></div>
           <div class="term"><dt>Money going out each year</dt><dd>The yearly running costs: property tax, insurance, upkeep, management, a repairs reserve, empty space and unpaid rent, and the halls’ staff, food and other costs.</dd></div>
           <div class="term"><dt>Profit each year</dt><dd>Money coming in minus money going out, before any loan payments.</dd></div>
-          <div class="term"><dt>Years to earn back the build money</dt><dd>The one-time build money divided by the profit each year. Fewer years is better.</dd></div>
+          <div class="term"><dt>Years to earn back the money put in</dt><dd>The one-time money in (buying and building) divided by the profit each year. Fewer years is better.</dd></div>
           <div class="term"><dt>Profit each year for every $100 spent</dt><dd>The same idea the other way round: $10 a year for every $100 spent earns the money back in 10 years.</dd></div>
           <div class="term"><dt>Typical investment property</dt><dd>A finished, rented property like this one usually sells for about 12 years of its profit. A plan that earns back faster creates value; one that takes longer is worth less than it cost to build.</dd></div>
-          <div class="term"><dt>The 10-year goal</dt><dd>This study’s goal: earn back the build money in 10 years or less, which is $10 a year for every $100 spent.</dd></div>
+          <div class="term"><dt>The 10-year goal</dt><dd>This study’s goal: earn back the money put in within 10 years, which is $10 a year for every $100 spent.</dd></div>
           <div class="term"><dt>Your test numbers</dt><dd>Numbers you type in “Try your own numbers”. They stay on your screen for this visit only, are not saved and are not part of the study.</dd></div>
           <div class="term"><dt>Owner-run</dt><dd>Run by the owners’ own operating company instead of being rented to another business.</dd></div>
           <div class="term"><dt>Tenant’s share of property costs</dt><dd>On top of rent, tenants pay their share of property tax, insurance and upkeep of shared areas.</dd></div>
@@ -318,7 +322,7 @@
     <div class="wrap">
       <p class="footer-mark">SYCAMORE SQUARE</p>
       <p>Planning estimates from public data and market research, <span id="as-of">18 Oct 2026</span>. Not an offer, appraisal or financial advice; numbers change with survey, flood, zoning and bids.</p>
-      <p><a class="footer-back" href="index.html">← Back to the overview</a></p>
+      <p><a class="footer-back" href="overview.html">← Back to the overview</a></p>
     </div>
   </footer>
 
