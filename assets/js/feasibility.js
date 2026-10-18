@@ -1349,6 +1349,10 @@
         live.textContent = 'Back to the study’s numbers for ' + planName(p) + ', ' + LABELS[cur.sc] + ' case.';
       });
       resultsBox.appendChild(reset);
+      var save = el('button', { type: 'button', class: 'button button-quiet wi-save', 'aria-describedby': 'wi-save-hint' }, 'Save my numbers as a PDF');
+      save.addEventListener('click', printReport);
+      resultsBox.appendChild(save);
+      resultsBox.appendChild(el('p', { class: 'wi-save-hint', id: 'wi-save-hint' }, 'Opens your browser’s print window with a short summary of this test. Choose “Save as PDF” there.'));
     }
 
     function renderEditor() {
@@ -1406,6 +1410,190 @@
       inputsBox.appendChild(out.mini);
       updateTags();
       update(true);
+    }
+
+    /* ---------- "Save my numbers as a PDF": a one-page print of the current test ---------- */
+    // The browser's own print window makes the PDF. A report block, hidden on screen, is filled from the test and is the only
+    // thing printed while html has the "print-wi" class. Ordinary printing of the page is unchanged.
+
+    var BUYING = /buying the property/i;
+    function reportDate() { return new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }); }
+    function isoDate() { var d = new Date(); return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2); }
+    function dollars(v) { return isNum(v) ? (v < 0 ? '−$' : '$') + grouped(Math.abs(v)) : 'n/a'; }
+    function unitText(f, v) {
+      if (f.kind === 'count') return grouped(v) + ' bookings a year';
+      if (f.kind === 'days') return grouped(v) + ' days a year';
+      if (f.kind === 'event') return dollars(v) + ' per booking';
+      if (f.kind === 'year') return dollars(v) + ' a year';
+      return dollars(v);
+    }
+    function yearsPlain(y) { return yearsMid(y).replace(/\u00a0/g, ' '); }
+
+    function buildReport() {
+      var s = out.snap, p = s.p, sc = s.sc, t = s.t, any = s.changed > 0;
+      var box = byId('wi-report');
+      if (!box) { box = el('div', { id: 'wi-report', class: 'wi-report', hidden: '', 'aria-hidden': 'true' }); document.body.appendChild(box); }
+      box.textContent = '';
+      var date = reportDate();
+      var buyRec = fields.filter(function (rec) { return rec.f.kind === 'once' && BUYING.test(rec.f.label); })[0];
+      var priceChanged = (buyRec && buyRec.state === 'changed') || t.price !== null;
+      var studyBuy = buyRec ? dollars(buyRec.f.shown) : null;
+      var assumed = data.purchase_assumption && isNum(data.purchase_assumption.price) ? money(data.purchase_assumption.price) : null;
+
+      var head = el('div', { class: 'wr-head' });
+      var brand = el('div', { class: 'wr-brand' });
+      brand.appendChild(el('p', { class: 'wr-site' }, 'Sycamore Square'));
+      brand.appendChild(el('p', { class: 'wr-date' }, 'Generated ' + date));
+      head.appendChild(brand);
+      head.appendChild(el('p', { class: 'wr-eyebrow' }, any ? 'Feasibility · Your own numbers' : 'Feasibility · The study’s numbers'));
+      head.appendChild(el('h1', { class: 'wr-title' }, planName(p) + ', starting from the ' + LABELS[sc] + ' case'));
+      head.appendChild(el('p', { class: 'wr-url' }, location.host + location.pathname));
+      if (priceChanged) {
+        var flag = el('p', { class: 'wr-price-flag' });
+        flag.appendChild(el('strong', null, 'Buying price changed. '));
+        flag.appendChild(document.createTextNode(buyRec && buyRec.state === 'changed'
+          ? 'This test uses ' + dollars(s.vals[buyRec.f.id]) + ' for buying the property and closing, not the study’s ' + studyBuy +
+            (assumed ? ' (an assumed price of ' + assumed + ' plus fees and closing)' : '') + '. The years to earn back below use that figure.'
+          : 'This test adds a price of ' + dollars(t.price) + ' typed in by the person who made this PDF.'));
+        head.appendChild(flag);
+      }
+      box.appendChild(head);
+
+      var notice = el('div', { class: 'wr-notice' + (any ? ' is-test' : '') });
+      if (any) {
+        notice.appendChild(el('p', { class: 'wr-notice-title' }, 'Your test — not a published scenario'));
+        notice.appendChild(el('p', null, 'These numbers were typed in by the person who made this PDF. They are their own assumptions, not one of the study’s ' +
+          'published worst, realistic or best cases. The study’s own figures are shown beside them, marked “The study”.'));
+      } else {
+        notice.appendChild(el('p', { class: 'wr-notice-title' }, 'The study’s numbers — nothing changed'));
+        notice.appendChild(el('p', null, 'No numbers were changed. This page shows the study’s published ' + LABELS[sc] + ' case for ' + planName(p) + '.'));
+      }
+      box.appendChild(notice);
+
+      // Headline figures: the test (dashed) beside the study (solid).
+      var tiles = el('div', { class: 'wr-tiles' });
+      var tile = function (cls, label, years, prof, build) {
+        var d = el('div', { class: 'wr-tile ' + cls });
+        d.appendChild(el('p', { class: 'wr-tile-label' }, label));
+        var dl = el('dl', { class: 'wr-figs' });
+        [['Years to earn back the money put in', years], ['Profit each year', prof], ['Money in (buying + building, one-time)', build]].forEach(function (r) {
+          var row = el('div', { class: 'wr-fig' });
+          row.appendChild(el('dt', null, r[0]));
+          row.appendChild(el('dd', null, r[1]));
+          dl.appendChild(row);
+        });
+        d.appendChild(dl);
+        return d;
+      };
+      if (any) tiles.appendChild(tile('is-test', 'Your test', yearsPlain(t.years), money(t.profit), money(t.build)));
+      tiles.appendChild(tile('is-study', 'The study, ' + LABELS[sc] + ' case', yearsPlain(payback(p, sc)), money(profit(p, sc)), money(buildMoney(p, sc))));
+      box.appendChild(tiles);
+      var g = gradeFor(data, any ? t.years : payback(p, sc), any ? t.profit : profit(p, sc));
+      box.appendChild(el('p', { class: 'wr-verdict' }, (any ? 'Your test: ' : 'The study: ') + g.text + '.'));
+
+      // Totals, as on screen.
+      box.appendChild(el('h2', { class: 'wr-h2' }, 'Totals'));
+      var cols = any ? ['Total', 'The study (' + LABELS[sc] + ')', 'Your test'] : ['Total', 'The study (' + LABELS[sc] + ')'];
+      var table = el('table', { class: 'wr-table' }), thead = el('thead'), hr = el('tr');
+      cols.forEach(function (c, i) { hr.appendChild(el('th', { scope: 'col', class: i ? 'num' + (i === 2 ? ' wr-test' : '') : '' }, c)); });
+      thead.appendChild(hr); table.appendChild(thead);
+      var tbody = el('tbody');
+      var rows = [
+        L.events !== null ? ['Hall bookings a year', int(L.events), plainNumber(t.events)] : null,
+        ['Money in (buying + building, one-time)', money(buildMoney(p, sc)), money(t.build)],
+        ['Money coming in each year', money(moneyIn(p, sc)), money(t.moneyIn)],
+        ['Money going out each year', money(moneyOut(p, sc)), money(t.moneyOut)],
+        ['Profit each year', money(profit(p, sc)), money(t.profit), 'is-key'],
+        ['Years to earn back the money put in', yearsPlain(payback(p, sc)), yearsPlain(t.years), 'is-key'],
+        ['Profit each year for every $100 spent', per100Short(rate(p, sc)), per100Short(t.rate)],
+        t.price !== null ? ['Price typed for the property', 'Left out', money(t.price)] : null,
+        t.price !== null ? ['Years to earn back the build money and the price', 'Left out', yearsPlain(t.profit > 0 ? t.yearsWithPrice : null), 'is-key'] : null
+      ];
+      rows.forEach(function (r) {
+        if (!r) return;
+        var tr = el('tr', r[3] ? { class: r[3] } : null);
+        tr.appendChild(el('th', { scope: 'row' }, r[0]));
+        tr.appendChild(el('td', { class: 'num' }, r[1]));
+        if (any) {
+          var td = el('td', { class: 'num wr-test' }, r[2]);
+          if (r[2] !== r[1]) td.appendChild(el('span', { class: 'wr-mark' }, ' changed'));
+          tr.appendChild(td);
+        }
+        tbody.appendChild(tr);
+      });
+      table.appendChild(tbody);
+      box.appendChild(table);
+
+      // The lines the visitor changed.
+      if (any) {
+        box.appendChild(el('h2', { class: 'wr-h2' }, 'Your inputs'));
+        var it = el('table', { class: 'wr-table wr-inputs' }), ih = el('thead'), ihr = el('tr');
+        // A long list can run onto a second page. Browsers repeat a table's header on each page, so the label goes there too.
+        var nRows = fields.filter(function (rec) { return rec.state === 'changed' || (rec.state === 'derived' && s.fromDays !== rec.f.shown); }).length;
+        if (nRows > 14) {
+          var lr = el('tr', { class: 'wr-running' });
+          lr.appendChild(el('th', { colspan: '4', scope: 'colgroup' }, 'Your test numbers, not part of the Sycamore Square study · generated ' + date));
+          ih.appendChild(lr);
+        }
+        ['Line', 'The study', 'Your number', 'Change'].forEach(function (c, i) { ihr.appendChild(el('th', { scope: 'col', class: i ? 'num' + (i === 2 ? ' wr-test' : '') : '' }, c)); });
+        ih.appendChild(ihr); it.appendChild(ih);
+        var ib = el('tbody'), same = 0, bad = [];
+        fields.forEach(function (rec) {
+          var f = rec.f;
+          if (rec.state === 'error') { bad.push(f.label || rec.input.labels[0].textContent); return; }
+          if (f.kind === 'count' && rec.state === 'derived') {
+            if (s.fromDays === f.shown) { same += 1; return; }
+          } else if (rec.state !== 'changed') { if (f.kind !== 'days' && f.kind !== 'price') same += 1; return; }
+          var label = rec.input.labels && rec.input.labels[0] ? rec.input.labels[0].textContent : f.label;
+          var mine, study, change = '';
+          if (f.kind === 'days') { study = '—'; mine = unitText(f, s.dayCount[f.id]); }
+          else if (f.kind === 'price') { study = 'Left out'; mine = dollars(s.vals.price); }
+          else {
+            var v = f.kind === 'count' && rec.state === 'derived' ? s.fromDays : s.vals[f.id];
+            study = unitText(f, f.shown); mine = unitText(f, v);
+            if (f.kind === 'count' && rec.state === 'derived') mine += ' (worked out from days)';
+            var d = v - f.shown;
+            change = (d > 0 ? '+' : d < 0 ? '−' : '') + (f.kind === 'count' ? grouped(Math.abs(d)) : '$' + grouped(Math.abs(d)));
+          }
+          var isBuy = f.kind === 'once' && BUYING.test(f.label);
+          var tr = el('tr', isBuy ? { class: 'is-buying' } : null);
+          var th = el('th', { scope: 'row' }, isBuy ? 'Buying the property and closing' : label);
+          if (isBuy) th.appendChild(el('span', { class: 'wr-sub' }, 'Your own figure. The study uses ' + (assumed ? 'an assumed price of ' + assumed : 'its assumed price') + ' plus fees and closing.'));
+          tr.appendChild(th);
+          tr.appendChild(el('td', { class: 'num' }, study));
+          tr.appendChild(el('td', { class: 'num wr-test' }, mine));
+          tr.appendChild(el('td', { class: 'num' }, change));
+          ib.appendChild(tr);
+        });
+        it.appendChild(ib);
+        box.appendChild(it);
+        box.appendChild(el('p', { class: 'wr-note' }, same === 0 ? 'Every line was changed.' : same === 1 ? 'The other line uses the study’s number.' : 'All other ' + same + ' lines use the study’s numbers.'));
+        if (bad.length) box.appendChild(el('p', { class: 'wr-note' }, 'Not a plain number, so the study’s number was used: ' + bad.join('; ') + '.'));
+      }
+
+      var foot = el('div', { class: 'wr-foot' });
+      foot.appendChild(el('p', { class: 'wr-foot-label' }, any ? 'Your test numbers, not part of the Sycamore Square study · generated ' + date
+        : 'The Sycamore Square study’s published ' + LABELS[sc] + ' case · generated ' + date));
+      foot.appendChild(el('p', null, 'Years to earn back = money in (buying and building) ÷ profit each year. Profit is before any loan payments.' +
+        (PURCHASE_INCLUDED && !priceChanged ? ' Money in includes buying the property at an assumed price of ' + (assumed || '$3.0M') + ' plus fees and closing.' : '')));
+      box.appendChild(foot);
+      return any;
+    }
+
+    function printReport() {
+      var any = buildReport();
+      var root = document.documentElement, oldTitle = document.title;
+      var done = function () {
+        window.removeEventListener('afterprint', done);
+        root.classList.remove('print-wi');
+        document.title = oldTitle;
+      };
+      root.classList.add('print-wi');
+      // Browsers name the PDF after the page title.
+      document.title = 'Sycamore_Square_' + (any ? 'My_Numbers_' : 'Study_Numbers_') + cur.key + '_' + cur.sc + '_' + isoDate();
+      window.addEventListener('afterprint', done);
+      live.textContent = 'Opening the print window. Choose Save as PDF to keep your numbers.';
+      window.print();
     }
 
     function setCell(row, study, test, differs) {
@@ -1493,6 +1681,7 @@
       });
 
       var any = changed > 0;
+      out.snap = { p: p, sc: sc, t: t, vals: vals, changed: changed, errors: errors, fromDays: fromDays, dayCount: dayCount };
       var sy = payback(p, sc), sr = rate(p, sc);
       var ty = any ? t.years : sy, tr = any ? t.rate : sr;
       setCell('events', L.events !== null ? int(L.events) : '', plainNumber(t.events), L.events !== null && Math.abs(t.events - L.events) > 1e-9);
