@@ -39,7 +39,7 @@ BANNED = [
     (r'transaction fee|buyer.?s premium|\b\d+(?:\.\d+)?%\s+(?:transaction|buyer)', re.I, 'An auction fee or transaction term. Leave it off the site.'),
     (r'planning input\s*\(\$', re.I, 'A planning price. Leave it off the site.'),
     (r'\bfamily[- ](?:business|investment|owned|run)\b|\bfamily\s+(?:owns|runs|operates|invests)\b|\b(?:the|our|my) family\b(?!\s+(?:suite|zone|and child|-friendly))',
-     re.I, 'A reference to a family owning or running the project. Write "the owner" instead.'),
+     re.I, 'A reference to a family owning or running the project. The buyer is a group of investors: write "the buying group".'),
     (r"\bladies\b|\bwomen\b|\bmen'?s\b|\bmen and women\b|\bfemale\b|\bbrides?\b|\bgrooms?\b|\bmothers?\b", re.I,
      'Gendered hall wording. Use "Hall A" and "Hall B", and "family suites".'),
     (r'\bIRR\b', 0, 'Finance jargon ("IRR"). Use plain words such as "years to earn back".'),
