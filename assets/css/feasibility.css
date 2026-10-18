@@ -183,8 +183,8 @@
   .wi-results {
     grid-area: results;
     position: sticky;
-    top: calc(var(--header-bar, 64px) + 76px);
-    max-height: calc(100vh - var(--header-bar, 64px) - 92px);
+    top: calc(var(--header-bar, 64px) + var(--scenario-h, 64px) + 12px);
+    max-height: calc(100vh - var(--header-bar, 64px) - var(--scenario-h, 64px) - 28px);
     overflow-y: auto;
   }
 }
@@ -294,7 +294,7 @@
   cursor: pointer;
 }
 .wi-undo:hover { color: var(--link-hover); }
-.wi-box input, .wi-undo { scroll-margin-top: calc(var(--header-bar, 64px) + 72px); scroll-margin-bottom: 96px; }
+.wi-box input, .wi-undo { scroll-margin-top: calc(var(--header-bar, 64px) + var(--scenario-h, 64px) + 8px); scroll-margin-bottom: 96px; }
 
 /* Phones and tablets: the key result stays in view at the bottom while the lines scroll past. */
 .wi-mini {
@@ -489,7 +489,7 @@
 .unknown dd { margin: 2px 0 0; color: var(--text-2); }
 
 @media (max-width: 720px) {
-  .plan-text, .plan-phase, .plan-drivers, .needed-list li, .reason-list li, .path-note { font-size: 16px; }
+  .plan-text, .plan-phase, .plan-drivers, .plan-odds, .needed-list li, .reason-list li, .path-note { font-size: 16px; }
   .chart-tip { font-size: 14px; }
 }
 
@@ -498,7 +498,7 @@
 }
 
 /* ---------- Print ---------- */
-/* Prints the case on screen (the PDF uses the realistic case) with every table open, plus the range chart and its
+/* Prints the case on screen (the PDF uses the average case) with every table open, plus the range chart and its
    all-cases table. Cards print one per row with their tables side by side, so the document stays short. */
 
 @media print {
@@ -610,7 +610,7 @@
 /* ---------- Plan cards fold on phones ---------- */
 /* Below 760px each plan is a details element. The summary keeps the figures people compare across plans
    (opens in, money in, profit a year, years to earn back); the rest opens on tap. Wider screens are unchanged. */
-.plan-card { scroll-margin-top: calc(var(--header-h) + 76px); }
+.plan-card { scroll-margin-top: calc(var(--header-h) + var(--scenario-h, 64px) + 12px); }
 .plan-sum {
   display: block;
   position: relative;
@@ -709,3 +709,21 @@
 .wr-foot { position: fixed; left: 0; right: 0; bottom: 0; padding-top: 4px; border-top: 1px solid var(--ink); background: var(--white); font-size: 9.5px; }
 .wr-foot-label { font-weight: 700; }
 .wr-table .wr-running th { padding-bottom: 4px; border-bottom: 0; font-size: 9.5px; font-weight: 700; text-align: left; }
+
+/* ---------- v2.5: what the three cases mean ---------- */
+
+.scenario-def { flex: 1 1 100%; font-size: 14px; line-height: 1.4; color: var(--text-2); }
+.scenario-def:empty { display: none; }
+@media (max-width: 720px) {
+  .scenario-def { margin-top: 6px; font-size: 14px; text-align: center; }
+}
+.cases-how { margin-top: 18px; }
+.cases-how .detail-body p { font-size: 15.5px; color: var(--text-2); }
+.cases-how .detail-body p + p { margin-top: 10px; }
+.plan-odds { margin-top: 12px; font-size: 15px; color: var(--text-2); }
+@media print {
+  .cases-how { margin-top: 8px; border: 0; }
+  .cases-how .detail-body { padding: 0; }
+  .cases-how .detail-body p { font-size: 11.5px; }
+  .plan-odds { margin-top: 6px; font-size: 11.5px; break-inside: avoid; }
+}

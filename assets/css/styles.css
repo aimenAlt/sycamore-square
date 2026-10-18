@@ -1983,7 +1983,7 @@ model-viewer:focus-visible { outline: 3px solid var(--rose); outline-offset: 2px
   .seg-btn { flex: 1 1 0; min-height: 44px; padding: 0 6px; }
   .seg-sub { display: none; }
 }
-.feas-page main > section { scroll-margin-top: calc(var(--header-h) + 64px); }
+.feas-page main > section { scroll-margin-top: calc(var(--header-h) + var(--scenario-h, 64px)); }
 
 /* KPI tiles */
 .kpis {
