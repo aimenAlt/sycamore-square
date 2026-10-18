@@ -16,6 +16,36 @@
   setHeaderHeight();
   window.addEventListener('resize', setHeaderHeight);
 
+  /* Hamburger menu below 1200px: opens a panel under the header; closes on a link, Escape or a tap outside. */
+  var menuToggle = document.querySelector('.menu-toggle');
+  var menu = document.getElementById('site-menu');
+  function setMenu(open, opts) {
+    if (!menuToggle || !menu) return;
+    menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    menu.classList.toggle('open', open);
+    if (open) {
+      var cur = menu.querySelector('[aria-current="true"]');
+      if (cur) menu.scrollTop = cur.offsetTop - menu.clientHeight / 2;
+    } else if (opts && opts.focusToggle) {
+      menuToggle.focus();
+    }
+  }
+  if (menuToggle && menu) {
+    menuToggle.addEventListener('click', function () {
+      setMenu(menuToggle.getAttribute('aria-expanded') !== 'true');
+    });
+    menu.addEventListener('click', function (e) {
+      if (e.target.closest('a')) setMenu(false);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && menu.classList.contains('open')) setMenu(false, { focusToggle: true });
+    });
+    document.addEventListener('click', function (e) {
+      if (menu.classList.contains('open') && !header.contains(e.target)) setMenu(false);
+    });
+    window.matchMedia('(min-width: 1200px)').addEventListener('change', function () { setMenu(false); });
+  }
+
   /* Edge fade on the sideways-scrolling nav: fade only the edges with more content behind them. */
   function updateFade(el) {
     var max = el.scrollWidth - el.clientWidth;
